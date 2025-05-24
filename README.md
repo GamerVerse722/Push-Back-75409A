@@ -2,7 +2,7 @@
 
 - LemLib
     ```
-    pros c add-depot LemLib https://raw.githubusercontent.com/LemLib/LemLib/depot/beta.json
+    pros c add-depot LemLib https://raw.githubusercontent.com/LemLib/LemLib/depot/stable.json
     pros c apply LemLib
     ```
 
@@ -14,6 +14,6 @@
 
 - BMapper
     ```
-    pros c add-depot BMapper https://raw.githubusercontent.com/GamerVerse722/BMapping/refs/heads/depot/stable.json
+    pros c add-depot BMapper https://raw.githubusercontent.com/GamerVerse722/BMapper/refs/heads/depot/stable.json
     pros c apply BMapper
     ```
