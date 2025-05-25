@@ -1,4 +1,6 @@
 #include "main.h"
+#include "liblvgl/llemu.hpp"
+#include "pros/llemu.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "userapi/configuration.hpp"
@@ -22,7 +24,15 @@ void initialize() {
 	chassis.calibrate();
 	loaded_images.register_image(AmongUsScaled, 100);
 	loaded_images.register_image(PioneerContainerService, 10000);
-	loaded_images.start();
+	// loaded_images.start();
+
+	pros::lcd::initialize();
+	pros::Task screen([&]{
+		using namespace devices;
+		pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
+		pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
+		pros::lcd::print(2, "Theta: %.2f", chassis.getPose().theta);
+	});
 }
 
 /**
@@ -54,7 +64,11 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	using namespace devices;
+	chassis.setPose(0, 0, 0);
+	chassis.turnToHeading(90, 100000);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
