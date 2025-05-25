@@ -13,7 +13,7 @@ namespace devices{
 
     extern pros::Imu imu;
 
-    extern pros::adi::Encoder vertial_encoder;
+    extern pros::adi::Encoder vertical_encoder;
     extern pros::adi::Encoder horizontal_encoder;
 
     extern lemlib::TrackingWheel vertical_tracking_wheel;

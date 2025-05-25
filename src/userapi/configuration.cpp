@@ -8,11 +8,11 @@ namespace devices {
 
     pros::Imu imu(7);
 
-    pros::adi::Encoder vertial_encoder('A', 'B');
-    pros::adi::Encoder horizontal_encoder('C', 'D');
+    pros::adi::Encoder vertical_encoder('C', 'D');
+    pros::adi::Encoder horizontal_encoder('A', 'B', true);
 
-    lemlib::TrackingWheel vertical_tracking_wheel(&vertial_encoder, lemlib::Omniwheel::NEW_275, -1);
-    lemlib::TrackingWheel horizontal_tracking_wheel(&vertial_encoder, lemlib::Omniwheel::NEW_275, -2);
+    lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -1.4);
+    lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, 4.5);
 
     lemlib::OdomSensors sensors(
         &vertical_tracking_wheel,
@@ -47,7 +47,7 @@ namespace devices {
 
     lemlib::Drivetrain drivetrain(&left_motors, // left motor group
         &right_motors, // right motor group
-        10, // 10 inch track width
+        14.4, // 10 inch track width
         lemlib::Omniwheel::NEW_325, // using new 4" omnis
         360, // drivetrain rpm is 360
         2 // horizontal drift is 2 (for now)
