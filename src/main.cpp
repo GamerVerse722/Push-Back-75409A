@@ -29,9 +29,12 @@ void initialize() {
 	pros::lcd::initialize();
 	pros::Task screen([&]{
 		using namespace devices;
-		pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
-		pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
-		pros::lcd::print(2, "Theta: %.2f", chassis.getPose().theta);
+		while (true) {
+			pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
+			pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
+			pros::lcd::print(2, "Theta: %.2f", chassis.getPose().theta);
+			pros::delay(10);
+		}
 	});
 }
 
@@ -106,7 +109,7 @@ void opcontrol() {
 		} else {
 			chassis.tank(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 		}
-		pros::delay(20);
+		pros::delay(10);
 	}
 	
 }
