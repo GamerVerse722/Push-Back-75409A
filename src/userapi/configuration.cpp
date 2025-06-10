@@ -1,7 +1,6 @@
 #include "userapi/configuration.hpp"
 #include "pros/misc.h"
 #include "userapi/controls/intake.hpp"
-#include "userapi/controls/splitter.hpp"
 
 namespace devices {
     pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
@@ -85,7 +84,7 @@ namespace devices {
 
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-    pros::Motor splitter(7);
+    pros::Motor splitter(-7);
     pros::Motor intake(8);
 }
 
@@ -98,40 +97,30 @@ namespace controls {
 
         // intake
         controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_R1, {
-            .onPress = intake::out,
+            .onPress = intake::highGoalStorage,
             .onRelease = intake::stop
         });
 
         controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_R1, {
-            .onPress = intake::toggleOut
+            .onPress = intake::toggleHighGoal,
         });
 
         controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_R2, {
-            .onPress = intake::in,
+            .onPress = intake::middleGoalOut,
             .onRelease = intake::stop
         });
 
         controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_R2, {
-            .onPress = intake::toggleIn
-        });
-
-        // splitter
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L2, {
-            .onPress = splitter::out,
-            .onRelease = splitter::stop
-        });
-
-        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L2, {
-            .onPress = splitter::toggleOut
+            .onPress = intake::toggleMiddleGoal,
         });
 
         controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L1, {
-            .onPress = splitter::in,
-            .onRelease = splitter::stop
+            .onPress = intake::out,
+            .onRelease = intake::stop
         });
 
         controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L1, {
-            .onPress = splitter::toggleIn
+            .onPress = intake::toggleOut,
         });
 
         controlHandler.start();

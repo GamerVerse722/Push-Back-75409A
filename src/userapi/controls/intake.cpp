@@ -2,48 +2,56 @@
 #include "userapi/configuration.hpp"
 
 namespace keybindActions::intake {
-    void toggleIn() {
-        if (toggleInEnabled) {
-            in();
-            resetToggle();
-
-        } else {
+    void toggleHighGoal() {
+        if (toggleHighGoalEnabled) {
             stop();
-            toggleInEnabled = true;
-            toggleOutEnabled = false;
-
+        } else {
+            highGoalStorage();
+            toggleHighGoalEnabled = true;
+        }
+    }
+    void toggleMiddleGoal() {
+        if (toggleMiddleGoalEnabled) {
+            stop();
+        } else {
+            middleGoalOut();
+            toggleMiddleGoalEnabled = true;
         }
     }
     void toggleOut() {
         if (toggleOutEnabled) {
-            out();
-            resetToggle();
-
-        } else {
             stop();
-            toggleInEnabled = false;
+        } else {
+            out();
             toggleOutEnabled = true;
-
         }
     }
 
-    void in() {
+    void highGoalStorage() {
         resetToggle();
         devices::intake.move(127);
+        devices::splitter.move(127);
     }
-
+    void middleGoalOut() {
+        resetToggle();
+        devices::intake.move(127);
+        devices::splitter.move(-127);
+    }
     void out() {
         resetToggle();
         devices::intake.move(-127);
+        devices::splitter.move(-127);
     }
 
     void stop() {
         resetToggle();
         devices::intake.move(0);
+        devices::splitter.move(0);
     }
 
     void resetToggle() {
-        toggleInEnabled = false;
+        toggleHighGoalEnabled = false;
+        toggleMiddleGoalEnabled = false;
         toggleOutEnabled = false;
     }
 }
