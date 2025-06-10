@@ -1,6 +1,7 @@
 #include "userapi/configuration.hpp"
 #include "pros/misc.h"
 #include "userapi/controls/intake.hpp"
+#include "userapi/controls/splitter.hpp"
 
 namespace devices {
     pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
@@ -84,6 +85,7 @@ namespace devices {
 
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
+    pros::Motor splitter(7);
     pros::Motor intake(8);
 }
 
@@ -94,6 +96,7 @@ namespace controls {
         using pros::controller_digital_e_t;
         using namespace keybindActions;
 
+        // intake
         controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_R1, {
             .onPress = intake::out,
             .onRelease = intake::stop
@@ -112,6 +115,25 @@ namespace controls {
             .onPress = intake::toggleIn
         });
 
+        // splitter
+        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L2, {
+            .onPress = splitter::out,
+            .onRelease = splitter::stop
+        });
+
+        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L2, {
+            .onPress = splitter::toggleOut
+        });
+
+        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L1, {
+            .onPress = splitter::in,
+            .onRelease = splitter::stop
+        });
+
+        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L1, {
+            .onPress = splitter::toggleIn
+        });
+
         controlHandler.start();
     }
-}
+} 
