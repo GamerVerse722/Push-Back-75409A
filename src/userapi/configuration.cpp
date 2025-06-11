@@ -123,6 +123,15 @@ namespace controls {
             .onPress = intake::toggleOut,
         });
 
+        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L2, {
+            .onPress = intake::intakeIn,
+            .onRelease = intake::stop
+        });
+
+        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L2, {
+            .onPress = intake::toggleIntakeIn,
+        });
+
         controlHandler.start();
     }
 } 

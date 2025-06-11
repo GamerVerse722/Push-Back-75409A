@@ -18,6 +18,15 @@ namespace keybindActions::intake {
             toggleMiddleGoalEnabled = true;
         }
     }
+    void toggleIntakeIn() {
+        if (toggleIntakeInEnabled) {
+            stop();
+        } else {
+            intakeIn();
+            toggleIntakeInEnabled = true;
+        }
+    }
+
     void toggleOut() {
         if (toggleOutEnabled) {
             stop();
@@ -27,16 +36,24 @@ namespace keybindActions::intake {
         }
     }
 
+
     void highGoalStorage() {
         resetToggle();
         devices::intake.move(127);
         devices::splitter.move(127);
     }
+
     void middleGoalOut() {
         resetToggle();
         devices::intake.move(127);
         devices::splitter.move(-127);
     }
+
+    void intakeIn() {
+        resetToggle();
+        devices::intake.move(127);
+    }
+
     void out() {
         resetToggle();
         devices::intake.move(-127);
@@ -52,6 +69,7 @@ namespace keybindActions::intake {
     void resetToggle() {
         toggleHighGoalEnabled = false;
         toggleMiddleGoalEnabled = false;
+        toggleIntakeInEnabled = false;
         toggleOutEnabled = false;
     }
 }
