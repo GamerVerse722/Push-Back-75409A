@@ -1,5 +1,7 @@
 #include "userapi/configuration.hpp"
+#include "pros/adi.hpp"
 #include "pros/misc.h"
+#include "userapi/controls/doinker.hpp"
 #include "userapi/controls/intake.hpp"
 
 namespace devices {
@@ -84,6 +86,8 @@ namespace devices {
 
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
+    pros::adi::Pneumatics doinker(5, false);
+
     pros::Motor splitter(-7);
     pros::Motor intake(8);
 }
@@ -131,6 +135,12 @@ namespace controls {
         controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L2, {
             .onPress = intake::toggleIntakeIn,
         });
+
+        // doinker
+        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_A, {
+            .onPress = doinker::toggleDoinker,
+        });
+
 
         controlHandler.start();
     }

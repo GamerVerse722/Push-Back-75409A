@@ -30,6 +30,8 @@ namespace devices{
 
     extern pros::Controller controller;
 
+    extern pros::adi::Pneumatics doinker;
+
     extern pros::Motor splitter;
     extern pros::Motor intake;
 }

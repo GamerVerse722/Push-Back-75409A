@@ -1,8 +1,8 @@
 #include "main.h"
-#include "liblvgl/llemu.hpp"
-#include "pros/llemu.hpp"
-#include "pros/misc.h"
+#include <sstream>
+#include "liblvgl/misc/lv_color.h"
 #include "pros/rtos.hpp"
+#include "pros/misc.h"
 #include "userapi/configuration.hpp"
 #include "userapi/image_handler.hpp"
 #include <optional>
@@ -24,15 +24,34 @@ void initialize() {
 	chassis.calibrate();
 	loaded_images.register_image(AmongUsScaled, 100);
 	loaded_images.register_image(PioneerContainerService, 10000);
-	// loaded_images.start();
+	loaded_images.start();
 
-	pros::lcd::initialize();
+
+
 	pros::Task screen([&]{
-		using namespace devices;
+		lv_obj_t* container = lv_obj_create(lv_scr_act());
+		lv_obj_set_size(container, 480, 240);
+		lv_obj_center(container);
+
+		lv_obj_set_scroll_dir(container, LV_DIR_VER);
+		lv_obj_set_scroll_snap_y(container, LV_SCROLL_SNAP_CENTER);
+		lv_obj_set_style_max_height(container, 1000, 0);
+		lv_obj_set_style_bg_opa(container, LV_OPA_TRANSP, 0);
+		
+		lv_obj_t* label = lv_label_create(container);
+		lv_obj_align(label, LV_ALIGN_TOP_LEFT, 0, 0);
+
 		while (true) {
-			pros::lcd::print(0, "X: %.2f", chassis.getPose().x);
-			pros::lcd::print(1, "Y: %.2f", chassis.getPose().y);
-			pros::lcd::print(2, "Theta: %.2f", chassis.getPose().theta);
+			using namespace devices;
+			std::ostringstream oss;
+			oss << "X: " << chassis.getPose().x << "\n";
+			oss << "Y: " <<  chassis.getPose().y << "\n";
+			oss << "Theta: " << chassis.getPose().theta << "\n";
+
+			lv_label_set_text(label, oss.str().c_str());
+
+			lv_obj_move_foreground(container);
+
 			pros::delay(10);
 		}
 	});
