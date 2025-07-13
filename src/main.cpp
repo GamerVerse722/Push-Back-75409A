@@ -4,8 +4,10 @@
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 #include "userapi/configuration.hpp"
-#include "userapi/image_handler.hpp"
+#include "userapi/handler/image_handler.hpp"
 #include <optional>
+#include "pros/optical.hpp"
+#include "userapi/handler/optical_normalize.hpp"
 
 using namespace devices;
 
@@ -22,10 +24,10 @@ images::ImageHandler loaded_images(5000);
  */
 void initialize() {
 	chassis.calibrate();
+
 	loaded_images.register_image(AmongUsScaled, 100);
 	loaded_images.register_image(PioneerContainerService, 10000);
 	loaded_images.start();
-
 
 
 	pros::Task screen([&]{
@@ -41,12 +43,18 @@ void initialize() {
 		lv_obj_t* label = lv_label_create(container);
 		lv_obj_align(label, LV_ALIGN_TOP_LEFT, 0, 0);
 
+		using namespace devices;
+		opticalSensor.set_led_pwm(100);
+
 		while (true) {
-			using namespace devices;
 			std::ostringstream oss;
-			oss << "X: " << chassis.getPose().x << "\n";
-			oss << "Y: " <<  chassis.getPose().y << "\n";
-			oss << "Theta: " << chassis.getPose().theta << "\n";
+			pros::c::optical_rgb_s_t rgb = opticalSensor.get_rgb();
+			pros::c::optical_rgb_s_t normal_rgb = optical_normalize(opticalSensor.get_rgb());
+
+			oss << std::fixed << std::setprecision(2);
+			oss << "X: " << chassis.getPose().x << ", Y: " << chassis.getPose().y << ", Theta: " << chassis.getPose().theta << "\n";
+			oss << "Red: " << rgb.red << ", Green: " << rgb.green << ", Blue: " << rgb.blue << ", Brightness: " << rgb.brightness << "\n";
+			oss << "Red: " << normal_rgb.red << ", Green: " << normal_rgb.green << ", Blue: " << normal_rgb.blue << ", Brightness: " << normal_rgb.brightness << "\n";
 
 			lv_label_set_text(label, oss.str().c_str());
 
@@ -108,7 +116,7 @@ void autonomous() {
 void opcontrol() {
 	bool arcade = false;
 
-	controls::controlHandler.registerKeybind(std::nullopt, pros::controller_digital_e_t::E_CONTROLLER_DIGITAL_A, {
+	controls::controlHandler.registerKeybind(std::nullopt, pros::controller_digital_e_t::E_CONTROLLER_DIGITAL_X, {
 		.onPress = [&]() -> void {
 			if (arcade) {
 				arcade = false;

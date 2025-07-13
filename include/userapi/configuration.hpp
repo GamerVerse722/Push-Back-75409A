@@ -6,6 +6,7 @@
 #include "pros/misc.hpp"
 #include "pros/motor_group.hpp"
 #include "BMapper/button.hpp"
+#include "pros/optical.hpp"
 
 namespace devices{
     extern pros::MotorGroup left_motors;
@@ -31,9 +32,12 @@ namespace devices{
     extern pros::Controller controller;
 
     extern pros::adi::Pneumatics doinker;
+    extern pros::adi::Pneumatics blocker;
 
     extern pros::Motor splitter;
     extern pros::Motor intake;
+
+    extern pros::Optical opticalSensor;
 }
 
 namespace controls {

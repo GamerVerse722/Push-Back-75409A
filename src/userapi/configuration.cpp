@@ -1,4 +1,5 @@
 #include "userapi/configuration.hpp"
+#include "controls/blocker.hpp"
 #include "pros/adi.hpp"
 #include "pros/misc.h"
 #include "userapi/controls/doinker.hpp"
@@ -87,9 +88,12 @@ namespace devices {
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
     pros::adi::Pneumatics doinker(5, false);
+    pros::adi::Pneumatics blocker(6, false);
 
     pros::Motor splitter(-7);
     pros::Motor intake(8);
+
+    pros::Optical opticalSensor(11);
 }
 
 namespace controls {
@@ -141,6 +145,10 @@ namespace controls {
             .onPress = doinker::toggleDoinker,
         });
 
+        // blocker
+        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_UP, {
+            .onPress = blocker::toggleBlocker,
+        });
 
         controlHandler.start();
     }
