@@ -40,30 +40,34 @@ namespace keybindActions::intake {
     void highGoalStorage() {
         resetToggle();
         devices::intake.move(127);
-        devices::splitter.move(127);
+        devices::upperStage.move(127);
     }
 
     void middleGoalOut() {
         resetToggle();
         devices::intake.move(127);
-        devices::splitter.move(-127);
+        devices::upperStage.move(-127);
     }
 
     void intakeIn() {
         resetToggle();
         devices::intake.move(127);
+        devices::upperStage.move(127);
+        devices::bucket.move(-127);
     }
 
     void out() {
         resetToggle();
-        devices::intake.move(-127);
-        devices::splitter.move(-127);
+        devices::intake.move(127);
+        devices::upperStage.move(-127);
+        devices::bucket.move(-127);
     }
 
     void stop() {
         resetToggle();
         devices::intake.move(0);
-        devices::splitter.move(0);
+        devices::upperStage.move(0);
+        devices::bucket.move(0);
     }
 
     void resetToggle() {

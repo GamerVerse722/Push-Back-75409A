@@ -9,7 +9,7 @@ namespace devices {
     pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({4, -5, -6}, pros::MotorGearset::blue);
 
-    pros::Imu imu(9);
+    pros::Imu imu(10);
 
     pros::adi::Encoder vertical_encoder('C', 'D');
     pros::adi::Encoder horizontal_encoder('A', 'B');
@@ -90,10 +90,11 @@ namespace devices {
     pros::adi::Pneumatics doinker(5, false);
     pros::adi::Pneumatics blocker(6, false);
 
-    pros::Motor splitter(-7);
+    pros::Motor upperStage(-7);
     pros::Motor intake(8);
+    pros::Motor bucket(9);
 
-    pros::Optical opticalSensor(11);
+    pros::Optical opticalSensor(12);
 }
 
 namespace controls {

@@ -34,8 +34,9 @@ namespace devices{
     extern pros::adi::Pneumatics doinker;
     extern pros::adi::Pneumatics blocker;
 
-    extern pros::Motor splitter;
+    extern pros::Motor upperStage;
     extern pros::Motor intake;
+    extern pros::Motor bucket;
 
     extern pros::Optical opticalSensor;
 }
