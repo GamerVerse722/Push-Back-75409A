@@ -1,79 +1,37 @@
 #include "userapi/controls/intake.hpp"
+
 #include "userapi/configuration.hpp"
 
+using namespace devices;
+
 namespace keybindActions::intake {
-    void toggleHighGoal() {
-        if (toggleHighGoalEnabled) {
-            stop();
-        } else {
-            highGoalStorage();
-            toggleHighGoalEnabled = true;
-        }
-    }
-    void toggleMiddleGoal() {
-        if (toggleMiddleGoalEnabled) {
-            stop();
-        } else {
-            middleGoalOut();
-            toggleMiddleGoalEnabled = true;
-        }
-    }
-    void toggleIntakeIn() {
-        if (toggleIntakeInEnabled) {
-            stop();
-        } else {
-            intakeIn();
-            toggleIntakeInEnabled = true;
-        }
-    }
-
-    void toggleOut() {
-        if (toggleOutEnabled) {
-            stop();
-        } else {
-            out();
-            toggleOutEnabled = true;
-        }
-    }
-
-
-    void highGoalStorage() {
-        resetToggle();
+    void bucket_in() {
         devices::intake.move(127);
-        devices::upperStage.move(127);
+        devices::top_loader.move(127);
+        devices::splitter.extend();
     }
 
-    void middleGoalOut() {
-        resetToggle();
-        devices::intake.move(127);
-        devices::upperStage.move(-127);
+    void bucket_out_lower_score() {
+        devices::intake.move(-127);
+        devices::bucket.move(127);
     }
 
-    void intakeIn() {
-        resetToggle();
+    void bucket_out_middle_score() {
         devices::intake.move(127);
-        devices::upperStage.move(127);
-        devices::bucket.move(-127);
+        devices::bucket.move(127);
+        devices::top_loader.move(-127);
     }
 
-    void out() {
-        resetToggle();
+    void bucket_out_high_score() {
         devices::intake.move(127);
-        devices::upperStage.move(-127);
-        devices::bucket.move(-127);
+        devices::bucket.move(127);
+        devices::top_loader.move(127);
+        devices::splitter.retract();
     }
 
     void stop() {
-        resetToggle();
         devices::intake.move(0);
-        devices::upperStage.move(0);
+        devices::top_loader.move(0);
         devices::bucket.move(0);
-    }
-
-    void resetToggle() {
-        toggleHighGoalEnabled = false;
-        toggleMiddleGoalEnabled = false;
-        toggleIntakeInEnabled = false;
-        toggleOutEnabled = false;
     }
 }

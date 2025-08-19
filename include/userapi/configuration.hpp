@@ -31,18 +31,18 @@ namespace devices{
 
     extern pros::Controller controller;
 
-    extern pros::adi::Pneumatics doinker;
-    extern pros::adi::Pneumatics blocker;
+    extern pros::adi::Pneumatics scraper;
+    extern pros::adi::Pneumatics splitter;
 
-    extern pros::Motor upperStage;
     extern pros::Motor intake;
+    extern pros::Motor top_loader;
     extern pros::Motor bucket;
 
     extern pros::Optical opticalSensor;
 }
 
 namespace controls {
-    extern bmapping::ButtonHandler controlHandler;
+    extern BMapper::ButtonHandler button_handler;
 
     void configure();
 }

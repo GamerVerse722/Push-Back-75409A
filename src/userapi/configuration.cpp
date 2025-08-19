@@ -1,15 +1,17 @@
 #include "userapi/configuration.hpp"
-#include "controls/blocker.hpp"
+
+#include "userapi/controls/intake.hpp"
+
+#include "BMapper/Button.hpp"
+
 #include "pros/adi.hpp"
 #include "pros/misc.h"
-#include "userapi/controls/doinker.hpp"
-#include "userapi/controls/intake.hpp"
 
 namespace devices {
     pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({4, -5, -6}, pros::MotorGearset::blue);
 
-    pros::Imu imu(10);
+    pros::Imu imu(7);
 
     pros::adi::Encoder vertical_encoder('C', 'D');
     pros::adi::Encoder horizontal_encoder('A', 'B');
@@ -87,70 +89,31 @@ namespace devices {
 
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-    pros::adi::Pneumatics doinker(5, false);
-    pros::adi::Pneumatics blocker(6, false);
+    pros::adi::Pneumatics scraper(5, false);
+    pros::adi::Pneumatics splitter(6, false);
 
-    pros::Motor upperStage(-7);
     pros::Motor intake(8);
-    pros::Motor bucket(9);
+    pros::Motor top_loader(9);
+    pros::Motor bucket(10);
 
     pros::Optical opticalSensor(12);
 }
 
 namespace controls {
-    bmapping::ButtonHandler controlHandler(devices::controller);
+    BMapper::ButtonHandler button_handler(devices::controller);
 
     void configure() {
         using pros::controller_digital_e_t;
         using namespace keybindActions;
 
-        // intake
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_R1, {
-            .onPress = intake::highGoalStorage,
-            .onRelease = intake::stop
-        });
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
+            .setCategory("Intake")
+            .onPress(intake::bucket_in)
+            .onRelease(intake::stop);
 
-        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_R1, {
-            .onPress = intake::toggleHighGoal,
-        });
-
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_R2, {
-            .onPress = intake::middleGoalOut,
-            .onRelease = intake::stop
-        });
-
-        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_R2, {
-            .onPress = intake::toggleMiddleGoal,
-        });
-
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L1, {
-            .onPress = intake::out,
-            .onRelease = intake::stop
-        });
-
-        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L1, {
-            .onPress = intake::toggleOut,
-        });
-
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_L2, {
-            .onPress = intake::intakeIn,
-            .onRelease = intake::stop
-        });
-
-        controlHandler.registerKeybind(pros::E_CONTROLLER_DIGITAL_B, pros::E_CONTROLLER_DIGITAL_L2, {
-            .onPress = intake::toggleIntakeIn,
-        });
-
-        // doinker
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_A, {
-            .onPress = doinker::toggleDoinker,
-        });
-
-        // blocker
-        controlHandler.registerKeybind(std::nullopt, pros::E_CONTROLLER_DIGITAL_UP, {
-            .onPress = blocker::toggleBlocker,
-        });
-
-        controlHandler.start();
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
+            .setCategory("Intake")
+            .onPress(intake::bucket_out_high_score)
+            .onRelease(intake::stop);
     }
 } 

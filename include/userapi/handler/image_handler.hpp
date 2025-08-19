@@ -1,14 +1,14 @@
 #pragma once
 
-#include "liblvgl/core/lv_obj.h"
-#include "liblvgl/draw/lv_img_buf.h"
+#include "liblvgl/draw/lv_image_dsc.h"
+#include "liblvgl/misc/lv_types.h"
 #include <optional>
 #include <vector>
 
 
 namespace images {
     struct ImageEntry {
-        lv_img_dsc_t image;
+        lv_image_dsc_t image;
         std::optional<int> delay;
     };
 
@@ -22,8 +22,8 @@ namespace images {
         public:
             ImageHandler(int default_delay = 5000);
             void register_image(ImageEntry image);
-            void register_image(lv_img_dsc_t image);
-            void register_image(lv_img_dsc_t image, int delay);
+            void register_image(lv_image_dsc_t image);
+            void register_image(lv_image_dsc_t image, int delay);
             void register_images(std::vector<ImageEntry> images);
             void set_default_delay(int delay);
             int get_default_delay();

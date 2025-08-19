@@ -1,21 +1,10 @@
 #pragma once
 
 namespace keybindActions::intake {
-    static bool toggleHighGoalEnabled = false;
-    static bool toggleMiddleGoalEnabled = false;
-    static bool toggleIntakeInEnabled = false;
-    static bool toggleOutEnabled = false;
+    void bucket_in();
+    void bucket_out_lower_score();
+    void bucket_out_middle_score();
+    void bucket_out_high_score();
 
-    void toggleHighGoal();
-    void toggleMiddleGoal();
-    void toggleIntakeIn();
-    void toggleOut();
-
-    void highGoalStorage();
-    void middleGoalOut();
-    void intakeIn();
-    void out();
     void stop();
-
-    void resetToggle();
 }

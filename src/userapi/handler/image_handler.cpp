@@ -1,7 +1,8 @@
 #include "userapi/handler/image_handler.hpp"
-#include "liblvgl/core/lv_disp.h"
+
 #include "liblvgl/core/lv_obj_tree.h"
-#include "liblvgl/widgets/lv_img.h"
+#include "liblvgl/display/lv_display.h"
+#include "liblvgl/widgets/image/lv_image.h"
 #include "pros/rtos.hpp"
 
 namespace images {
@@ -13,11 +14,11 @@ namespace images {
         this->images.push_back(image);
     }
 
-    void ImageHandler::register_image(lv_img_dsc_t image) {
+    void ImageHandler::register_image(lv_image_dsc_t image) {
         this->images.push_back({image});
     }
 
-    void ImageHandler::register_image(lv_img_dsc_t image, int delay) {
+    void ImageHandler::register_image(lv_image_dsc_t image, int delay) {
         this->images.push_back({image, delay});
     }
 
@@ -37,16 +38,16 @@ namespace images {
 
     void ImageHandler::remove() {
         this->stop();
-        lv_obj_del(this->img);
+        lv_obj_delete(this->img);
     }
 
     void ImageHandler::start() {
         this->activated = true;
-        this->img = lv_img_create(lv_scr_act());
+        this->img = lv_image_create(lv_screen_active());
 
         pros::Task render_images([&]{
             while (activated) {
-                lv_img_set_src(this->img, &images[index].image);
+                lv_image_set_src(this->img, &images[index].image);
                 lv_obj_align(this->img, LV_ALIGN_CENTER, 0, 0);
                 
                 if (images[index].delay.has_value()) {
