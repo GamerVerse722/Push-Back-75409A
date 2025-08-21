@@ -1,6 +1,7 @@
 #include "main.h"
 
-// #include "pros/optical.hpp"
+#include "pros/optical.hpp"
+#include "gamers-forge/bmapper.hpp"
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 
@@ -8,9 +9,11 @@
 // #include "liblvgl/misc/lv_color.h"
 // #include "liblvgl/core/lv_obj.h"
 
-// #include "userapi/handler/optical_normalize.hpp"
+#include "userapi/handler/optical_normalize.hpp"
 // #include "userapi/handler/image_handler.hpp"
 #include "userapi/configuration.hpp"
+
+#include "userapi/controls/drive.hpp"
 
 // #include <sstream>
 
@@ -29,6 +32,9 @@ using namespace devices;
  */
 void initialize() {
 	chassis.calibrate();
+	
+	PROSLogger::Manager::setLevel(PROSLogger::DEBUG);
+	controls::configure();
 
 	// loaded_images.register_image(AmongUsScaled, 100);
 	// loaded_images.register_image(PioneerContainerService, 10000);
@@ -119,21 +125,10 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	bool arcade = false;
-
-	controls::button_handler.bind(pros::controller_digital_e_t::E_CONTROLLER_DIGITAL_X)
-		.onPress([&]() -> void {
-			if (arcade) {
-				arcade = false;
-			} else {
-				arcade = true;
-			}
-		});
-
-	controls::configure();
+	controls::button_handler.start();
 
 	while (true) {
-		if (arcade == true) {
+		if (keybindActions::drive::is_arcade() == true) {
 			chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
 		} else {
 			chassis.tank(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));

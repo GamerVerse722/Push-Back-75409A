@@ -12,8 +12,8 @@
     pros c apply LemLibTarball
     ```
 
-- BMapper
+- GamersForge
     ```
-    pros c add-depot BMapper https://raw.githubusercontent.com/GamerVerse722/BMapper/refs/heads/depot/stable.json
-    pros c apply BMapper
+    pros c add-depot GamersForge https://raw.githubusercontent.com/GamerVerse722/GamersForge/refs/heads/depot/stable.json
+    pros c apply GamersForge
     ```

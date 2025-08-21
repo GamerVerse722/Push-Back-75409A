@@ -1,11 +1,7 @@
 #include "userapi/configuration.hpp"
 
 #include "userapi/controls/intake.hpp"
-
-#include "BMapper/Button.hpp"
-
-#include "pros/adi.hpp"
-#include "pros/misc.h"
+#include "userapi/controls/drive.hpp"
 
 namespace devices {
     pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
@@ -106,14 +102,27 @@ namespace controls {
         using pros::controller_digital_e_t;
         using namespace keybindActions;
 
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
+            .setCategory("Drive")
+            .onPress(drive::toggle_arcade)
+            .apply();
+
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
             .setCategory("Intake")
-            .onPress(intake::bucket_in)
-            .onRelease(intake::stop);
+            .onPress(intake::bucket_out_high_score)
+            .onRelease(intake::stop)
+            .apply();
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
             .setCategory("Intake")
-            .onPress(intake::bucket_out_high_score)
-            .onRelease(intake::stop);
+            .onPress(intake::bucket_out_middle_score)
+            .onRelease(intake::stop)
+            .apply();
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
+            .setCategory("Intake")
+            .onPress(intake::bucket_in)
+            .onRelease(intake::stop)
+            .apply();
     }
 } 
