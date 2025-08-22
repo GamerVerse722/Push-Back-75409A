@@ -1,7 +1,9 @@
 #include "main.h"
 
-#include "pros/optical.hpp"
-#include "gamers-forge/bmapper.hpp"
+// #include "pros/optical.hpp"
+// #include "gamers-forge/bmapper.hpp"
+// #include "liblvgl/llemu.hpp"
+#include "gamers-forge/proslogger.hpp"
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 
@@ -9,7 +11,7 @@
 // #include "liblvgl/misc/lv_color.h"
 // #include "liblvgl/core/lv_obj.h"
 
-#include "userapi/handler/optical_normalize.hpp"
+// #include "userapi/handler/optical_normalize.hpp"
 // #include "userapi/handler/image_handler.hpp"
 #include "userapi/configuration.hpp"
 
@@ -18,7 +20,6 @@
 // #include <sstream>
 
 using namespace devices;
-
 // LV_IMAGE_DECLARE(AmongUsScaled);
 // LV_IMAGE_DECLARE(PioneerContainerService);
 
@@ -31,10 +32,10 @@ using namespace devices;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	pros::lcd::initialize();
 	chassis.calibrate();
 	
-	PROSLogger::Manager::setLevel(PROSLogger::DEBUG);
-	controls::configure();
+	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 
 	// loaded_images.register_image(AmongUsScaled, 100);
 	// loaded_images.register_image(PioneerContainerService, 10000);
@@ -106,9 +107,9 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	using namespace devices;
-	chassis.setPose(0, 0, 0);
-	chassis.turnToHeading(90, 100000);
+	// using namespace devices;
+	// chassis.setPose(0, 0, 0);
+	// chassis.turnToHeading(90, 100000);
 }
 
 /**
@@ -125,7 +126,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	controls::button_handler.start();
+	controls::configure();
 
 	while (true) {
 		if (keybindActions::drive::is_arcade() == true) {

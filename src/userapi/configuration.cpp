@@ -85,12 +85,12 @@ namespace devices {
 
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-    pros::adi::Pneumatics scraper(5, false);
-    pros::adi::Pneumatics splitter(6, false);
+    pros::adi::Pneumatics splitter(5, false);
+    pros::adi::Pneumatics scraper(6, false);
 
     pros::Motor intake(8);
     pros::Motor top_loader(9);
-    pros::Motor bucket(10);
+    pros::Motor bucket(-10);
 
     pros::Optical opticalSensor(12);
 }
@@ -104,25 +104,28 @@ namespace controls {
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
             .setCategory("Drive")
-            .onPress(drive::toggle_arcade)
-            .apply();
+            .onPress(drive::toggle_arcade);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
             .setCategory("Intake")
             .onPress(intake::bucket_out_high_score)
-            .onRelease(intake::stop)
-            .apply();
+            .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
             .setCategory("Intake")
             .onPress(intake::bucket_out_middle_score)
-            .onRelease(intake::stop)
-            .apply();
+            .onRelease(intake::stop);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
+            .setCategory("Drive")
+            .onPress(intake::bucket_out_lower_score)
+            .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
             .setCategory("Intake")
             .onPress(intake::bucket_in)
-            .onRelease(intake::stop)
-            .apply();
+            .onRelease(intake::stop);
+
+        button_handler.start();
     }
 } 

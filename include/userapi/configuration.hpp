@@ -33,8 +33,8 @@ namespace devices{
 
     extern pros::Controller controller;
 
-    extern pros::adi::Pneumatics scraper;
     extern pros::adi::Pneumatics splitter;
+    extern pros::adi::Pneumatics scraper;
 
     extern pros::Motor intake;
     extern pros::Motor top_loader;
