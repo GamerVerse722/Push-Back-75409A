@@ -12,6 +12,12 @@ namespace keybindActions::intake {
         devices::splitter.extend();
     }
 
+    void bucket_in_lower() {
+        devices::intake.move(127);
+        devices::bucket.move(-127);
+        devices::top_loader.move(0);
+    }
+
     void bucket_out_lower_score() {
         devices::intake.move(-127);
         devices::bucket.move(127);

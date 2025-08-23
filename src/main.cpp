@@ -19,7 +19,7 @@ using namespace devices;
 void initialize() {
 	pros::lcd::initialize();
 	chassis.calibrate();
-	
+	pros::delay(10);
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
 }

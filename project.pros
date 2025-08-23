@@ -4,6 +4,23 @@
         "project_name": "Push Back 75409A",
         "target": "v5",
         "templates": {
+            "GamersForge": {
+                "location": "C:\\Users\\crist\\AppData\\Roaming\\PROS\\templates\\GamersForge@3.0.2",
+                "metadata": {
+                    "origin": "local"
+                },
+                "name": "GamersForge",
+                "py/object": "pros.conductor.templates.local_template.LocalTemplate",
+                "supported_kernels": "^4.2.1",
+                "system_files": [
+                    "include\\gamers-forge\\proslogger.hpp",
+                    "include\\gamers-forge\\bmapper.hpp",
+                    "firmware\\GamersForge.a"
+                ],
+                "target": "v5",
+                "user_files": [],
+                "version": "3.0.2"
+            },
             "LemLib": {
                 "location": "/Users/cristianrios/Library/Application Support/PROS/templates/LemLib@0.5.6",
                 "metadata": {
