@@ -1,14 +1,15 @@
 #pragma once
 
-#include "lemlib/chassis/chassis.hpp"
 #include "lemlib/chassis/trackingWheel.hpp"
-
-#include "pros/adi.hpp"
-#include "pros/misc.hpp"
-#include "pros/motor_group.hpp"
-#include "pros/optical.hpp"
+#include "lemlib/chassis/chassis.hpp"
 
 #include "gamers-forge/bmapper.hpp"
+
+#include "pros/motor_group.hpp"
+#include "pros/optical.hpp"
+#include "pros/misc.hpp"
+#include "pros/adi.hpp"
+
 
 namespace devices{
     extern pros::MotorGroup left_motors;

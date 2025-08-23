@@ -111,21 +111,35 @@ namespace controls {
             .onPress(intake::bucket_out_high_score)
             .onRelease(intake::stop);
 
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Intake")
+            .onPress(intake::bucket_out_high_score);
+            
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
             .setCategory("Intake")
             .onPress(intake::bucket_out_middle_score)
             .onRelease(intake::stop);
-
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
-            .setCategory("Drive")
-            .onPress(intake::bucket_out_lower_score)
-            .onRelease(intake::stop);
+            
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Intake")
+            .onPress(intake::bucket_out_middle_score);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
             .setCategory("Intake")
             .onPress(intake::bucket_in)
             .onRelease(intake::stop);
 
-        button_handler.start();
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Intake")
+            .onPress(intake::bucket_in);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
+            .setCategory("Drive")
+            .onPress(intake::bucket_out_lower_score)
+            .onRelease(intake::stop);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Drive")
+            .onPress(intake::bucket_out_lower_score);
     }
 } 
