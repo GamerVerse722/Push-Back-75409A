@@ -7,6 +7,7 @@
 
 #include "userapi/configuration.hpp"
 #include "userapi/controls/drive.hpp"
+#include "userapi/ui.hpp"
 
 using namespace devices;
 
@@ -17,11 +18,12 @@ using namespace devices;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
 	chassis.calibrate();
-	pros::delay(10);
+	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
+	
+	ui::op_control::initialize();
 }
 
 /**

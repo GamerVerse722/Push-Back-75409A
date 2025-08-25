@@ -102,37 +102,12 @@ namespace controls {
         using pros::controller_digital_e_t;
         using namespace keybindActions;
 
+        // Drive
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
             .setCategory("Drive")
             .onPress(drive::toggle_arcade);
 
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_high_score)
-            .onRelease(intake::stop);
-
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_high_score);
-            
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_middle_score)
-            .onRelease(intake::stop);
-            
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_middle_score);
-            
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_lower_score)
-            .onRelease(intake::stop);
-
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_lower_score);
-
+        // Intake
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
             .setCategory("Intake")
             .onPress(intake::bucket_in_lower)
@@ -142,5 +117,34 @@ namespace controls {
             .setCategory("Intake")
             .onPress(intake::bucket_in_lower);
 
+        // Bucket
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
+            .setCategory("Bucket")
+            .onPress(intake::bucket_out_lower_score)
+            .onRelease(intake::stop);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Bucket")
+            .onPress(intake::bucket_out_lower_score);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
+            .setCategory("Bucket")
+            .onPress(intake::bucket_out_middle_score)
+            .onRelease(intake::stop);
+            
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Bucket")
+            .onPress(intake::bucket_out_middle_score);
+            
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
+            .setCategory("Bucket")
+            .onPress(intake::bucket_out_high_score)
+            .onRelease(intake::stop);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
+            .setCategory("Bucket")
+            .onPress(intake::bucket_out_high_score);
+            
+            
     }
 } 
