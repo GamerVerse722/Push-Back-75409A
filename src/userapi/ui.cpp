@@ -134,6 +134,9 @@ void ui::op_control::init_keybinds() {
     create_category("Drive");
     create_row("X", "Changes the Driving Modes.");
 
+    create_category("Scrapper");
+    create_row("U", "Toggle the scrapper.");
+
     create_category("Intake");
     create_row("L1", "Moves balls into bucket.");
     create_row("B-L1", "Toggle move balls into bucket.");

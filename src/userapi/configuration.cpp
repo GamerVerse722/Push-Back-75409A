@@ -1,5 +1,6 @@
 #include "userapi/configuration.hpp"
 
+#include "pros/misc.h"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
@@ -106,6 +107,13 @@ namespace controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
             .setCategory("Drive")
             .onPress(drive::toggle_arcade);
+
+        // Scrapper
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)
+            .setCategory("Scrapper")
+            .onPress([]() -> void {
+                devices::scraper.toggle();
+            });
 
         // Intake
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
