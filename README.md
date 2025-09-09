@@ -17,3 +17,7 @@
     pros c add-depot GamersForge https://raw.githubusercontent.com/GamerVerse722/GamersForge/refs/heads/depot/stable.json
     pros c apply GamersForge
     ```
+
+# Resources
+- [JerryIO Dev](https://dev-path.jerryio.com/)
+- [LVGL Image Converter](https://lvgl.io/tools/imageconverter)
