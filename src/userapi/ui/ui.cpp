@@ -1,6 +1,6 @@
-#include "userapi/ui.hpp"
+#include "userapi/ui/ui.hpp"
 
-#include "configuration.hpp"
+#include "userapi/configuration.hpp"
 
 #include "liblvgl/core/lv_obj.h"
 #include "liblvgl/core/lv_obj_pos.h"

@@ -7,7 +7,7 @@
 
 #include "userapi/configuration.hpp"
 #include "userapi/controls/drive.hpp"
-#include "userapi/ui.hpp"
+#include "userapi/ui/ui.hpp"
 
 using namespace devices;
 
