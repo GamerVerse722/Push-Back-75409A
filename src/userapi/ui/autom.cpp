@@ -19,6 +19,7 @@
 
 namespace ui::autom_selector {
     lv_obj_t *autom_screen = lv_obj_create(NULL);
+    std::function<void()> selected_callback = nullptr;
 
     void initialize() {
         log.info("Starting autom selector menu");
@@ -41,12 +42,12 @@ namespace ui::autom_selector {
         log.debug("Registering Buttons");
 
         register_button("Left", 0, 0, lv_palette_main(LV_PALETTE_RED), AutomMode::RED_LEFT, nullptr);
-        register_button("None", 0, 1, lv_color_white(), NONE, nullptr);
-        register_button("Right", 0, 2, lv_palette_main(LV_PALETTE_RED), RED_RIGHT, nullptr);
+        register_button("None", 0, 1, lv_color_white(), AutomMode::NONE, nullptr);
+        register_button("Right", 0, 2, lv_palette_main(LV_PALETTE_RED), AutomMode::RED_RIGHT, nullptr);
 
-        register_button("Right", 1, 0, lv_palette_main(LV_PALETTE_BLUE), BLUE_RIGTH, nullptr);
-        register_button("Skills", 1, 1, lv_color_white(), SKILLS, nullptr);
-        register_button("Left", 1, 2, lv_palette_main(LV_PALETTE_BLUE), BLUE_LEFT, nullptr);
+        register_button("Right", 1, 0, lv_palette_main(LV_PALETTE_BLUE), AutomMode::BLUE_RIGHT, nullptr);
+        register_button("Skills", 1, 1, lv_color_white(), AutomMode::SKILLS, nullptr);
+        register_button("Left", 1, 2, lv_palette_main(LV_PALETTE_BLUE), AutomMode::BLUE_LEFT, nullptr);
     }
 
     /* Event handler function */
@@ -55,7 +56,7 @@ namespace ui::autom_selector {
         selected_callback = data->callback;
         selected_autom = data->mode;
 
-        log.info(std::format("Button {0} was selected", automModeToString(data->mode)));
+        log.info(std::format("Button {} was selected", automModeToString(data->mode)));
         lv_screen_load_anim(ui::op_control::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
     }
 
@@ -84,12 +85,11 @@ namespace ui::autom_selector {
         lv_obj_add_style(label, &label_style, LV_PART_MAIN);
 
         // Add Callback
-        static CallbackPassthrough data = {
-            mode,
-            callback
-        };
+        CallbackPassthrough* data = (CallbackPassthrough*)lv_malloc(sizeof(CallbackPassthrough));
+        data->mode = mode;
+        data->callback = callback;
 
-        lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_ALL, &data);
+        lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, &data);
 
         lv_obj_center(label);
         log.debug("Registered " + automModeToString(mode));

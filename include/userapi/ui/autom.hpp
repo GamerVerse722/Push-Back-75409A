@@ -10,7 +10,7 @@ namespace ui::autom_selector {
         RED_LEFT = 0,
         RED_RIGHT = 1,
         BLUE_LEFT = 2,
-        BLUE_RIGTH = 3,
+        BLUE_RIGHT = 3,
         SKILLS = 4,
         NONE = 5,
     };
@@ -20,7 +20,7 @@ namespace ui::autom_selector {
             case RED_LEFT: return "Red Left";
             case RED_RIGHT: return "Red Right";
             case BLUE_LEFT: return "Blue Left";
-            case BLUE_RIGTH: return "Blue Right";
+            case BLUE_RIGHT: return "Blue Right";
             case SKILLS: return "Skills";
             case NONE: return "None";
             default: return "Unknown";
@@ -34,7 +34,7 @@ namespace ui::autom_selector {
     };
 
     inline PROSLogger::Logger log{"Autom Selector"};
-    inline AutomMode selected_autom = NONE;
+    inline AutomMode selected_autom = AutomMode::NONE;
     extern std::function<void()> selected_callback;
     extern lv_obj_t* autom_screen;
 

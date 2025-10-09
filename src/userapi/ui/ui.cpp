@@ -1,5 +1,7 @@
 #include "userapi/ui/ui.hpp"
 
+#include "autom.hpp"
+
 #include "userapi/configuration.hpp"
 
 #include "liblvgl/core/lv_obj.h"
@@ -18,6 +20,7 @@
 
 #include <cstddef>
 #include <deque>
+#include <format>
 #include <vector>
 
 LV_IMAGE_DECLARE(EBA_Automotive_Auto_Repair);
@@ -41,10 +44,11 @@ lv_obj_t* keybindsList;
 
 namespace ui::op_control {
     lv_obj_t* driver_screen = nullptr;
-    lv_obj_t* tabview = driver_screen;
+    lv_obj_t* tabview = nullptr;
 
     void initialize() {
         lv_obj_t* tabview = lv_tabview_create(NULL);
+        driver_screen = tabview;
 
         // Tabview style
         lv_obj_set_style_bg_color(tabview, lv_color_hex(0x191919), 0);
@@ -102,7 +106,9 @@ namespace ui::op_control {
     void debug_timer(lv_timer_t* timer) {
         lemlib::Pose pose = devices::chassis.getPose();
 
-        lv_label_set_text(labelDebug, std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta).c_str());
+        std::string pos_str = std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta);
+        std::string autom_mode_str = std::format("Automonous Mode: {}", ui::autom_selector::automModeToString(ui::autom_selector::selected_autom));
+        lv_label_set_text(labelDebug, std::format("{}\n{}", pos_str, autom_mode_str).c_str());
     }
 
 
