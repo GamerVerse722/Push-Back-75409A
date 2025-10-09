@@ -7,6 +7,7 @@
 
 #include "userapi/configuration.hpp"
 #include "userapi/controls/drive.hpp"
+#include "userapi/ui/autom.hpp"
 #include "userapi/ui/ui.hpp"
 
 using namespace devices;
@@ -22,8 +23,6 @@ void initialize() {
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
-	
-	ui::op_control::initialize();
 }
 
 /**
@@ -42,7 +41,9 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() {
+	ui::autom_selector::initialize();
+}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -75,6 +76,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	ui::op_control::initialize();
 	controls::button_handler.start();
 
 	while (true) {
