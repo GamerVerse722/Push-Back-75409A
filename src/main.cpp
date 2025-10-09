@@ -2,6 +2,7 @@
 
 #include "gamers-forge/proslogger.hpp"
 
+#include "liblvgl/display/lv_display.h"
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 
@@ -23,6 +24,9 @@ void initialize() {
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
+
+	ui::autom_selector::initialize();
+	ui::op_control::initialize();
 }
 
 /**
@@ -42,7 +46,7 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-	ui::autom_selector::initialize();
+	lv_screen_load(ui::autom_selector::autom_screen);
 }
 
 /**
@@ -76,8 +80,16 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	ui::op_control::initialize();
+	lv_screen_load(ui::op_control::driver_screen);
 	controls::button_handler.start();
+
+	// Notifies Last 20 second park zone protect
+	pros::Task notifier([](){
+		pros::delay(75*1000);
+		devices::controller.rumble("---");
+		pros::delay(10*1000);
+		devices::controller.rumble("-...-");
+	});
 
 	while (true) {
 		if (keybindActions::drive::is_arcade() == true) {
@@ -87,5 +99,4 @@ void opcontrol() {
 		}
 		pros::delay(10);
 	}
-	
 }

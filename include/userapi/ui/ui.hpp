@@ -4,6 +4,8 @@
 #include "liblvgl/misc/lv_types.h"
 
 namespace ui::op_control {
+    extern lv_obj_t* driver_screen;
+
     void initialize();
     void image_render(lv_timer_t* timer);
     void debug_timer(lv_timer_t* timer);
