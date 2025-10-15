@@ -89,11 +89,11 @@ namespace devices {
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
 
-    pros::Motor intake(8);
-    pros::Motor top_loader(9);
-    pros::Motor bucket(-10);
+    pros::Motor intake(11);
+    pros::Motor top_loader(12);
+    pros::Motor bucket(13);
 
-    pros::Optical opticalSensor(12);
+    pros::Optical opticalSensor(20);
 }
 
 namespace controls {

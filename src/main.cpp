@@ -80,8 +80,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	
-	// lv_screen_load(ui::op_control::driver_screen);
+	// lv_screen_load(ui::autom_selector::autom_screen);
 	lv_screen_load(ui::op_control::driver_screen);
 	controls::button_handler.start();
 
