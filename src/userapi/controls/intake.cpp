@@ -5,41 +5,36 @@
 using namespace devices;
 
 namespace keybindActions::intake {
-    void bucket_in() {
+    void load_bot() {
+        devices::top_loader.move(0);
         devices::intake.move(127);
-        devices::bucket.move(0);
-        devices::top_loader.move(127);
+        devices::lift.move(127);
+    }
+
+    void score_high() {
         devices::splitter.extend();
-    }
-
-    void bucket_in_lower() {
-        devices::intake.move(127);
-        devices::bucket.move(-127);
-        devices::top_loader.move(0);
-    }
-
-    void bucket_out_lower_score() {
-        devices::intake.move(-127);
-        devices::bucket.move(127);
-        devices::top_loader.move(0);
-    }
-
-    void bucket_out_middle_score() {
-        devices::intake.move(127);
-        devices::bucket.move(127);
-        devices::top_loader.move(-127);
-    }
-
-    void bucket_out_high_score() {
-        devices::intake.move(127);
-        devices::bucket.move(127);
         devices::top_loader.move(127);
+        devices::intake.move(127);
+        devices::lift.move(127);
+    }
+
+    void score_middle() {
         devices::splitter.retract();
+        devices::top_loader.move(127);
+        devices::intake.move(127);
+        devices::lift.move(127);
+    }
+
+    void score_low() {
+        devices::splitter.retract();
+        devices::top_loader.move(-127);
+        devices::intake.move(-127);
+        devices::lift.move(-127);
     }
 
     void stop() {
-        devices::intake.move(0);
         devices::top_loader.move(0);
-        devices::bucket.move(0);
+        devices::intake.move(0);
+        devices::lift.move(0);
     }
 }

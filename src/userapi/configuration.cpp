@@ -1,6 +1,7 @@
 #include "userapi/configuration.hpp"
 
 #include "pros/misc.h"
+#include "pros/misc.hpp"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
@@ -89,11 +90,16 @@ namespace devices {
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
 
-    pros::Motor intake(11);
-    pros::Motor top_loader(12);
-    pros::Motor bucket(13);
+    pros::Motor top_loader(11);
+    pros::Motor intake(12);
+    pros::Motor lift(13);
 
-    pros::Optical opticalSensor(20);
+    pros::Motor test1(17);
+    pros::Motor test2(18);
+    pros::Motor test3(19);
+    pros::Motor test4(20);
+
+    pros::Optical opticalSensor(15);
 }
 
 namespace controls {
@@ -109,50 +115,97 @@ namespace controls {
             .onPress(drive::toggle_arcade);
 
         // Scrapper
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)
-            .setCategory("Scrapper")
-            .onPress([]() -> void {
-                devices::scraper.toggle();
-            });
+        // button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)
+        //     .setCategory("Scrapper")
+        //     .onPress([]() -> void {
+        //         devices::scraper.toggle();
+        //     });
 
-        // Intake
+        // Load
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
             .setCategory("Intake")
-            .onPress(intake::bucket_in_lower)
+            .onPress(intake::load_bot)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Intake")
-            .onPress(intake::bucket_in_lower);
+            .onPress(intake::load_bot);
 
-        // Bucket
+        // Score
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_lower_score)
+            .setCategory("Score")
+            .onPress(intake::score_high)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_lower_score);
+            .setCategory("Score")
+            .onPress(intake::score_high);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_middle_score)
+            .setCategory("Score")
+            .onPress(intake::score_middle)
             .onRelease(intake::stop);
             
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_middle_score);
+            .setCategory("Score")
+            .onPress(intake::score_middle);
             
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_high_score)
+            .setCategory("Score")
+            .onPress(intake::score_low)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Bucket")
-            .onPress(intake::bucket_out_high_score);
+            .setCategory("Score")
+            .onPress(intake::score_low);
             
+        // Testing ports disabled when comp
+        if (!pros::c::competition_is_connected()) {
+            std::function<void()> test_stop = [](){
+                devices::test1.move(0);
+                devices::test2.move(0);
+                devices::test3.move(0);
+                devices::test4.move(0);
+            };
+
+            button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_DOWN)
+                .setCategory("Testing")
+                .onPress([](){
+                    devices::test1.move(127);
+                    devices::test2.move(127);
+                    devices::test3.move(-127);
+                    devices::test4.move(-127);
+                })
+                .onHold(test_stop);
+
+            button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_DOWN)
+                .setCategory("Testing")
+                .onPress([](){
+                    devices::test1.move(-127);
+                    devices::test2.move(-127);
+                    devices::test3.move(127);
+                    devices::test4.move(127);
+                })
+                .onHold(test_stop);
+
+            button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_RIGHT)
+                .setCategory("Testing")
+                .onPress([](){
+                    devices::test1.move(127);
+                    devices::test2.move(127);
+                    devices::test3.move(-127);
+                    devices::test4.move(-127);
+                });
+
+            button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_RIGHT)
+                .setCategory("Testing")
+                .onPress([](){
+                    devices::test1.move(-127);
+                    devices::test2.move(-127);
+                    devices::test3.move(127);
+                    devices::test4.move(127);
+                });
+        }
             
     }
 } 

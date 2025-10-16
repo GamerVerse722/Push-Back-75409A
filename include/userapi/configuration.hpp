@@ -37,9 +37,14 @@ namespace devices{
     extern pros::adi::Pneumatics splitter;
     extern pros::adi::Pneumatics scraper;
 
-    extern pros::Motor intake;
     extern pros::Motor top_loader;
-    extern pros::Motor bucket;
+    extern pros::Motor intake;
+    extern pros::Motor lift;
+
+    extern pros::Motor test1;
+    extern pros::Motor test2;
+    extern pros::Motor test3;
+    extern pros::Motor test4;
 
     extern pros::Optical opticalSensor;
 }

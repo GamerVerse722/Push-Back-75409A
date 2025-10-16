@@ -2,6 +2,7 @@
 
 #include "autom.hpp"
 
+#include "pros/misc.h"
 #include "userapi/configuration.hpp"
 
 #include "liblvgl/core/lv_obj.h"
@@ -142,20 +143,28 @@ namespace ui::op_control {
         create_category("Drive");
         create_row("X", "Changes the Driving Modes.");
 
-        create_category("Scrapper");
-        create_row("U", "Toggle the scrapper.");
+        // create_category("Scrapper");
+        // create_row("U", "Toggle the scrapper.");
 
-        create_category("Intake");
-        create_row("L1", "Moves balls into bucket.");
-        create_row("B-L1", "Toggle move balls into bucket.");
+        create_category("Load");
+        create_row("L1", "Loads balls without scoring.");
+        create_row("B-L1", "Toggle loads balls without scoring.");
 
-        create_category("Bucket");
-        create_row("L2", "Moves balls out of bucket into low score.");
-        create_row("B-L2", "Toggle move balls out of bucket into low score.");
-        create_row("R1", "Moves balls out of bucket into middle score.");
-        create_row("B-R1", "Toggle move balls out of bucket into middle score.");
-        create_row("R2", "Moves balls out of bucket into high score.");
-        create_row("B-R2", "Toggle move balls out of bucket into high score.");
+        create_category("Score");
+        create_row("L2", "Moves balls into high score.");
+        create_row("B-L2", "Toggle moves balls into high score.");
+        create_row("R1", "Move balls into middle score.");
+        create_row("B-R1", "Toggle moves balls into middle score.");
+        create_row("R2", "Moves balls into low score.");
+        create_row("B-R2", "Toggle move balls into low score.");
+
+        if (!pros::c::competition_is_connected()) {
+            create_category("Testing");
+            create_row("D-R1", "t1 & t2 = 127, t3 & t4 = -127");
+            create_row("D-R2", "t1 & t2 = -127, t3 & t4 = 127");
+            create_row("R-R1", "Toggle (t1 & t2 = 127, t3 & t4 = -127)");
+            create_row("R-R1", "Toggle (t1 & t2 = -127, t3 & t4 = 127)");
+        }
     }
 
     void create_category(std::string category) {
