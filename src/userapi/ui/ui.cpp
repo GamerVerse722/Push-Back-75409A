@@ -160,10 +160,8 @@ namespace ui::op_control {
 
         if (!pros::c::competition_is_connected()) {
             create_category("Testing");
-            create_row("D-R1", "t1 & t2 = 127, t3 & t4 = -127");
-            create_row("D-R2", "t1 & t2 = -127, t3 & t4 = 127");
-            create_row("R-R1", "Toggle (t1 & t2 = 127, t3 & t4 = -127)");
-            create_row("R-R1", "Toggle (t1 & t2 = -127, t3 & t4 = 127)");
+            create_row("R1", "t1 & t2 = 127, t3 & t4 = -127");
+            create_row("R2", "t1 & t2 = -127, t3 & t4 = 127");
         }
     }
 

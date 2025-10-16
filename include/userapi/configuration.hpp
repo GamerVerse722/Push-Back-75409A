@@ -41,10 +41,10 @@ namespace devices{
     extern pros::Motor intake;
     extern pros::Motor lift;
 
-    extern pros::Motor test1;
-    extern pros::Motor test2;
-    extern pros::Motor test3;
-    extern pros::Motor test4;
+    // extern pros::Motor test1;
+    // extern pros::Motor test2;
+    // extern pros::Motor test3;
+    // extern pros::Motor test4;
 
     extern pros::Optical opticalSensor;
 }

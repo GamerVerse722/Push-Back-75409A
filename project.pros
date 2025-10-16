@@ -636,7 +636,7 @@
     },
     "upload_options": {
       "description": "Idk what program this is",
-      "slot": 2,
+      "slot": 1,
       "after": "none"
     },
     "use_early_access": true
