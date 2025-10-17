@@ -24,9 +24,13 @@ void initialize() {
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
-
+	
+	ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
 	ui::autom_selector::initialize();
 	ui::op_control::initialize();
+
+	devices::opticalSensor.set_led_pwm(100);
+
 }
 
 /**

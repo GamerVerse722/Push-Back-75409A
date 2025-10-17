@@ -5,6 +5,7 @@
 
 namespace ui::op_control {
     extern lv_obj_t* driver_screen;
+    // extern lv_obj_t* tabview;
 
     void initialize();
     void image_render(lv_timer_t* timer);

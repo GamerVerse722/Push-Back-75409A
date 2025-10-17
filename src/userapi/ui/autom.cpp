@@ -42,13 +42,13 @@ namespace ui::autom_selector {
         // Register Button
         log.debug("Registering Buttons");
 
-        register_button("Left", 0, 0, lv_palette_main(LV_PALETTE_RED), AutomMode::RED_LEFT, nullptr);
-        register_button("None", 0, 1, lv_color_white(), AutomMode::NONE, nullptr);
-        register_button("Right", 0, 2, lv_palette_main(LV_PALETTE_RED), AutomMode::RED_RIGHT, nullptr);
+        register_button("Left", 0, 0, AutomMode::RED_LEFT, AutomColor::RED, nullptr);
+        register_button("None", 0, 1, AutomMode::NONE, AutomColor::COLOR_NONE,nullptr);
+        register_button("Right", 0, 2, AutomMode::RED_RIGHT,AutomColor::RED, nullptr);
 
-        register_button("Right", 1, 0, lv_palette_main(LV_PALETTE_BLUE), AutomMode::BLUE_RIGHT, nullptr);
-        register_button("Skills", 1, 1, lv_color_white(), AutomMode::SKILLS, nullptr);
-        register_button("Left", 1, 2, lv_palette_main(LV_PALETTE_BLUE), AutomMode::BLUE_LEFT, nullptr);
+        register_button("Right", 1, 0, AutomMode::BLUE_RIGHT,AutomColor::BLUE, nullptr);
+        register_button("Skills", 1, 1, AutomMode::SKILLS,AutomColor::COLOR_NONE, nullptr);
+        register_button("Left", 1, 2, AutomMode::BLUE_LEFT,AutomColor::BLUE, nullptr);
     }
 
     /* Event handler function */
@@ -56,12 +56,15 @@ namespace ui::autom_selector {
         AutomMode mode = *(AutomMode*)lv_event_get_user_data(e);
         selected_autom = mode;
 
+        if (mode == AutomMode::RED_LEFT || mode == AutomMode::RED_RIGHT) {selected_color = AutomColor::RED;}
+        else if (mode == AutomMode::BLUE_LEFT || mode == AutomMode::BLUE_RIGHT) {selected_color = AutomColor::BLUE;}
+        else {selected_color = AutomColor::COLOR_NONE;}
 
         log.info(std::format("Button {} was selected", automModeToString(mode)));
         lv_screen_load_anim(ui::op_control::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
     }
 
-    void register_button(std::string text, int col, int row, lv_color_t bg_color, AutomMode mode, callback_method callback) {
+    void register_button(std::string text, int col, int row, AutomMode mode, AutomColor color, callback_method callback) {
         callback_map[mode] = callback; 
 
         lv_obj_t* btn = lv_button_create(autom_screen);
@@ -72,6 +75,11 @@ namespace ui::autom_selector {
         );
 
         // Style Button
+        lv_color_t bg_color;
+        if (color == AutomColor::RED) {bg_color = lv_palette_main(LV_PALETTE_RED);}
+        else if (color == AutomColor::BLUE) {bg_color = lv_palette_main(LV_PALETTE_BLUE);}
+        else {bg_color = lv_color_white();}
+
         lv_obj_set_style_bg_color(btn, bg_color, LV_PART_MAIN);
         lv_obj_set_style_radius(btn, 0, LV_PART_MAIN);
         lv_obj_set_style_border_width(btn, 0, LV_PART_MAIN);

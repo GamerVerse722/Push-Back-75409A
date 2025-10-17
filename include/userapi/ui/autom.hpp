@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gamers-forge/proslogger.hpp"
-#include "liblvgl/misc/lv_color.h"
+#include "liblvgl/misc/lv_types.h"
 
 #include <functional>
 #include <map>
@@ -15,6 +15,12 @@ namespace ui::autom_selector {
         BLUE_RIGHT = 3,
         SKILLS = 4,
         NONE = 5,
+    };
+
+    enum AutomColor {
+        RED = 0,
+        BLUE = 1,
+        COLOR_NONE = 2,
     };
 
     inline std::string automModeToString(AutomMode mode) {
@@ -33,11 +39,12 @@ namespace ui::autom_selector {
 
     inline PROSLogger::Logger log{"Autom Selector"};
     inline AutomMode selected_autom = AutomMode::NONE;
+    inline AutomColor selected_color = AutomColor::COLOR_NONE;
     extern std::map<AutomMode, callback_method> callback_map;
     extern lv_obj_t* autom_screen;
 
     void initialize();
-    void register_button(std::string text, int col, int row, lv_color_t bg_color, AutomMode mode, callback_method callback);
+    void register_button(std::string text, int col, int row, AutomMode mode, AutomColor color, callback_method callback);
 
     void run_automous();
 }

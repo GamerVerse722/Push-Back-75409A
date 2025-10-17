@@ -1,32 +1,55 @@
 #include "userapi/controls/intake.hpp"
 
+#include "pros/optical.h"
 #include "userapi/configuration.hpp"
+#include "userapi/handler/optical_normalize.hpp"
+#include "userapi/ui/autom.hpp"
 
 using namespace devices;
 
 namespace keybindActions::intake {
+    bool valid_ball() {
+        pros::c::optical_rgb_s_t color = optical_normalize(devices::opticalSensor.get_rgb());
+
+        if (ui::autom_selector::selected_color == ui::autom_selector::AutomColor::RED && color.red > color.blue) {return true;}
+        else if (ui::autom_selector::selected_color == ui::autom_selector::AutomColor::BLUE && color.red < color.blue) {return true;}
+        return false;
+    }
+
+    void load_bypass() {
+        if (devices::opticalSensor.get_proximity() > 100){
+            if (!valid_ball()) {
+                devices::top_loader.move(50);
+            } else {
+                devices::top_loader.move(0);
+            }
+        } else {
+            devices::top_loader.move(50);
+        }
+    }
+
     void load_bot() {
-        devices::top_loader.move(0);
+        load_bypass();
         devices::intake.move(127);
         devices::lift.move(127);
     }
 
     void score_high() {
-        devices::splitter.extend();
+        // devices::splitter.extend();
         devices::top_loader.move(127);
         devices::intake.move(127);
         devices::lift.move(127);
     }
 
     void score_middle() {
-        devices::splitter.retract();
+        // devices::splitter.retract();
         devices::top_loader.move(127);
         devices::intake.move(127);
         devices::lift.move(127);
     }
 
     void score_low() {
-        devices::splitter.retract();
+        // devices::splitter.retract();
         devices::top_loader.move(-127);
         devices::intake.move(-127);
         devices::lift.move(-127);

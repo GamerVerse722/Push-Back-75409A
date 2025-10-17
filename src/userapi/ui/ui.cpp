@@ -2,7 +2,10 @@
 
 #include "autom.hpp"
 
+#include "liblvgl/core/lv_obj_scroll.h"
+#include "liblvgl/misc/lv_async.h"
 #include "pros/misc.h"
+#include "pros/optical.h"
 #include "userapi/configuration.hpp"
 
 #include "liblvgl/core/lv_obj.h"
@@ -18,6 +21,7 @@
 #include "liblvgl/widgets/label/lv_label.h"
 #include "liblvgl/widgets/tabview/lv_tabview.h"
 #include "liblvgl/misc/lv_types.h"
+#include "userapi/handler/optical_normalize.hpp"
 
 #include <cstddef>
 #include <deque>
@@ -44,12 +48,15 @@ std::deque<lv_obj_t*> logsListItems;
 lv_obj_t* keybindsList;
 
 namespace ui::op_control {
-    lv_obj_t* driver_screen = nullptr;
-    lv_obj_t* tabview = nullptr;
+    lv_obj_t* driver_screen = lv_obj_create(NULL);
+    // lv_obj_t* tabview = nullptr;
 
     void initialize() {
-        lv_obj_t* tabview = lv_tabview_create(NULL);
-        driver_screen = tabview;
+        // Driver Screen container
+        // driver_screen = lv_obj_create(NULL);
+
+        lv_obj_t* tabview = lv_tabview_create(driver_screen);
+        // driver_screen = tabview;
 
         // Tabview style
         lv_obj_set_style_bg_color(tabview, lv_color_hex(0x191919), 0);
@@ -70,7 +77,7 @@ namespace ui::op_control {
         labelDebug = lv_label_create(tabDebug);
 
         // Create Timers
-        lv_timer_create(debug_timer, 20, nullptr);
+        lv_timer_create(debug_timer, 50, nullptr);
 
         // Create Logs Container
         lv_obj_set_style_pad_all(tabLogs, 0, LV_PART_MAIN);
@@ -106,26 +113,38 @@ namespace ui::op_control {
 
     void debug_timer(lv_timer_t* timer) {
         lemlib::Pose pose = devices::chassis.getPose();
+        pros::c::optical_rgb_s_t normal_color = optical_normalize(devices::opticalSensor.get_rgb());
 
         std::string pos_str = std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta);
         std::string autom_mode_str = std::format("Automonous Mode: {}", ui::autom_selector::automModeToString(ui::autom_selector::selected_autom));
-        lv_label_set_text(labelDebug, std::format("{}\n{}", pos_str, autom_mode_str).c_str());
+        std::string color = std::format("Red: {:.2f}, Blue: {:.2f}, Distance: {}", normal_color.red, normal_color.blue, devices::opticalSensor.get_proximity());
+        lv_label_set_text(labelDebug, std::format("{}\n{}\n{}", pos_str, autom_mode_str, color).c_str());
     }
 
 
     void logs(PROSLogger::LoggerEvent event) {
-        lv_obj_t* label = lv_label_create(logsContainer);
-        lv_label_set_text(label, std::format("[{}] [{}] {}", event.time, levelToString(event.level), event.message).c_str());
+        // Capture data by value so it's safe
+        std::string formatted = std::format("[{}] [{}] {}", event.time, levelToString(event.level), event.message);
 
-        logsListItems.push_back(label);
+        lv_async_call([](void* msg) {
+            std::string* text = static_cast<std::string*>(msg);
 
-        if (logsListItems.size() > maxLogs) {
-            lv_obj_delete(logsListItems.front());
-            logsListItems.pop_front();
-        }
+            lv_obj_t* label = lv_label_create(logsContainer);
+            lv_label_set_text(label, text->c_str());
 
-        lv_obj_scroll_to_y(logsContainer, lv_obj_get_scroll_bottom(logsContainer), LV_ANIM_OFF);
+            logsListItems.push_back(label);
+
+            if (logsListItems.size() > maxLogs) {
+                lv_obj_delete(logsListItems.front());
+                logsListItems.pop_front();
+            }
+
+            lv_obj_scroll_to_y(logsContainer, lv_obj_get_scroll_bottom(logsContainer), LV_ANIM_OFF);
+
+            delete text; // clean up
+        }, new std::string(formatted)); // heap alloc because LVGL calls async later
     }
+
 
     void init_keybinds() {
         // Keybinds
@@ -133,6 +152,7 @@ namespace ui::op_control {
         keybindsList = lv_obj_create(tabKeybinds);
         lv_obj_set_size(keybindsList, lv_pct(100), lv_pct(100));
         lv_obj_set_flex_flow(keybindsList, LV_FLEX_FLOW_COLUMN);
+        lv_obj_set_scroll_dir(keybindsList, LV_DIR_VER);
 
         lv_obj_set_style_radius(keybindsList, 0, 0);
         lv_obj_set_style_pad_all(keybindsList, 0, 0);
@@ -158,7 +178,7 @@ namespace ui::op_control {
         create_row("R2", "Moves balls into low score.");
         create_row("B-R2", "Toggle move balls into low score.");
 
-        if (!pros::c::competition_is_connected()) {
+        if (!pros::c::competition_is_connected() && false) {
             create_category("Testing");
             create_row("R1", "t1 & t2 = 127, t3 & t4 = -127");
             create_row("R2", "t1 & t2 = -127, t3 & t4 = 127");

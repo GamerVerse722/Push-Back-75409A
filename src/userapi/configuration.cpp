@@ -9,7 +9,7 @@ namespace devices {
     pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({4, -5, -6}, pros::MotorGearset::blue);
 
-    pros::Imu imu(7);
+    pros::Imu imu(8);
 
     pros::adi::Encoder vertical_encoder('C', 'D');
     pros::adi::Encoder horizontal_encoder('A', 'B');
@@ -90,16 +90,11 @@ namespace devices {
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
 
-    pros::Motor top_loader(11);
-    pros::Motor intake(12);
-    pros::Motor lift(13);
+    pros::Motor top_loader(20);
+    pros::Motor intake(19);
+    pros::Motor lift(-18);
 
-    // pros::Motor test1(17);
-    // pros::Motor test2(18);
-    // pros::Motor test3(19);
-    // pros::Motor test4(20);
-
-    pros::Optical opticalSensor(15);
+    pros::Optical opticalSensor(11);
 }
 
 namespace controls {
@@ -125,6 +120,7 @@ namespace controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
             .setCategory("Load")
             .onPress(intake::load_bot)
+            .onHold(intake::load_bypass)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
@@ -141,12 +137,12 @@ namespace controls {
             .setCategory("Score")
             .onPress(intake::score_low);
 
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
             .setCategory("Score")
             .onPress(intake::score_high)
             .onRelease(intake::stop);
 
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Score")
             .onPress(intake::score_high);
 
@@ -161,7 +157,7 @@ namespace controls {
             
             
         // Testing ports disabled when comp
-        if (!pros::c::competition_is_connected() && true) {
+        if (!pros::c::competition_is_connected() && false) {
             pros::Motor test1(17);
             pros::Motor test2(18);
             pros::Motor test3(19);
