@@ -17,15 +17,11 @@ namespace keybindActions::intake {
     }
 
     void load_bypass() {
-        if (devices::opticalSensor.get_proximity() > 100){
-            if (!valid_ball()) {
-                devices::top_loader.move(50);
-            } else {
-                devices::top_loader.move(0);
-            }
-        } else {
-            devices::top_loader.move(50);
-        }
+        if (devices::opticalSensor.get_proximity() < 100) {devices::top_loader.move(50); return;}
+
+        if (!valid_ball()) {devices::top_loader.move(50);return;}
+        
+        devices::top_loader.move(0);
     }
 
     void load_bot() {
