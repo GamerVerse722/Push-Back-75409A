@@ -38,6 +38,7 @@ lv_obj_t* tabSponsors;
 lv_obj_t* tabLogs;
 lv_obj_t* tabDebug;
 lv_obj_t* tabKeybinds;
+lv_obj_t* tabPorts;
 
 lv_obj_t* labelDebug;
 
@@ -52,11 +53,7 @@ namespace ui::op_control {
     // lv_obj_t* tabview = nullptr;
 
     void initialize() {
-        // Driver Screen container
-        // driver_screen = lv_obj_create(NULL);
-
         lv_obj_t* tabview = lv_tabview_create(driver_screen);
-        // driver_screen = tabview;
 
         // Tabview style
         lv_obj_set_style_bg_color(tabview, lv_color_hex(0x191919), 0);
@@ -72,6 +69,7 @@ namespace ui::op_control {
         tabLogs = lv_tabview_add_tab(tabview, "Logs");
         tabDebug = lv_tabview_add_tab(tabview, "Debug");
         tabKeybinds = lv_tabview_add_tab(tabview, "Keybinds");
+        tabPorts = lv_tabview_add_tab(tabview, "Ports");
 
         // Create Labels
         labelDebug = lv_label_create(tabDebug);
