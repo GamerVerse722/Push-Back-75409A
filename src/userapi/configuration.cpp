@@ -1,5 +1,6 @@
 #include "userapi/configuration.hpp"
 
+#include "pros/distance.hpp"
 #include "pros/misc.h"
 #include "pros/misc.hpp"
 #include "userapi/controls/intake.hpp"
@@ -95,6 +96,7 @@ namespace devices {
     pros::Motor lift(-18);
 
     pros::Optical opticalSensor(11);
+    pros::Distance distanceSensor(12);
 }
 
 namespace controls {
@@ -126,6 +128,14 @@ namespace controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Load")
             .onPress(intake::load_bot);
+
+        // Park
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_LEFT)
+            .setCategory("Park")
+            .onPress(intake::park)
+            .onHold(intake::park_activation)
+            .onRelease(intake::stop);
+
 
         // Score
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)

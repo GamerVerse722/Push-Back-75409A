@@ -5,6 +5,7 @@
 
 #include "gamers-forge/bmapper.hpp"
 
+#include "pros/distance.hpp"
 #include "pros/motor_group.hpp"
 #include "pros/optical.hpp"
 #include "pros/misc.hpp"
@@ -42,6 +43,7 @@ namespace devices{
     extern pros::Motor lift;
 
     extern pros::Optical opticalSensor;
+    extern pros::Distance distanceSensor;
 }
 
 namespace controls {
