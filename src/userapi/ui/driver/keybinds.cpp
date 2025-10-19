@@ -1,7 +1,7 @@
 #include "userapi/ui/driver/keybinds.hpp"
 
-#include "liblvgl/core/lv_obj.h"
 #include "liblvgl/widgets/label/lv_label.h"
+#include "liblvgl/core/lv_obj.h"
 
 #include <format>
 

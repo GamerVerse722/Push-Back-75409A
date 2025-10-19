@@ -2,8 +2,9 @@
 
 #include "pros/optical.h"
 #include "pros/rtos.hpp"
-#include "userapi/configuration.hpp"
+
 #include "userapi/handler/optical_normalize.hpp"
+#include "userapi/configuration.hpp"
 #include "userapi/ui/autom.hpp"
 
 using namespace devices;

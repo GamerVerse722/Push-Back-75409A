@@ -1,13 +1,13 @@
 #include "userapi/ui/op_control.hpp"
 
-#include "driver/debug.hpp"
-#include "driver/keybinds.hpp"
-#include "driver/logs.hpp"
-#include "driver/ports.hpp"
-#include "driver/sponsors.hpp"
-#include "liblvgl/core/lv_obj.h"
-#include "liblvgl/misc/lv_types.h"
 #include "liblvgl/widgets/tabview/lv_tabview.h"
+#include "liblvgl/core/lv_obj.h"
+
+#include "driver/sponsors.hpp"
+#include "driver/keybinds.hpp"
+#include "driver/debug.hpp"
+#include "driver/ports.hpp"
+#include "driver/logs.hpp"
 
 namespace ui::driver {
     lv_obj_t* driver_screen = lv_obj_create(NULL);

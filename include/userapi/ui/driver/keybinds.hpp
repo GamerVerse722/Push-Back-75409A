@@ -1,6 +1,7 @@
 #pragma once
 
 #include "liblvgl/misc/lv_types.h"
+
 #include <string>
 
 namespace ui::driver::keybinds {

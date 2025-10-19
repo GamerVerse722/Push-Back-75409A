@@ -1,6 +1,8 @@
 #include "userapi/ui/driver/ports.hpp"
-#include "liblvgl/core/lv_obj.h"
+
 #include "liblvgl/widgets/label/lv_label.h"
+#include "liblvgl/core/lv_obj.h"
+
 #include <format>
 
 static lv_obj_t* portsList;

@@ -5,8 +5,8 @@
 
 #include "gamers-forge/bmapper.hpp"
 
-#include "pros/distance.hpp"
 #include "pros/motor_group.hpp"
+#include "pros/distance.hpp"
 #include "pros/optical.hpp"
 #include "pros/misc.hpp"
 #include "pros/adi.hpp"

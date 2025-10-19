@@ -1,8 +1,5 @@
 #include "userapi/configuration.hpp"
 
-#include "pros/distance.hpp"
-#include "pros/misc.h"
-#include "pros/misc.hpp"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 

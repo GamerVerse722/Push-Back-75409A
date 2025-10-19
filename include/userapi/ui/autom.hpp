@@ -1,11 +1,12 @@
 #pragma once
 
 #include "gamers-forge/proslogger.hpp"
+
 #include "liblvgl/misc/lv_types.h"
 
 #include <functional>
-#include <map>
 #include <string>
+#include <map>
 
 namespace ui::autom_selector {
     enum AutomMode {

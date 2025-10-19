@@ -1,7 +1,8 @@
 #include "userapi/ui/driver/sponsors.hpp"
-#include "liblvgl/core/lv_obj.h"
-#include "liblvgl/misc/lv_area.h"
+
 #include "liblvgl/widgets/image/lv_image.h"
+#include "liblvgl/misc/lv_area.h"
+#include "liblvgl/core/lv_obj.h"
 
 #include <vector>
 

@@ -1,14 +1,11 @@
 #include "userapi/ui/driver/logs.hpp"
 
-#include "gamers-forge/proslogger.hpp"
-
-#include "liblvgl/core/lv_obj.h"
-#include "liblvgl/misc/lv_async.h"
-#include "liblvgl/misc/lv_types.h"
 #include "liblvgl/widgets/label/lv_label.h"
+#include "liblvgl/misc/lv_async.h"
+#include "liblvgl/core/lv_obj.h"
 
-#include <deque>
 #include <format>
+#include <deque>
 
 static std::deque<lv_obj_t*> logs_list;
 static lv_obj_t* logsContainer;

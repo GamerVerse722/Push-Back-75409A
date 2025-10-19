@@ -1,22 +1,24 @@
 #include "userapi/ui/autom.hpp"
 
-#include "liblvgl/core/lv_obj.h"
-#include "liblvgl/core/lv_obj_event.h"
-#include "liblvgl/core/lv_obj_pos.h"
-#include "liblvgl/core/lv_obj_style_gen.h"
-#include "liblvgl/font/lv_font.h"
-#include "liblvgl/layouts/grid/lv_grid.h"
-#include "liblvgl/misc/lv_event.h"
-#include "liblvgl/misc/lv_palette.h"
-#include "liblvgl/misc/lv_style.h"
-#include "liblvgl/misc/lv_style_gen.h"
-#include "liblvgl/misc/lv_types.h"
+
 #include "liblvgl/widgets/button/lv_button.h"
 #include "liblvgl/widgets/label/lv_label.h"
-#include "autom.hpp"
-#include "op_control.hpp"
+#include "liblvgl/core/lv_obj_style_gen.h"
+#include "liblvgl/layouts/grid/lv_grid.h"
+#include "liblvgl/misc/lv_style_gen.h"
+#include "liblvgl/core/lv_obj_event.h"
+#include "liblvgl/misc/lv_palette.h"
+#include "liblvgl/core/lv_obj_pos.h"
+#include "liblvgl/misc/lv_style.h"
+#include "liblvgl/misc/lv_event.h"
+#include "liblvgl/font/lv_font.h"
+#include "liblvgl/core/lv_obj.h"
+
 #include <cstddef>
 #include <format>
+
+#include "userapi/ui/op_control.hpp"
+#include "userapi/ui/autom.hpp"
 
 namespace ui::autom_selector {
     lv_obj_t *autom_screen = lv_obj_create(NULL);

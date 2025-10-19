@@ -1,12 +1,12 @@
 #include "userapi/ui/driver/debug.hpp"
 
-#include "lemlib/pose.hpp"
-#include "liblvgl/misc/lv_timer.h"
 #include "liblvgl/widgets/label/lv_label.h"
+#include "liblvgl/misc/lv_timer.h"
 
-#include "userapi/configuration.hpp"
+#include "lemlib/pose.hpp"
+
 #include "userapi/handler/optical_normalize.hpp"
-
+#include "userapi/configuration.hpp"
 #include "userapi/ui/autom.hpp"
 
 static lv_obj_t* labelDebug;
