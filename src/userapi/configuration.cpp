@@ -12,8 +12,8 @@ namespace devices {
 
     pros::Imu imu(8);
 
-    pros::adi::Encoder vertical_encoder('C', 'D');
-    pros::adi::Encoder horizontal_encoder('A', 'B');
+    pros::adi::Encoder vertical_encoder('A', 'B', true);
+    pros::adi::Encoder horizontal_encoder('C', 'D');
 
     lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -1.34375);
     lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, 4.5);
@@ -27,17 +27,6 @@ namespace devices {
     );
 
     // lateral PID controller
-    // lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
-    //     0, // integral gain (kI)
-    //     3, // derivative gain (kD)
-    //     3, // anti windup
-    //     1, // small error range, in inches
-    //     100, // small error range timeout, in milliseconds
-    //     3, // large error range, in inches
-    //     500, // large error range timeout, in milliseconds
-    //     20 // maximum acceleration (slew)
-    // );
-
     lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
         0, // integral gain (kI)
         3, // derivative gain (kD)
@@ -50,31 +39,20 @@ namespace devices {
     );
 
     // angular PID controller
-    // lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
-    //     0, // integral gain (kI)
-    //     10, // derivative gain (kD)
-    //     3, // anti windup
-    //     1, // small error range, in degrees
-    //     100, // small error range timeout, in milliseconds
-    //     3, // large error range, in degrees
-    //     500, // large error range timeout, in milliseconds
-    //     0 // maximum acceleration (slew)
-    // );
-
-    lemlib::ControllerSettings angular_controller(4, // proportional gain (kP)
+    lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
         0, // integral gain (kI)
-        22, // derivative gain (kD)
-        0, // anti windup
-        0, // small error range, in degrees
-        0, // small error range timeout, in milliseconds
-        0, // large error range, in degrees
-        0, // large error range timeout, in milliseconds
+        10, // derivative gain (kD)
+        3, // anti windup
+        1, // small error range, in degrees
+        100, // small error range timeout, in milliseconds
+        3, // large error range, in degrees
+        500, // large error range timeout, in milliseconds
         0 // maximum acceleration (slew)
     );
 
     lemlib::Drivetrain drivetrain(&left_motors, // left motor group
         &right_motors, // right motor group
-        14.5625, // 10 inch track width
+        11.9375, // 10 inch track width
         lemlib::Omniwheel::NEW_325, // using new 4" omnis
         360, // drivetrain rpm is 360
         2 // horizontal drift is 2 (for now)
@@ -112,17 +90,17 @@ namespace controls {
             .onPress(drive::toggle_arcade);
 
         // Scrapper
-        // button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)
-        //     .setCategory("Scrapper")
-        //     .onPress([]() -> void {
-        //         devices::scraper.toggle();
-        //     });
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)
+            .setCategory("Scrapper")
+            .onPress([]() -> void {
+                devices::scraper.toggle();
+            });
 
         // Load
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
             .setCategory("Load")
             .onPress(intake::load_bot)
-            .onHold(intake::load_bypass)
+            // .onHold(intake::load_bypass)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
@@ -164,42 +142,5 @@ namespace controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Score")
             .onPress(intake::score_middle);
-            
-            
-        // Testing ports disabled when comp
-        if (!pros::c::competition_is_connected() && false) {
-            pros::Motor test1(17);
-            pros::Motor test2(18);
-            pros::Motor test3(19);
-            pros::Motor test4(20);
-
-            std::function<void()> test_stop = [&](){
-                test1.move(0);
-                test2.move(0);
-                test3.move(0);
-                test4.move(0);
-            };
-
-            button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
-                .setCategory("Testing")
-                .onPress([&](){
-                    test1.move(127);
-                    test2.move(127);
-                    test3.move(-127);
-                    test4.move(-127);
-                })
-                .onRelease(test_stop);
-
-            button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
-                .setCategory("Testing")
-                .onPress([&](){
-                    test1.move(-127);
-                    test2.move(-127);
-                    test3.move(127);
-                    test4.move(127);
-                })
-                .onRelease(test_stop);
-        }
-            
     }
 } 

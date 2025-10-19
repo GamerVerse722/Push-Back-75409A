@@ -13,7 +13,8 @@
 #include "liblvgl/misc/lv_types.h"
 #include "liblvgl/widgets/button/lv_button.h"
 #include "liblvgl/widgets/label/lv_label.h"
-#include "ui.hpp"
+#include "autom.hpp"
+#include "op_control.hpp"
 #include <cstddef>
 #include <format>
 
@@ -53,7 +54,9 @@ namespace ui::autom_selector {
 
     /* Event handler function */
     static void button_event_handler(lv_event_t* e) {
-        AutomMode mode = *(AutomMode*)lv_event_get_user_data(e);
+        // void* user_data = lv_event_get_user_data(e);
+        AutomMode mode = (AutomMode)(intptr_t)lv_event_get_user_data(e);
+        // AutomMode mode = *(AutomMode*)lv_event_get_user_data(e);
         selected_autom = mode;
 
         if (mode == AutomMode::RED_LEFT || mode == AutomMode::RED_RIGHT) {selected_color = AutomColor::RED;}
@@ -61,7 +64,7 @@ namespace ui::autom_selector {
         else {selected_color = AutomColor::COLOR_NONE;}
 
         log.info(std::format("Button {} was selected", automModeToString(mode)));
-        lv_screen_load_anim(ui::op_control::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
+        lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
     }
 
     void register_button(std::string text, int col, int row, AutomMode mode, AutomColor color, callback_method callback) {
@@ -96,10 +99,7 @@ namespace ui::autom_selector {
         lv_obj_add_style(label, &label_style, LV_PART_MAIN);
 
         // Add Callback
-        AutomMode* stored_mode = (AutomMode*)lv_malloc(sizeof(AutomMode));
-        *stored_mode = mode;
-
-        lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, stored_mode);
+        lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)mode);
 
         lv_obj_center(label);
         log.debug("Registered " + automModeToString(mode));

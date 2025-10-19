@@ -637,7 +637,7 @@
     "upload_options": {
       "description": "Idk what program this is",
       "slot": 1,
-      "after": "none"
+      "after": "run"
     },
     "use_early_access": true
   }

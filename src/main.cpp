@@ -9,7 +9,7 @@
 #include "userapi/configuration.hpp"
 #include "userapi/controls/drive.hpp"
 #include "userapi/ui/autom.hpp"
-#include "userapi/ui/ui.hpp"
+#include "userapi/ui/op_control.hpp"
 
 using namespace devices;
 
@@ -25,9 +25,9 @@ void initialize() {
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
 	
-	ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
+	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
 	ui::autom_selector::initialize();
-	ui::op_control::initialize();
+	ui::driver::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
 
@@ -84,8 +84,11 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	// lv_screen_load(ui::autom_selector::autom_screen);
-	lv_screen_load(ui::op_control::driver_screen);
+	if (!pros::c::competition_is_connected() && true) {
+		lv_screen_load(ui::autom_selector::autom_screen);
+	} else {
+		lv_screen_load(ui::driver::driver_screen);
+	}
 	controls::button_handler.start();
 
 	// Notifies Last 20 second park zone protect
