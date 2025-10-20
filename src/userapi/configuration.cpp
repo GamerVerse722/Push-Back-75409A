@@ -1,5 +1,6 @@
 #include "userapi/configuration.hpp"
 
+#include "pros/misc.h"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
@@ -82,7 +83,7 @@ namespace controls {
         using namespace keybindActions;
 
         // Drive
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_A)
             .setCategory("Drive")
             .onPress(drive::toggle_arcade);
 
@@ -91,6 +92,13 @@ namespace controls {
             .setCategory("Scrapper")
             .onPress([]() -> void {
                 devices::scraper.toggle();
+            });
+
+        // Splitter
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
+            .setCategory("Scrapper")
+            .onPress([]() -> void {
+                devices::splitter.toggle();
             });
 
         // Load
@@ -113,15 +121,6 @@ namespace controls {
 
 
         // Score
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
-            .setCategory("Score")
-            .onPress(intake::score_low)
-            .onRelease(intake::stop);
-
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2, pros::E_CONTROLLER_DIGITAL_B)
-            .setCategory("Score")
-            .onPress(intake::score_low);
-
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
             .setCategory("Score")
             .onPress(intake::score_high)
@@ -133,11 +132,11 @@ namespace controls {
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
             .setCategory("Score")
-            .onPress(intake::score_middle)
+            .onPress(intake::score_low)
             .onRelease(intake::stop);
-            
+
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Score")
-            .onPress(intake::score_middle);
+            .onPress(intake::score_low);
     }
 } 

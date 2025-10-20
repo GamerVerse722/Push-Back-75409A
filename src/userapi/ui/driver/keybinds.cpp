@@ -27,15 +27,16 @@ namespace ui::driver::keybinds {
         create_category("Scrapper");
         create_row("U", "Toggle the scrapper.");
 
+        create_category("Splitter");
+        create_row("X", "Toggle Splitter up and down.");
+
         create_category("Load");
         create_row("L1", "Loads balls without scoring.");
         create_row("B-L1", "Toggle loads balls without scoring.");
 
         create_category("Score");
-        create_row("L2", "Moves balls into high score.");
-        create_row("B-L2", "Toggle moves balls into high score.");
-        create_row("R1", "Move balls into middle score.");
-        create_row("B-R1", "Toggle moves balls into middle score.");
+        create_row("R1", "Moves balls into high/middle score.");
+        create_row("B-R1", "Toggle moves balls into high/middle score.");
         create_row("R2", "Moves balls into low score.");
         create_row("B-R2", "Toggle move balls into low score.");
     }

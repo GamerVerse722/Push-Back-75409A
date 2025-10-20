@@ -78,7 +78,7 @@ namespace keybindActions::intake {
     }
 
     void score_low() {
-        // devices::splitter.retract();
+        devices::splitter.extend();
         devices::top_loader.move(-127);
         devices::intake.move(-127);
         devices::lift.move(-127);
