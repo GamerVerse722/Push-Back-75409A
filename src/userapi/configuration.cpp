@@ -96,7 +96,7 @@ namespace controls {
 
         // Splitter
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_X)
-            .setCategory("Scrapper")
+            .setCategory("Splitter")
             .onPress([]() -> void {
                 devices::splitter.toggle();
             });
