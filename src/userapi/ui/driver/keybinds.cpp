@@ -35,10 +35,10 @@ namespace ui::driver::keybinds {
         create_row("B-L1", "Toggle loads balls without scoring.");
 
         create_category("Score");
-        create_row("R1", "Moves balls into high/middle score.");
-        create_row("B-R1", "Toggle moves balls into high/middle score.");
-        create_row("R2", "Moves balls into low score.");
-        create_row("B-R2", "Toggle move balls into low score.");
+        create_row("R1", "Moves balls into low score.");
+        create_row("B-R1", "Toggle move balls into low score.");
+        create_row("R2", "Moves balls into high/middle score.");
+        create_row("B-R2", "Toggle moves balls into high/middle score.");
     }
 
     void create_category(std::string category) {

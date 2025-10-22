@@ -5,7 +5,7 @@
 #include "userapi/controls/drive.hpp"
 
 namespace devices {
-    pros::MotorGroup right_motors({-1, 2, 3}, pros::MotorGearset::blue);
+    pros::MotorGroup right_motors({-7, 2, 3}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({4, -5, -6}, pros::MotorGearset::blue);
 
     pros::Imu imu(8);
@@ -13,8 +13,8 @@ namespace devices {
     pros::adi::Encoder vertical_encoder('A', 'B', true);
     pros::adi::Encoder horizontal_encoder('C', 'D');
 
-    lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -1.34375);
-    lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, 4.5);
+    lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -0.78125);
+    lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, -4.25);
 
     lemlib::OdomSensors sensors(
         &vertical_tracking_wheel,
@@ -123,20 +123,20 @@ namespace controls {
         // Score
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)
             .setCategory("Score")
-            .onPress(intake::score_high)
+            .onPress(intake::score_low)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Score")
-            .onPress(intake::score_high);
+            .onPress(intake::score_low);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2)
             .setCategory("Score")
-            .onPress(intake::score_low)
+            .onPress(intake::score_high)
             .onRelease(intake::stop);
 
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Score")
-            .onPress(intake::score_low);
+            .onPress(intake::score_high);
     }
 } 
