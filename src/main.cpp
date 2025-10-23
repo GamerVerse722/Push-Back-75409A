@@ -65,9 +65,8 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	// using namespace devices;
-	// chassis.setPose(0, 0, 0);
-	// chassis.turnToHeading(90, 100000);
+	devices::chassis.setPose(0, 0, 0);
+	devices::chassis.moveToPoint(0, 10, 99999);
 }
 
 /**

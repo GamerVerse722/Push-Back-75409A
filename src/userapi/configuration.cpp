@@ -5,7 +5,7 @@
 #include "userapi/controls/drive.hpp"
 
 namespace devices {
-    pros::MotorGroup right_motors({-7, 2, 3}, pros::MotorGearset::blue);
+    pros::MotorGroup right_motors({-13, 2, 3}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({4, -5, -6}, pros::MotorGearset::blue);
 
     pros::Imu imu(8);
