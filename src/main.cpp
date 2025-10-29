@@ -66,7 +66,8 @@ void competition_initialize() {
  */
 void autonomous() {
 	devices::chassis.setPose(0, 0, 0);
-	devices::chassis.moveToPoint(0, 10, 99999);
+	pros::delay(100);
+	devices::chassis.moveToPoint(0, 12, 99999);
 }
 
 /**
@@ -83,11 +84,8 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	if (!pros::c::competition_is_connected() && true) {
-		lv_screen_load(ui::autom_selector::autom_screen);
-	} else {
-		lv_screen_load(ui::driver::driver_screen);
-	}
+	// lv_screen_load(ui::autom_selector::autom_screen);
+	lv_screen_load(ui::driver::driver_screen);
 	controls::button_handler.start();
 
 	// Notifies Last 20 second park zone protect
