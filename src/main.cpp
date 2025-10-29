@@ -67,7 +67,7 @@ void competition_initialize() {
 void autonomous() {
 	devices::chassis.setPose(0, 0, 0);
 	pros::delay(100);
-	devices::chassis.moveToPoint(0, 12, 99999);
+	devices::chassis.moveToPoint(0, 24, 50000);
 }
 
 /**
