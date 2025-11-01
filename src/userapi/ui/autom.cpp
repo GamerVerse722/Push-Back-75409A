@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <format>
 
+#include "userapi/automonous.hpp"
 #include "userapi/ui/op_control.hpp"
 #include "userapi/ui/autom.hpp"
 
@@ -45,13 +46,13 @@ namespace ui::autom_selector {
         // Register Button
         log.debug("Registering Buttons");
 
-        register_button("Left", 0, 0, AutomMode::RED_LEFT, AutomColor::RED, nullptr);
+        register_button("Left", 0, 0, AutomMode::RED_LEFT, AutomColor::RED, autom::redLeft);
         register_button("None", 0, 1, AutomMode::NONE, AutomColor::COLOR_NONE,nullptr);
         register_button("Right", 0, 2, AutomMode::RED_RIGHT,AutomColor::RED, nullptr);
 
         register_button("Right", 1, 0, AutomMode::BLUE_RIGHT,AutomColor::BLUE, nullptr);
         register_button("Skills", 1, 1, AutomMode::SKILLS,AutomColor::COLOR_NONE, nullptr);
-        register_button("Left", 1, 2, AutomMode::BLUE_LEFT,AutomColor::BLUE, nullptr);
+        register_button("Left", 1, 2, AutomMode::BLUE_LEFT,AutomColor::BLUE, autom::redLeft);
     }
 
     /* Event handler function */
