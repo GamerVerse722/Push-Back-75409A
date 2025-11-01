@@ -1,5 +1,6 @@
 #include "userapi/configuration.hpp"
 
+#include "pros/adi.hpp"
 #include "pros/misc.h"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
@@ -16,10 +17,18 @@ namespace devices {
     lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -0.78125);
     lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, -4.25);
 
+    // lemlib::OdomSensors sensors(
+    //     &vertical_tracking_wheel,
+    //     nullptr,
+    //     &horizontal_tracking_wheel,
+    //     nullptr,
+    //     &imu
+    // );
+
     lemlib::OdomSensors sensors(
-        &vertical_tracking_wheel,
         nullptr,
-        &horizontal_tracking_wheel,
+        nullptr,
+        nullptr,
         nullptr,
         &imu
     );
@@ -35,7 +44,7 @@ namespace devices {
     //     500, // large error range timeout, in milliseconds
     //     20 // maximum acceleration (slew)
     // );
-    lemlib::ControllerSettings lateral_controller(13, // proportional gain (kP)
+    lemlib::ControllerSettings lateral_controller(12, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               35, // derivative gain (kD)
                                               0, // anti windup
@@ -43,7 +52,7 @@ namespace devices {
                                               0, // small error range timeout, in milliseconds
                                               0, // large error range, in inches
                                               0, // large error range timeout, in milliseconds
-                                              0 // maximum acceleration (slew)
+                                              20 // maximum acceleration (slew)
     );
 
 
@@ -87,6 +96,8 @@ namespace devices {
 
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
+    pros::adi::Pneumatics park(7, false);
+    pros::adi::Pneumatics descore(8, false);
 
     pros::Motor top_loader(20);
     pros::Motor intake(19);
@@ -104,7 +115,7 @@ namespace controls {
         using namespace keybindActions;
 
         // Drive
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_A)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_A, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Drive")
             .onPress(drive::toggle_arcade);
 
@@ -120,6 +131,20 @@ namespace controls {
             .setCategory("Splitter")
             .onPress([]() -> void {
                 devices::splitter.toggle();
+            });
+
+        // Descore
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_DOWN)
+            .setCategory("Descore")
+            .onPress([]() -> void {
+                devices::descore.toggle();
+            });
+
+        // Park
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_Y)
+            .setCategory("Descore")
+            .onPress([]() -> void {
+                devices::park.toggle();
             });
 
         // Load

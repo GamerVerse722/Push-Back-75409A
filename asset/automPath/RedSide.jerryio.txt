@@ -1,0 +1,9 @@
+// RedLeft
+
+forward(26.086, 30);
+turnTo(132.709, 30);
+forward(17.692, 30);
+turnTo(315, 30);
+
+
+#PATH.JERRYIO-DATA {"appVersion":"0.10.0","format":"Rigid Code Gen v0.1","gc":{"robotWidth":14,"robotHeight":13.5,"showRobot":true,"uol":2.54,"pointDensity":0.7874015748031494,"controlMagnetDistance":5,"fieldImage":{"displayName":"V5RC 2026 - Push Back","signature":"V5RC-PushBack-H2H-TopDownHighlighted-TileColor66_71","origin":{"__type":"built-in"}},"coordinateSystem":"VEX Gaming Positioning System","headingOutputType":"Absolute Heading","outputTemplate":"path: `// ${name}\n\n${code}\n`\nforward: `forward(${distance}, ${speed});`\nbackward: `backward(${distance}, ${speed});`\nturnLeft: `turnLeft(${heading}, ${speed});`\nturnRight: `turnRight(${heading}, ${speed});`\nturnTo: `turnTo(${heading}, ${speed});`"},"paths":[{"segments":[{"controls":[{"uid":"wrI6h4GSkL","x":-48.5,"y":16.5,"lock":false,"visible":true,"heading":77.82854179141253,"__type":"end-point"},{"uid":"9WzyqIa4qz","x":-23,"y":22,"lock":false,"visible":true,"heading":132.70938995736148,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"UjyGcaFnyv"},{"controls":[{"uid":"9WzyqIa4qz","x":-23,"y":22,"lock":false,"visible":true,"heading":132.70938995736148,"__type":"end-point"},{"uid":"jpbTAX9QKv","x":-10,"y":10,"lock":false,"visible":true,"heading":315,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"dTYbs1QxlL"}],"pc":{"speed":30},"name":"RedLeft","uid":"yrtZKTJNpA","lock":false,"visible":true}]}

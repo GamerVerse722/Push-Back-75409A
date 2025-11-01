@@ -10,6 +10,7 @@
 #include "userapi/controls/drive.hpp"
 #include "userapi/ui/autom.hpp"
 #include "userapi/ui/op_control.hpp"
+#include "userapi/automonous.hpp"
 
 using namespace devices;
 
@@ -21,6 +22,7 @@ using namespace devices;
  */
 void initialize() {
 	chassis.calibrate();
+	devices::chassis.setPose(0, 0, 90);
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
@@ -30,7 +32,6 @@ void initialize() {
 	ui::driver::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
-
 }
 
 /**
@@ -65,9 +66,13 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	devices::chassis.setPose(0, 0, 0);
-	pros::delay(100);
-	devices::chassis.moveToPoint(0, 24, 50000);
+	// devices::chassis.setPose(0, 1.5, 0);
+	// devices::chassis.setPose(0, 0, 0);
+	// pros::delay(100);
+	// devices::chassis.turnToHeading(180, 15000);
+	// devices::chassis.moveToPoint(0, 12, 15000);
+
+	autom::redLeft();
 }
 
 /**
