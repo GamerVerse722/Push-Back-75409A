@@ -64,6 +64,12 @@ namespace ui::autom_selector {
         else if (mode == AutomMode::BLUE_LEFT || mode == AutomMode::BLUE_RIGHT) {selected_color = AutomColor::BLUE;}
         else {selected_color = AutomColor::COLOR_NONE;}
 
+        if (callback_map.count(mode) == 1) {
+            selected_callback = callback_map[mode];
+        } else {
+            selected_callback = nullptr;
+        }
+
         log.info(std::format("Button {} was selected", automModeToString(mode)));
         lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
     }
@@ -107,7 +113,10 @@ namespace ui::autom_selector {
     }
 
     void run_automous() {
-        if (selected_callback != nullptr) {return;}
+        if (selected_callback == nullptr) {
+            log.warn(std::format("Automous mode {} has no callback", automModeToString(selected_autom)));
+            return;
+        }
         log.info(std::format("Running {}", automModeToString(selected_autom)));
         selected_callback();
     }
