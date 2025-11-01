@@ -66,13 +66,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	// devices::chassis.setPose(0, 1.5, 0);
-	// devices::chassis.setPose(0, 0, 0);
-	// pros::delay(100);
-	// devices::chassis.turnToHeading(180, 15000);
-	// devices::chassis.moveToPoint(0, 12, 15000);
-
-	autom::redLeft();
+	ui::autom_selector::run_automous();
 }
 
 /**

@@ -58,7 +58,6 @@ namespace ui::autom_selector {
     static void button_event_handler(lv_event_t* e) {
         // void* user_data = lv_event_get_user_data(e);
         AutomMode mode = (AutomMode)(intptr_t)lv_event_get_user_data(e);
-        // AutomMode mode = *(AutomMode*)lv_event_get_user_data(e);
         selected_autom = mode;
 
         if (mode == AutomMode::RED_LEFT || mode == AutomMode::RED_RIGHT) {selected_color = AutomColor::RED;}
@@ -108,6 +107,7 @@ namespace ui::autom_selector {
     }
 
     void run_automous() {
+        if (selected_callback != nullptr) {return;}
         log.info(std::format("Running {}", automModeToString(selected_autom)));
         selected_callback();
     }
