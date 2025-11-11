@@ -19,5 +19,5 @@
     ```
 
 # Resources
-- [JerryIO Dev](https://dev-path.jerryio.com/)
+- [JerryIO Dev](https://path.jerryio.com/)
 - [LVGL Image Converter](https://lvgl.io/tools/imageconverter)
