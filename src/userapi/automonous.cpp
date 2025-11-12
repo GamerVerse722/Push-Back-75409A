@@ -25,7 +25,7 @@ namespace autom {
         // Grab Score
         // chassis.moveToPose(0, 23, -60, 2000, {.minSpeed=70, .earlyExitRange=4});
         devices::scraper.extend();
-        chassis.moveToPose(-20, 30, -90, 2500, {.minSpeed=75});
+        chassis.moveToPose(-22, 30, -90, 2500, {.minSpeed=75});
         // chassis.moveToPose(-15, 40, -90, 1000, {.minSpeed=100});
 
     }
