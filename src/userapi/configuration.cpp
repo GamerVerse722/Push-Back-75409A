@@ -140,12 +140,6 @@ namespace controls {
                 devices::descore.toggle();
             });
 
-        // Park
-        // button_handler.bind(pros::E_CONTROLLER_DIGITAL_Y)
-        //     .setCategory("Park")
-        //     .onPress([]() -> void {
-        //         devices::park.toggle();
-        //     });
 
         // Load
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1)
@@ -157,14 +151,6 @@ namespace controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Load")
             .onPress(intake::load_bot);
-
-        // Park
-        // button_handler.bind(pros::E_CONTROLLER_DIGITAL_LEFT)
-        //     .setCategory("Park")
-        //     .onPress(intake::park)
-        //     .onHold(intake::park_activation)
-        //     .onRelease(intake::stop);
-
 
         // Score
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1)

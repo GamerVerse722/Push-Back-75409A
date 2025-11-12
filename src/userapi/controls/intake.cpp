@@ -44,23 +44,6 @@ namespace keybindActions::intake {
         devices::lift.move(127);
     }
 
-    void park_activation() {
-        if (devices::distanceSensor.get_distance() < 120) {
-            devices::top_loader.move(0);
-            devices::intake.move(0);
-            devices::lift.move(0);
-            // devices::park.extend();
-            devices::controller.rumble("--");
-        }
-    }
-
-    void park() {
-        devices::top_loader.move(-127);
-        devices::intake.move(-127);
-        devices::lift.move(-50);
-        color_sort_enabled = false;
-    }
-
     void score_high() {
         // devices::splitter.extend();
         devices::top_loader.move(127);
