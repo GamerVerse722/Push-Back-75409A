@@ -26,6 +26,8 @@ namespace autom {
         // chassis.moveToPose(0, 23, -60, 2000, {.minSpeed=70, .earlyExitRange=4});
         devices::scraper.extend();
         chassis.moveToPose(-22, 30, -90, 2500, {.minSpeed=75});
+        chassis.moveToPose(-35, 30, -90, 1500, {.minSpeed=127});
+        // chassis.moveToPose(float x, float y, float theta, int timeout)
         // chassis.moveToPose(-15, 40, -90, 1000, {.minSpeed=100});
 
     }
