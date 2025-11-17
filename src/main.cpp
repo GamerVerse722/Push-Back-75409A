@@ -85,8 +85,8 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	// lv_screen_load(ui::autom_selector::autom_screen);
-	lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::autom_selector::autom_screen);
+	// lv_screen_load(ui::driver::driver_screen);
 	controls::button_handler.start();
 
 	// Notifies Last 20 second park zone protect

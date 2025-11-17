@@ -26,10 +26,15 @@ namespace autom {
         // chassis.moveToPose(0, 23, -60, 2000, {.minSpeed=70, .earlyExitRange=4});
         devices::scraper.extend();
         chassis.moveToPose(-22, 30, -90, 2500, {.minSpeed=75});
-        chassis.moveToPose(-35, 30, -90, 1500, {.minSpeed=127});
-        // chassis.moveToPose(float x, float y, float theta, int timeout)
-        // chassis.moveToPose(-15, 40, -90, 1000, {.minSpeed=100});
+        chassis.moveToPose(-30, 30, -90, 1500, {.minSpeed=110});
+        devices::splitter.extend();
+        chassis.moveToPose(10, 31, -90, 2000, {.forwards=false});
+        keybindActions::intake::score_high();
 
+        // pros::delay(2000);
+        // devices::descore.extend();
+        // chassis.moveToPose(-10, 31, -45, 1500);
+        // chassis.moveToPose(0, 40, -90, int timeout)
     }
     void redRight() {}
     void blueLeft() {}
