@@ -1,6 +1,7 @@
 #pragma once
 
 namespace keybindActions::intake {
+    extern int load_speed;
     bool valid_ball();
     void load_bypass();
 

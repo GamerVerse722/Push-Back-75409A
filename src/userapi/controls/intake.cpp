@@ -10,6 +10,7 @@
 using namespace devices;
 
 static bool color_sort_enabled = false;
+
 static pros::Task color_sort([](){
     while (true) {
         if (color_sort_enabled) {
@@ -20,6 +21,8 @@ static pros::Task color_sort([](){
 });
 
 namespace keybindActions::intake {
+    int load_speed = 50;
+    
     bool valid_ball() {
         pros::c::optical_rgb_s_t color = optical_normalize(devices::opticalSensor.get_rgb());
 
@@ -30,9 +33,9 @@ namespace keybindActions::intake {
     }
 
     void load_bypass() {
-        if (devices::opticalSensor.get_proximity() < 100) {devices::top_loader.move(50); return;}
+        if (devices::opticalSensor.get_proximity() < 100) {devices::top_loader.move(load_speed); return;}
 
-        if (!valid_ball()) {devices::top_loader.move(50);return;}
+        if (!valid_ball()) {devices::top_loader.move(load_speed);return;}
 
         devices::top_loader.move(0);
     }
