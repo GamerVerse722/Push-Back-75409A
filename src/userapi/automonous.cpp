@@ -49,9 +49,10 @@ namespace autom {
         chassis.moveToPose(10, -20, 250, 1500, {.minSpeed=70, .earlyExitRange=2});
         devices::scraper.extend();
         chassis.moveToPose(-10, -32.5, -90, 2000, {.minSpeed=70, .earlyExitRange=4});
-        chassis.moveToPose(-25, -32.5, -90, 2000, {.minSpeed=127});
+        pros::delay(1200);
+        chassis.moveToPose(-20, -32.5, -90, 2000, {.minSpeed=100});
         devices::splitter.extend();
-        chassis.moveToPose(20, -32, -90, 2000, {.forwards=false});
+        chassis.moveToPose(20, -33.5, -90, 2000, {.forwards=false, maxSpeed=60});
         pros::delay(1000);
         keybindActions::intake::score_high();
     }
