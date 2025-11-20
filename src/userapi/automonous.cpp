@@ -41,12 +41,13 @@ namespace autom {
         devices::scraper.extend();
         devices::splitter.extend();
         chassis.moveToPose(-10, -32.5, -90, 2000, {.minSpeed=70, .earlyExitRange=2});
-        chassis.moveToPose(-20, -32.5, -90, 2000, {.minSpeed=100});
+        pros::delay(1500);
+        chassis.moveToPose(-20, -32.5, -90, 2000, {.maxSpeed=55});
         pros::delay(1200);
-        chassis.moveToPose(20, -30.5, -90, 2000, {.forwards=false, .maxSpeed=60});
+        chassis.moveToPose(20.5, -34, -90, 2000, {.forwards=false, .maxSpeed=60});
         pros::delay(1000);
         keybindActions::intake::score_high();
     }
     void blueLeft() {}
     void blueRight() {}
-}
+}                                                
