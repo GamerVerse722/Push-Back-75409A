@@ -29,7 +29,9 @@ namespace autom {
         chassis.moveToPose(-35, 30, -90, 1300, {.minSpeed=110});
         devices::splitter.extend();
         chassis.moveToPose(10, 31, -90, 2000, {.forwards=false});
-        keybindActions::intake::score_high();
+        keybindActions::intake::toggle_invert_mode(true);
+        keybindActions::intake::set_load_speed(127);
+        keybindActions::intake::load_bot();
     }
     
     void redRight() {
@@ -46,7 +48,9 @@ namespace autom {
         pros::delay(1200);
         chassis.moveToPose(20.5, -34, -90, 2000, {.forwards=false, .maxSpeed=60});
         pros::delay(1000);
-        keybindActions::intake::score_high();
+        keybindActions::intake::toggle_invert_mode(true);
+        keybindActions::intake::set_load_speed(127);
+        keybindActions::intake::load_bot();
     }
     void blueLeft() {}
     void blueRight() {}
