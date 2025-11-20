@@ -52,7 +52,7 @@ namespace autom {
         pros::delay(1200);
         chassis.moveToPose(-20, -32.5, -90, 2000, {.minSpeed=100});
         devices::splitter.extend();
-        chassis.moveToPose(20, -33.5, -90, 2000, {.forwards=false, maxSpeed=60});
+        chassis.moveToPose(20, -33.5, -90, 2000, {.forwards=false, .maxSpeed=60});
         pros::delay(1000);
         keybindActions::intake::score_high();
     }
