@@ -36,14 +36,14 @@ namespace autom {
         chassis.setPose(0, 0, 90);
         keybindActions::intake::load_bot();
         chassis.moveToPose(28, -12, 130, 2000, {.minSpeed=70, .earlyExitRange=4});
-        chassis.turnToHeading(250, 1000);
-        chassis.moveToPose(10, -20, 250, 1500, {.minSpeed=70, .earlyExitRange=2});
+        chassis.turnToHeading(-90, 1000);
+        // chassis.moveToPose(10, -20, 270, 1500, {.minSpeed=70, .earlyExitRange=2});
         devices::scraper.extend();
-        chassis.moveToPose(-10, -32.5, -90, 2000, {.minSpeed=70, .earlyExitRange=4});
-        pros::delay(1200);
-        chassis.moveToPose(-20, -32.5, -90, 2000, {.minSpeed=100});
         devices::splitter.extend();
-        chassis.moveToPose(20, -33.5, -90, 2000, {.forwards=false, .maxSpeed=60});
+        chassis.moveToPose(-10, -32.5, -90, 2000, {.minSpeed=70, .earlyExitRange=2});
+        chassis.moveToPose(-20, -32.5, -90, 2000, {.minSpeed=100});
+        pros::delay(1200);
+        chassis.moveToPose(20, -30.5, -90, 2000, {.forwards=false, .maxSpeed=60});
         pros::delay(1000);
         keybindActions::intake::score_high();
     }
