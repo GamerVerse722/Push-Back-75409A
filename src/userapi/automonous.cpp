@@ -2,7 +2,6 @@
 
 // #include "lemlib/pose.hpp"
 #include "pros/rtos.hpp"
-#include "ui/autom.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/controls/intake.hpp"
 
@@ -19,7 +18,7 @@ namespace autom {
         chassis.swingToHeading(-45, lemlib::DriveSide::LEFT, 1000, {.earlyExitRange=20});
         chassis.moveToPose(32, -2, -45, 1500, {.forwards=false});
         pros::delay(1000);
-        keybindActions::intake::score_middle();
+        keybindActions::intake::score_high();
         pros::delay(1800);
         keybindActions::intake::load_bot();
 
@@ -29,18 +28,10 @@ namespace autom {
         chassis.moveToPose(-22, 30, -90, 2500, {.minSpeed=75});
         chassis.moveToPose(-35, 30, -90, 1300, {.minSpeed=110});
         devices::splitter.extend();
-        ui::autom_selector::invert_selected_color();
         chassis.moveToPose(10, 31, -90, 2000, {.forwards=false});
         keybindActions::intake::score_high();
-        // pros::delay(2000);
-        // keybindActions::intake::stop();
-        // ui::autom_selector::invert_selected_color();
-
-        // pros::delay(2000);
-        // devices::descore.extend();
-        // chassis.moveToPose(-10, 31, -45, 1500);
-        // chassis.moveToPose(0, 40, -90, int timeout)
     }
+    
     void redRight() {
         chassis.setPose(0, 0, 90);
         keybindActions::intake::load_bot();

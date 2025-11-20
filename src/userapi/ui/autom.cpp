@@ -121,10 +121,4 @@ namespace ui::autom_selector {
         log.info(std::format("Running {}", automModeToString(selected_autom)));
         selected_callback();
     }
-
-    void invert_selected_color() {
-        if (selected_color == AutomColor::RED) {selected_color = AutomColor::BLUE;}
-        else if (selected_color == AutomColor::BLUE) {selected_color = AutomColor::RED;}
-        else {selected_color = AutomColor::COLOR_NONE;}
-    }
 }

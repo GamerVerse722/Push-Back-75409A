@@ -3,14 +3,16 @@
 #include "gamers-forge/proslogger.hpp"
 
 #include "liblvgl/display/lv_display.h"
+#include "pros/misc.hpp"
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 
+#include "userapi/automonous.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/controls/drive.hpp"
+#include "userapi/controls/intake.hpp"
 #include "userapi/ui/autom.hpp"
 #include "userapi/ui/op_control.hpp"
-#include "userapi/automonous.hpp"
 
 using namespace devices;
 
@@ -89,7 +91,11 @@ void autonomous() {
 void opcontrol() {
 	lv_screen_load(ui::autom_selector::autom_screen);
 	// lv_screen_load(ui::driver::driver_screen);
+
 	controls::button_handler.start();
+
+	keybindActions::intake::toggle_invert_mode(false);
+	keybindActions::intake::reset_default_load_speed();
 
 	// Notifies Last 20 second park zone protect
 	pros::Task notifier([](){

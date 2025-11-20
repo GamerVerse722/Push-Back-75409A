@@ -10,6 +10,9 @@
 using namespace devices;
 
 static bool color_sort_enabled = false;
+static bool invert_mode_enabled = false;
+static int default_load_speed = 50;
+static int load_speed = default_load_speed;
 
 static pros::Task color_sort([](){
     while (true) {
@@ -21,14 +24,21 @@ static pros::Task color_sort([](){
 });
 
 namespace keybindActions::intake {
-    int load_speed = 50;
-    
+
     bool valid_ball() {
         pros::c::optical_rgb_s_t color = optical_normalize(devices::opticalSensor.get_rgb());
 
-        if (ui::autom_selector::selected_color == ui::autom_selector::AutomColor::RED && color.red > color.blue) {return true;}
-        else if (ui::autom_selector::selected_color == ui::autom_selector::AutomColor::BLUE && color.red < color.blue) {return true;}
-        else if (ui::autom_selector::selected_color == ui::autom_selector::AutomColor::COLOR_NONE) {return true;}
+        using ui::autom_selector::AutomColor;
+
+        AutomColor local_color = ui::autom_selector::selected_color;
+
+        if (invert_mode_enabled) {
+            local_color = invert_color(ui::autom_selector::selected_color);
+        }
+
+        if (local_color == AutomColor::RED && color.red > color.blue) {return true;}
+        else if (local_color == AutomColor::BLUE && color.red < color.blue) {return true;}
+        else if (local_color == AutomColor::COLOR_NONE) {return true;}
         return false;
     }
 
@@ -40,6 +50,21 @@ namespace keybindActions::intake {
         devices::top_loader.move(0);
     }
 
+    void toggle_invert_mode(bool enabled) {
+        invert_mode_enabled = enabled;
+    }
+
+    ui::autom_selector::AutomColor invert_color(ui::autom_selector::AutomColor color) {
+        using ui::autom_selector::AutomColor;
+
+        switch (color) {
+            case AutomColor::RED: return AutomColor::BLUE;
+            case AutomColor::BLUE: return AutomColor::RED;
+            case AutomColor::COLOR_NONE: return AutomColor::COLOR_NONE;
+            default: return AutomColor::COLOR_NONE;
+        }
+    }
+
     void load_bot() {
         color_sort_enabled = true;
         keybindActions::intake::load_bypass();
@@ -49,14 +74,6 @@ namespace keybindActions::intake {
 
     void score_high() {
         // devices::splitter.extend();
-        devices::top_loader.move(127);
-        devices::intake.move(127);
-        devices::lift.move(127);
-        color_sort_enabled = false;
-    }
-
-    void score_middle() {
-        // devices::splitter.retract();
         devices::top_loader.move(127);
         devices::intake.move(127);
         devices::lift.move(127);
@@ -76,5 +93,13 @@ namespace keybindActions::intake {
         devices::intake.move(0);
         devices::lift.move(0);
         color_sort_enabled = false;
+    }
+
+    void set_load_speed(int speed) {
+        load_speed = speed;
+    }
+
+    void reset_default_load_speed() {
+        load_speed = default_load_speed;
     }
 }
