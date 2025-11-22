@@ -71,7 +71,7 @@ void autonomous() {
 	ui::autom_selector::run_automous();
 	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
 	// autom::redLeft();
-	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
+	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
 	// autom::redRight();
 	// autom::skills();
 }
