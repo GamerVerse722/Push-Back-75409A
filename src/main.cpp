@@ -68,11 +68,11 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	// ui::autom_selector::run_automous();
+	ui::autom_selector::run_automous();
 	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
 	// autom::redLeft();
-	ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
-	autom::redRight();
+	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
+	// autom::redRight();
 }
 
 /**
@@ -89,8 +89,8 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	lv_screen_load(ui::autom_selector::autom_screen);
-	// lv_screen_load(ui::driver::driver_screen);
+	// lv_screen_load(ui::autom_selector::autom_screen);
+	lv_screen_load(ui::driver::driver_screen);
 
 	controls::button_handler.start();
 
