@@ -8,7 +8,11 @@
 using namespace devices;
 
 namespace autom {
-    void skills() {}
+    void skills() {
+        chassis.setPose(0,0,0);
+        chassis.moveToPose(0, 10, 0, 1000);
+        chassis.moveToPose(0, -20, 0, 2000, {.forwards=false, .minSpeed=127});
+    }
 
     void redLeft() {
         //score middle

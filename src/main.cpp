@@ -69,10 +69,11 @@ void competition_initialize() {
  */
 void autonomous() {
 	ui::autom_selector::run_automous();
-	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
+	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
 	// autom::redLeft();
 	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
 	// autom::redRight();
+	// autom::skills();
 }
 
 /**
