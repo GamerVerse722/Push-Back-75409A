@@ -44,7 +44,6 @@ namespace devices{
     extern pros::Motor lift;
 
     extern pros::Optical opticalSensor;
-    extern pros::Distance distanceSensor;
 }
 
 namespace controls {

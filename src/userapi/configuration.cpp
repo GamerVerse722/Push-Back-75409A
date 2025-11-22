@@ -96,7 +96,6 @@ namespace devices {
 
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
-    pros::adi::Pneumatics park(7, false);
     pros::adi::Pneumatics descore(8, false);
 
     pros::Motor top_loader(20);
@@ -104,7 +103,6 @@ namespace devices {
     pros::Motor lift(-18);
 
     pros::Optical opticalSensor(11);
-    pros::Distance distanceSensor(12);
 }
 
 namespace controls {

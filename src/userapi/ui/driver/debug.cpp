@@ -24,7 +24,6 @@ namespace ui::driver::debug {
         std::string pos_str = std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta);
         std::string autom_mode_str = std::format("Automonous Mode: {}", ui::autom_selector::automModeToString(ui::autom_selector::selected_autom));
         std::string color = std::format("Red: {:.2f}, Blue: {:.2f}, Distance: {}", normal_color.red, normal_color.blue, devices::opticalSensor.get_proximity());
-        std::string park = std::format("Park Distance: {}", devices::distanceSensor.get_distance());
-        lv_label_set_text(labelDebug, std::format("{}\n{}\n{}\n{}", pos_str, autom_mode_str, color, park).c_str());
+        lv_label_set_text(labelDebug, std::format("{}\n{}\n{}", pos_str, autom_mode_str, color).c_str());
     }
 }

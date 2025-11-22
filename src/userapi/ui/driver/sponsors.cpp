@@ -6,11 +6,11 @@
 
 #include <vector>
 
-LV_IMAGE_DECLARE(EBA_Automotive_Auto_Repair);
+// LV_IMAGE_DECLARE(EBA_Automotive_Auto_Repair);
 LV_IMAGE_DECLARE(PioneerContainerService);
 
 static std::vector<lv_image_dsc_t> sponsors_list = {
-    EBA_Automotive_Auto_Repair, 
+    // EBA_Automotive_Auto_Repair, 
     PioneerContainerService
 };
 static int currentSponsorIndex = 0;
