@@ -47,7 +47,7 @@ namespace ui::autom_selector {
         log.debug("Registering Buttons");
 
         register_button("Left", 0, 0, AutomMode::RED_LEFT, AutomColor::RED, autom::redLeft);
-        register_button("None", 0, 1, AutomMode::NONE, AutomColor::COLOR_NONE,nullptr);
+        register_button("None", 0, 1, AutomMode::NONE, AutomColor::COLOR_NONE, autom::skills);
         register_button("Right", 0, 2, AutomMode::RED_RIGHT,AutomColor::RED, autom::redRight);
 
         register_button("Right", 1, 0, AutomMode::BLUE_RIGHT,AutomColor::BLUE, autom::redRight);
