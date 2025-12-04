@@ -6,8 +6,8 @@
 #include "userapi/controls/drive.hpp"
 
 namespace devices {
-    pros::MotorGroup right_motors({-13, 2, 3}, pros::MotorGearset::blue);
-    pros::MotorGroup left_motors({4, -5, -6}, pros::MotorGearset::blue);
+    pros::MotorGroup right_motors({-2, 3, 4}, pros::MotorGearset::blue);
+    pros::MotorGroup left_motors({5, -6, -8}, pros::MotorGearset::blue);
 
     pros::Imu imu(8);
 
@@ -98,9 +98,9 @@ namespace devices {
     pros::adi::Pneumatics scraper(6, false);
     pros::adi::Pneumatics descore(8, false);
 
-    pros::Motor top_loader(20);
+    pros::Motor top_loader(15);
     pros::Motor intake(19);
-    pros::Motor lift(-18);
+    pros::Motor lift(-18); // Unused
 
     pros::Optical opticalSensor(11);
 }
