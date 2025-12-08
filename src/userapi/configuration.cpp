@@ -100,7 +100,7 @@ namespace devices {
 
     pros::Motor top_loader(15);
     pros::Motor intake(19);
-    pros::Motor lift(18);
+    pros::Motor lift(-18);
 
     pros::Optical opticalSensor(11);
 }
