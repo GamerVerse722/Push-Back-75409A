@@ -24,7 +24,6 @@ static pros::Task color_sort([](){
 });
 
 namespace keybindActions::intake {
-
     bool valid_ball() {
         pros::c::optical_rgb_s_t color = optical_normalize(devices::opticalSensor.get_rgb());
 
@@ -68,30 +67,24 @@ namespace keybindActions::intake {
     void load_bot() {
         color_sort_enabled = true;
         keybindActions::intake::load_bypass();
-        devices::intake.move(127);
-        devices::lift.move(127);
+        devices::loader_motors.move(127);
     }
 
     void score_high() {
-        // devices::splitter.extend();
         devices::top_loader.move(127);
-        devices::intake.move(127);
-        devices::lift.move(127);
+        devices::loader_motors.move(127);
         color_sort_enabled = false;
     }
 
     void score_low() {
-        // devices::splitter.extend();
         devices::top_loader.move(-127);
-        devices::intake.move(-127);
-        devices::lift.move(-127);
+        devices::loader_motors.move(-127);
         color_sort_enabled = false;
     }
 
     void stop() {
         devices::top_loader.move(0);
-        devices::intake.move(0);
-        devices::lift.move(0);
+        devices::loader_motors.move(0);
         color_sort_enabled = false;
     }
 

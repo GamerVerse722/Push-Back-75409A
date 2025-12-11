@@ -6,7 +6,6 @@
 #include "gamers-forge/bmapper.hpp"
 
 #include "pros/motor_group.hpp"
-#include "pros/distance.hpp"
 #include "pros/optical.hpp"
 #include "pros/misc.hpp"
 #include "pros/adi.hpp"
@@ -39,9 +38,8 @@ namespace devices{
     extern pros::adi::Pneumatics scraper;
     extern pros::adi::Pneumatics descore;
 
+    extern pros::MotorGroup loader_motors;
     extern pros::Motor top_loader;
-    extern pros::Motor intake;
-    extern pros::Motor lift;
 
     extern pros::Optical opticalSensor;
 }

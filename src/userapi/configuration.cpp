@@ -1,7 +1,5 @@
 #include "userapi/configuration.hpp"
 
-#include "pros/adi.hpp"
-#include "pros/misc.h"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
@@ -98,9 +96,11 @@ namespace devices {
     pros::adi::Pneumatics scraper(6, false);
     pros::adi::Pneumatics descore(8, false);
 
+    pros::MotorGroup loader_motors({-18, 19});
+
     pros::Motor top_loader(15);
-    pros::Motor intake(19);
-    pros::Motor lift(-18);
+    // pros::Motor intake(19);
+    // pros::Motor lift(-18);
 
     pros::Optical opticalSensor(11);
 }
