@@ -127,13 +127,13 @@ namespace ui::autom::handler {
                 log.warn("Attempted to select AutomMode::NONE");
                 return;
             }
-            
+
             log.debug(std::format("Selected {} {}", automModeToString(mode), automPositionColorToString(side_color)));
         }
     }
 
     void run_automous() {
-        if (active_callback == nullptr) {
+        if (active_callback) {
             log.warn(std::format("Automous mode {} has no callback", automModeToString(active_mode)));
             return;
         }
