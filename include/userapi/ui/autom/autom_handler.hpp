@@ -38,6 +38,8 @@ namespace ui::autom::handler {
     AutomPosition    get_position_from_side_color(AutomSideColor sc);
     AutomColor       get_color_from_side_color(AutomSideColor sc);
     std::string_view automModeToString(AutomMode mode);
+    std::string_view automColorToString(AutomColor color);
+    std::string_view automPositionToString(AutomPosition pos);
     std::string_view automPositionColorToString(AutomSideColor sc);
 
     

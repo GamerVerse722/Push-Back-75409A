@@ -48,5 +48,4 @@ namespace ui::autom_selector {
     void register_button(std::string text, int col, int row, AutomMode mode, AutomColor color, callback_method callback);
 
     void run_automous();
-    void invert_selected_color();
 }

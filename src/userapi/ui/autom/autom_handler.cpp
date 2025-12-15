@@ -1,14 +1,13 @@
 #include "userapi/ui/autom/autom_handler.hpp"
 
-#include "gamers-forge/proslogger.hpp"
-
 #include <cstddef>
 #include <format>
 #include <string_view>
 
+#include "gamers-forge/proslogger.hpp"
+
 namespace ui::autom::handler {
     static PROSLogger::Logger log{"Autom Handler"};
-
 
     // Fixed size callback arrays
     static std::array<callback_method, 5> qualification_methods {};
@@ -64,6 +63,24 @@ namespace ui::autom::handler {
             case AutomMode::ELIMINATIONS: return "Eliminations";
             case AutomMode::SKILLS: return "Skills";
             case AutomMode::NONE: return "None";
+            default: return "Unknown";
+        }
+    }
+
+    std::string_view automColorToString(AutomColor color) {
+        switch (color) {
+            case AutomColor::RED: return "Red";
+            case AutomColor::BLUE: return "Blue";
+            case AutomColor::COLOR_NONE: return "None";
+            default: return "Unknown";
+        }
+    }
+
+    std::string_view automPositionToString(AutomPosition pos) {
+        switch (pos) {
+            case AutomPosition::LEFT: return "Left";
+            case AutomPosition::RIGHT: return "Right";
+            case AutomPosition::NO_POSITION: return "None";
             default: return "Unknown";
         }
     }
