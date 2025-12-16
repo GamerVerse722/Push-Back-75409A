@@ -12,6 +12,8 @@
 #include "userapi/controls/drive.hpp"
 #include "userapi/controls/intake.hpp"
 #include "userapi/ui/autom.hpp"
+#include "userapi/ui/autom/autom_mode.hpp"
+#include "userapi/ui/autom/autom_selector.hpp"
 #include "userapi/ui/op_control.hpp"
 
 using namespace devices;
@@ -30,7 +32,9 @@ void initialize() {
 	controls::configure();
 	
 	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
-	ui::autom_selector::initialize();
+	// ui::autom_selector::initialize();
+	ui::autom::mode_selector::initialize();
+	ui::autom::location_selector::initialize();
 	ui::driver::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
@@ -91,7 +95,8 @@ void autonomous() {
  */
 void opcontrol() {
 	// lv_screen_load(ui::autom_selector::autom_screen);
-	lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::autom::mode_selector::selector);
+	// lv_screen_load(ui::driver::driver_screen);
 
 	controls::button_handler.start();
 

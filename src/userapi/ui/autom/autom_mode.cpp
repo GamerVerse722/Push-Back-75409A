@@ -1,5 +1,6 @@
 #include "userapi/ui/autom/autom_mode.hpp"
 
+#include "gamers-forge/proslogger.hpp"
 #include "liblvgl/misc/lv_event.h"
 #include "liblvgl/misc/lv_palette.h"
 #include "liblvgl/widgets/button/lv_button.h"
@@ -9,10 +10,14 @@
 #include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/ui/autom/autom_selector.hpp"
 #include "userapi/ui/op_control.hpp"
+#include <format>
 
 
 namespace ui::autom::mode_selector {
+    PROSLogger::Logger log{"AutonomousModeSelector"};
+
     void initialize() {
+        log.info("Initializing Autonomous Mode Selector Screen");
         lv_obj_set_size(selector, 480, 240);
         lv_obj_center(selector);
 
@@ -29,6 +34,8 @@ namespace ui::autom::mode_selector {
         register_button(AutomMode::ELIMINATIONS, 1);
         register_button(AutomMode::SKILLS, 2);
         register_button(AutomMode::NONE, 3);
+
+        log.info("Finished initialize of Autonomous Mode Selector Screen");
     }
     
     void register_button(AutomMode mode, int row) {
@@ -41,10 +48,9 @@ namespace ui::autom::mode_selector {
         
         // Style Button
         lv_color_t bg_color;
-        switch (((int) mode) % 3) {
-            case 0: bg_color = lv_color_white();
-            case 1: bg_color = lv_palette_main(LV_PALETTE_RED);
-            case 2: bg_color = lv_palette_main(LV_PALETTE_BLUE);
+        switch (mode % 2) {
+            case 0: {bg_color = lv_palette_main(LV_PALETTE_RED); break;}
+            case 1: {bg_color = lv_palette_main(LV_PALETTE_BLUE); break;}
         }
 
         lv_obj_set_style_bg_color(btn, bg_color, LV_PART_MAIN);
@@ -53,7 +59,7 @@ namespace ui::autom::mode_selector {
 
         // Buton Label
         lv_obj_t* label = lv_label_create(btn);
-        lv_label_set_text(label, "Button");
+        lv_label_set_text(label, automModeToString(mode).data());
         lv_obj_set_style_text_color(label, lv_color_black(), LV_PART_MAIN);
 
         // Set Font Style
@@ -64,6 +70,8 @@ namespace ui::autom::mode_selector {
 
         // Add Callback
         lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)mode);
+
+        log.debug(std::format("Registered {0} Button", automModeToString(mode)));
     }
 
     void button_event_handler(lv_event_t* e) {
@@ -91,5 +99,7 @@ namespace ui::autom::mode_selector {
             }
             break;
         }
+
+        log.info(std::format("{0} button was selected", automModeToString(mode)));
     }
 }

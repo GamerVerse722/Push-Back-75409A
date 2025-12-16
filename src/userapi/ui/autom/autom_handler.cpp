@@ -145,7 +145,7 @@ namespace ui::autom::handler {
                 return;
             }
 
-            log.debug(std::format("Selected {} {}", automModeToString(mode), automPositionColorToString(side_color)));
+            log.info(std::format("Selected {} {}", automModeToString(mode), automPositionColorToString(side_color)));
         }
     }
 
