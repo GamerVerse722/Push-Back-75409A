@@ -89,12 +89,12 @@ namespace ui::autom::mode_selector {
             }
             case AutomMode::SKILLS: {
                 handler::select_autom(AutomMode::SKILLS, AutomSideColor::NO_COLOR_AND_POSITION);
-                lv_screen_load(ui::driver::driver_screen);
+                lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
                 break;
             }
             case AutomMode::NONE: {
                 handler::select_autom(AutomMode::NONE, AutomSideColor::NO_COLOR_AND_POSITION);
-                lv_screen_load(ui::driver::driver_screen);
+                lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
                 break;
             }
             break;
