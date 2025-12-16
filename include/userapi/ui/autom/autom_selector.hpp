@@ -12,4 +12,8 @@ namespace ui::autom::location_selector {
     inline AutomMode active_mode = AutomMode::NONE;
 
     void initialize();
+
+    void register_button(AutomSideColor color, int col, int row);
+
+    void button_event_handler(lv_event_t* e);
 }

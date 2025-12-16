@@ -1,5 +1,6 @@
 #include "userapi/ui/autom/autom_selector.hpp"
 
+#include "liblvgl/misc/lv_event.h"
 #include "liblvgl/widgets/button/lv_button.h"
 #include "liblvgl/widgets/label/lv_label.h"
 #include "liblvgl/display/lv_display.h"
@@ -25,6 +26,11 @@ namespace ui::autom::location_selector {
         static int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
         lv_obj_set_grid_dsc_array(selector, col_dsc, row_dsc);
         lv_obj_set_layout(selector, LV_LAYOUT_GRID);
+
+        register_button(AutomSideColor::RED_LEFT, 0, 0);
+        register_button(AutomSideColor::RED_RIGHT, 0, 1);
+        register_button(AutomSideColor::BLUE_RIGHT, 1, 0);
+        register_button(AutomSideColor::BLUE_LEFT, 1, 1);
     }
 
     void register_button(AutomSideColor color, int col, int row) {
@@ -58,7 +64,7 @@ namespace ui::autom::location_selector {
         lv_obj_add_style(label, &label_style, LV_PART_MAIN);
 
         // Add Callback
-        // lv_obj_add_event_cb();
+        lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)color);
     }
 
     void button_event_handler(lv_event_t* e) {
