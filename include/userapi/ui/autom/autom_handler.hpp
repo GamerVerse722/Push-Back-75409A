@@ -33,6 +33,12 @@ namespace ui::autom::handler {
 
     using callback_method = std::function<void()>;
 
+    extern AutomMode active_mode;
+    extern AutomSideColor active_side;
+    extern AutomPosition active_position;
+    extern AutomColor active_color;
+    extern callback_method active_callback;
+
     // Helper Methods
     AutomSideColor   get_side_color(AutomSideColor color, AutomPosition pos);
     AutomPosition    get_position_from_side_color(AutomSideColor sc);

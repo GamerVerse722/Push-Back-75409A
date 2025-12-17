@@ -1,12 +1,14 @@
 #pragma once
 
-#include "userapi/ui/autom.hpp"
+#include "userapi/ui/autom/autom_handler.hpp"
+
+using namespace ui::autom::handler;
 
 namespace keybindActions::intake {
     bool valid_ball();
     void load_bypass();
     void toggle_invert_mode(bool enabled);
-    ui::autom_selector::AutomColor invert_color(ui::autom_selector::AutomColor color);
+    AutomColor invert_color(AutomColor color);
 
     void park_activation();
     void park();

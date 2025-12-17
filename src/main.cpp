@@ -26,7 +26,7 @@ using namespace devices;
  */
 void initialize() {
 	chassis.calibrate();
-	devices::chassis.setPose(0, 0, 90);
+	devices::chassis.setPose(0, 0, 0);
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();

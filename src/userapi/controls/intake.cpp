@@ -5,9 +5,10 @@
 
 #include "userapi/handler/optical_normalize.hpp"
 #include "userapi/configuration.hpp"
-#include "userapi/ui/autom.hpp"
+#include "userapi/ui/autom/autom_handler.hpp"
 
 using namespace devices;
+using namespace ui::autom::handler;
 
 static bool color_sort_enabled = false;
 static bool invert_mode_enabled = false;
@@ -27,12 +28,10 @@ namespace keybindActions::intake {
     bool valid_ball() {
         pros::c::optical_rgb_s_t color = optical_normalize(devices::opticalSensor.get_rgb());
 
-        using ui::autom_selector::AutomColor;
-
-        AutomColor local_color = ui::autom_selector::selected_color;
+        AutomColor local_color = active_color;
 
         if (invert_mode_enabled) {
-            local_color = invert_color(ui::autom_selector::selected_color);
+            local_color = invert_color(local_color);
         }
 
         if (local_color == AutomColor::RED && color.red > color.blue) {return true;}
@@ -53,9 +52,7 @@ namespace keybindActions::intake {
         invert_mode_enabled = enabled;
     }
 
-    ui::autom_selector::AutomColor invert_color(ui::autom_selector::AutomColor color) {
-        using ui::autom_selector::AutomColor;
-
+    AutomColor invert_color(AutomColor color) {
         switch (color) {
             case AutomColor::RED: return AutomColor::BLUE;
             case AutomColor::BLUE: return AutomColor::RED;

@@ -15,11 +15,11 @@ namespace ui::autom::handler {
     static callback_method skills_callback {nullptr};
 
     // Current Selection
-    static AutomMode active_mode = AutomMode::NONE;
-    static AutomSideColor active_side = AutomSideColor::NO_COLOR_AND_POSITION;
-    static AutomPosition active_position = AutomPosition::NO_POSITION;
-    static AutomColor active_color = AutomColor::COLOR_NONE;
-    static callback_method active_callback = nullptr;
+    AutomMode active_mode = AutomMode::NONE;
+    AutomSideColor active_side = AutomSideColor::NO_COLOR_AND_POSITION;
+    AutomPosition active_position = AutomPosition::NO_POSITION;
+    AutomColor active_color = AutomColor::COLOR_NONE;
+    callback_method active_callback = nullptr;
 
     // Helper Conversion
     AutomSideColor get_side_color(AutomColor color, AutomPosition pos) {
