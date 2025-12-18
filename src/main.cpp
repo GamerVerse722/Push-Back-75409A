@@ -14,7 +14,6 @@
 #include "userapi/controls/drive.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/ui/op_control.hpp"
-#include "userapi/automonous.hpp"
 
 
 using namespace devices;
@@ -31,9 +30,7 @@ void initialize() {
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	controls::configure();
-	
-	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
-	// ui::autom_selector::initialize();
+
 	ui::autom::mode_selector::initialize();
 	ui::autom::location_selector::initialize();
 	ui::driver::initialize();

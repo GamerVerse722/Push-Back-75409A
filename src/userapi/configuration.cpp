@@ -1,5 +1,7 @@
 #include "userapi/configuration.hpp"
 
+#include "pros/misc.h"
+#include "ui/autom/autom_handler.hpp"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
@@ -7,21 +9,7 @@ namespace devices {
     pros::MotorGroup right_motors({-2, 3, 4}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({5, -6, -8}, pros::MotorGearset::blue);
 
-    pros::Imu imu(8);
-
-    pros::adi::Encoder vertical_encoder('A', 'B', true);
-    pros::adi::Encoder horizontal_encoder('C', 'D');
-
-    lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, -0.78125);
-    lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, -4.25);
-
-    // lemlib::OdomSensors sensors(
-    //     &vertical_tracking_wheel,
-    //     nullptr,
-    //     &horizontal_tracking_wheel,
-    //     nullptr,
-    //     &imu
-    // );
+    pros::Imu imu(9);
 
     lemlib::OdomSensors sensors(
         nullptr,
@@ -166,5 +154,11 @@ namespace controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Score")
             .onPress(intake::score_high);
+
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_DOWN, pros::E_CONTROLLER_DIGITAL_LEFT)
+            .setCategory("Testing")
+            .onPress([&](){
+                run_automous();
+            });
     }
 } 

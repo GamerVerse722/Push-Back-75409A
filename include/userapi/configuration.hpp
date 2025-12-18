@@ -1,6 +1,5 @@
 #pragma once
 
-#include "lemlib/chassis/trackingWheel.hpp"
 #include "lemlib/chassis/chassis.hpp"
 
 #include "gamers-forge/bmapper.hpp"
@@ -16,12 +15,6 @@ namespace devices{
     extern pros::MotorGroup right_motors;
 
     extern pros::Imu imu;
-
-    extern pros::adi::Encoder vertical_encoder;
-    extern pros::adi::Encoder horizontal_encoder;
-
-    extern lemlib::TrackingWheel vertical_tracking_wheel;
-    extern lemlib::TrackingWheel horizontal_tracking_wheel;
 
     extern lemlib::OdomSensors sensors;
 
