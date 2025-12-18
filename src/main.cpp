@@ -11,7 +11,7 @@
 #include "userapi/configuration.hpp"
 #include "userapi/controls/drive.hpp"
 #include "userapi/controls/intake.hpp"
-#include "userapi/ui/autom.hpp"
+#include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/ui/autom/autom_mode.hpp"
 #include "userapi/ui/autom/autom_selector.hpp"
 #include "userapi/ui/op_control.hpp"
@@ -57,7 +57,7 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-	lv_screen_load(ui::autom_selector::autom_screen);
+	lv_screen_load(ui::autom::mode_selector::selector);
 }
 
 /**
@@ -72,7 +72,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	ui::autom_selector::run_automous();
+	ui::autom::handler::run_automous();
 	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
 	// autom::redLeft();
 	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
