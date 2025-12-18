@@ -1,4 +1,4 @@
-#include "userapi/ui/autom/autom_selector.hpp"
+#include "userapi/ui/autom/location_selector.hpp"
 
 #include "gamers-forge/proslogger.hpp"
 #include "liblvgl/core/lv_obj_pos.h"
@@ -21,17 +21,17 @@ namespace ui::autom::location_selector {
 
     void initialize() {
         log.info("Initializing Autonomous Location Selector Screen");
-        lv_obj_set_size(selector, 480, 240);
-        lv_obj_center(selector);
+        lv_obj_set_size(location_screen, 480, 240);
+        lv_obj_center(location_screen);
 
-        lv_obj_set_style_pad_all(selector, 0, 0);
-        lv_obj_set_style_pad_gap(selector, 2, 0);
-        lv_obj_set_style_border_width(selector, 0, 0);
+        lv_obj_set_style_pad_all(location_screen, 0, 0);
+        lv_obj_set_style_pad_gap(location_screen, 2, 0);
+        lv_obj_set_style_border_width(location_screen, 0, 0);
 
         static int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
         static int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-        lv_obj_set_grid_dsc_array(selector, col_dsc, row_dsc);
-        lv_obj_set_layout(selector, LV_LAYOUT_GRID);
+        lv_obj_set_grid_dsc_array(location_screen, col_dsc, row_dsc);
+        lv_obj_set_layout(location_screen, LV_LAYOUT_GRID);
 
         register_button(AutomSideColor::RED_LEFT, 0, 0);
         register_button(AutomSideColor::RED_RIGHT, 0, 1);
@@ -44,7 +44,7 @@ namespace ui::autom::location_selector {
     void register_button(AutomSideColor color, int col, int row) {
         AutomColor autom_color = get_color_from_side_color(color);
 
-        lv_obj_t* btn = lv_button_create(selector);
+        lv_obj_t* btn = lv_button_create(location_screen);
         lv_obj_set_grid_cell(
             btn,
             LV_GRID_ALIGN_STRETCH, col, 1,

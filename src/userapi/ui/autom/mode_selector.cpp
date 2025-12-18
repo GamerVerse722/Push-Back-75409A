@@ -1,4 +1,4 @@
-#include "userapi/ui/autom/autom_mode.hpp"
+#include "userapi/ui/autom/mode_selector.hpp"
 
 #include "gamers-forge/proslogger.hpp"
 #include "liblvgl/misc/lv_event.h"
@@ -8,8 +8,9 @@
 #include "liblvgl/display/lv_display.h"
 
 #include "userapi/ui/autom/autom_handler.hpp"
-#include "userapi/ui/autom/autom_selector.hpp"
+#include "userapi/ui/autom/location_selector.hpp"
 #include "userapi/ui/op_control.hpp"
+
 #include <format>
 
 
@@ -18,17 +19,17 @@ namespace ui::autom::mode_selector {
 
     void initialize() {
         log.info("Initializing Autonomous Mode Selector Screen");
-        lv_obj_set_size(selector, 480, 240);
-        lv_obj_center(selector);
+        lv_obj_set_size(mode_screen, 480, 240);
+        lv_obj_center(mode_screen);
 
-        lv_obj_set_style_pad_all(selector, 0, 0);
-        lv_obj_set_style_pad_gap(selector, 2, 0);
-        lv_obj_set_style_border_width(selector, 0, 0);
+        lv_obj_set_style_pad_all(mode_screen, 0, 0);
+        lv_obj_set_style_pad_gap(mode_screen, 2, 0);
+        lv_obj_set_style_border_width(mode_screen, 0, 0);
 
         static int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
         static int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-        lv_obj_set_grid_dsc_array(selector, col_dsc, row_dsc);
-        lv_obj_set_layout(selector, LV_LAYOUT_GRID);
+        lv_obj_set_grid_dsc_array(mode_screen, col_dsc, row_dsc);
+        lv_obj_set_layout(mode_screen, LV_LAYOUT_GRID);
 
         register_button(AutomMode::QUALIFICATIONS, 0);
         register_button(AutomMode::ELIMINATIONS, 1);
@@ -39,7 +40,7 @@ namespace ui::autom::mode_selector {
     }
     
     void register_button(AutomMode mode, int row) {
-        lv_obj_t* btn = lv_button_create(selector);
+        lv_obj_t* btn = lv_button_create(mode_screen);
         lv_obj_set_grid_cell(
             btn,
             LV_GRID_ALIGN_STRETCH, 0, 1,
@@ -79,12 +80,12 @@ namespace ui::autom::mode_selector {
         switch (mode) {
             case AutomMode::QUALIFICATIONS: {
                 location_selector::active_mode = AutomMode::QUALIFICATIONS;
-                lv_screen_load(location_selector::selector);
+                lv_screen_load(location_selector::location_screen);
                 break;
             }
             case AutomMode::ELIMINATIONS: {
                 location_selector::active_mode = AutomMode::ELIMINATIONS;
-                lv_screen_load(location_selector::selector);
+                lv_screen_load(location_selector::location_screen);
                 break;
             }
             case AutomMode::SKILLS: {

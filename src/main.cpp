@@ -7,14 +7,15 @@
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 
-#include "userapi/automonous.hpp"
-#include "userapi/configuration.hpp"
-#include "userapi/controls/drive.hpp"
-#include "userapi/controls/intake.hpp"
+#include "userapi/ui/autom/location_selector.hpp"
 #include "userapi/ui/autom/autom_handler.hpp"
-#include "userapi/ui/autom/autom_mode.hpp"
-#include "userapi/ui/autom/autom_selector.hpp"
+#include "userapi/ui/autom/mode_selector.hpp"
+#include "userapi/controls/intake.hpp"
+#include "userapi/controls/drive.hpp"
+#include "userapi/configuration.hpp"
 #include "userapi/ui/op_control.hpp"
+#include "userapi/automonous.hpp"
+
 
 using namespace devices;
 
@@ -57,7 +58,7 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-	lv_screen_load(ui::autom::mode_selector::selector);
+	lv_screen_load(ui::autom::mode_selector::mode_screen);
 }
 
 /**
@@ -94,8 +95,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	// lv_screen_load(ui::autom_selector::autom_screen);
-	lv_screen_load(ui::autom::mode_selector::selector);
+	lv_screen_load(ui::autom::mode_selector::mode_screen);
 	// lv_screen_load(ui::driver::driver_screen);
 
 	controls::button_handler.start();
