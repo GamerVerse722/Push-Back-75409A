@@ -3,11 +3,11 @@
 #include "liblvgl/widgets/tabview/lv_tabview.h"
 #include "liblvgl/core/lv_obj.h"
 
-#include "driver/sponsors.hpp"
-#include "driver/keybinds.hpp"
-#include "driver/debug.hpp"
-#include "driver/ports.hpp"
-// #include "driver/logs.hpp"
+#include "userapi/ui/driver/sponsors.hpp"
+#include "userapi/ui/driver/keybinds.hpp"
+#include "userapi/ui/driver/debug.hpp"
+#include "userapi/ui/driver/ports.hpp"
+// #include "userapi/ui/driver/logs.hpp"
 
 namespace ui::driver {
     lv_obj_t* driver_screen = lv_obj_create(NULL);

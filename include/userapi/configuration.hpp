@@ -37,8 +37,12 @@ namespace devices{
     extern pros::Optical opticalSensor;
 }
 
-namespace controls {
+namespace configuration::controls {
     extern BMapper::ButtonHandler button_handler;
 
+    void configure();
+}
+
+namespace configuration::autonomous {
     void configure();
 }

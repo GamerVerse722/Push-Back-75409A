@@ -5,6 +5,10 @@
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
+#include "userapi/ui/autom/autom_handler.hpp"
+#include "userapi/ui/autom/mode_selector.hpp"
+#include "userapi/ui/autom/location_selector.hpp"
+
 namespace devices {
     pros::MotorGroup right_motors({-2, 3, 4}, pros::MotorGearset::blue);
     pros::MotorGroup left_motors({5, -6, -8}, pros::MotorGearset::blue);
@@ -91,7 +95,7 @@ namespace devices {
     pros::Optical opticalSensor(11);
 }
 
-namespace controls {
+namespace configuration::controls {
     BMapper::ButtonHandler button_handler(devices::controller);
 
     void configure() {
@@ -162,3 +166,24 @@ namespace controls {
             });
     }
 } 
+
+namespace configuration::autonomous {
+    void configure() {
+        using namespace ui::autom;
+
+        location_selector::initialize();
+        mode_selector::initialize();
+
+        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
+        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
+        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
+        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
+
+        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
+        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
+        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
+        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
+
+        handler::register_callback_method(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, nullptr);
+    }
+}

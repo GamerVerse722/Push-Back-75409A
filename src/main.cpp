@@ -29,7 +29,7 @@ void initialize() {
 	devices::chassis.setPose(0, 0, 0);
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
-	controls::configure();
+	configuration::controls::configure();
 
 	ui::autom::mode_selector::initialize();
 	ui::autom::location_selector::initialize();
@@ -95,7 +95,7 @@ void opcontrol() {
 	lv_screen_load(ui::autom::mode_selector::mode_screen);
 	// lv_screen_load(ui::driver::driver_screen);
 
-	controls::button_handler.start();
+	configuration::controls::button_handler.start();
 
 	keybindActions::intake::toggle_invert_mode(false);
 	keybindActions::intake::reset_default_load_speed();
