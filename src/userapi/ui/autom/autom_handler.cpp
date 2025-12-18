@@ -150,7 +150,7 @@ namespace ui::autom::handler {
     }
 
     void run_automous() {
-        if (active_callback) {
+        if (active_callback==nullptr) {
             log.warn(std::format("Automous mode {} has no callback", automModeToString(active_mode)));
             return;
         }
