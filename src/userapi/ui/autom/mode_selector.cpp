@@ -60,7 +60,7 @@ namespace ui::autom::mode_selector {
 
         // Buton Label
         lv_obj_t* label = lv_label_create(btn);
-        lv_label_set_text(label, automModeToString(mode).data());
+        lv_label_set_text(label, convert::to_string(mode).data());
         lv_obj_set_style_text_color(label, lv_color_black(), LV_PART_MAIN);
 
         // Set Font Style
@@ -72,7 +72,7 @@ namespace ui::autom::mode_selector {
         // Add Callback
         lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)mode);
 
-        log.debug(std::format("Registered {0} Button", automModeToString(mode)));
+        log.debug(std::format("Registered {0} Button", convert::to_string(mode)));
     }
 
     void button_event_handler(lv_event_t* e) {
@@ -101,6 +101,6 @@ namespace ui::autom::mode_selector {
             break;
         }
 
-        log.info(std::format("{0} button was selected", automModeToString(mode)));
+        log.info(std::format("{0} button was selected", convert::to_string(mode)));
     }
 }

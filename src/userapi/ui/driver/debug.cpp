@@ -26,9 +26,9 @@ namespace ui::driver::debug {
         std::string pos_str = std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta);
 
         std::string autom_mode_str = std::format("Mode: {0}, Color: {1}, Side: {2}", 
-            handler::automModeToString(handler::active_mode),
-            handler::automColorToString(handler::active_color),
-            handler::automPositionToString(handler::active_position)
+            convert::to_string(handler::current_mode),
+            convert::to_string(handler::current_color),
+            convert::to_string(handler::current_position)
         );
 
         std::string color = std::format("Red: {:.2f}, Blue: {:.2f}, Distance: {}", normal_color.red, normal_color.blue, devices::opticalSensor.get_proximity());

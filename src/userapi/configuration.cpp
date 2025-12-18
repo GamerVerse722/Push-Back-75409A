@@ -162,7 +162,7 @@ namespace configuration::controls {
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_DOWN, pros::E_CONTROLLER_DIGITAL_LEFT)
             .setCategory("Testing")
             .onPress([&](){
-                run_automous();
+                run_autom();
             });
     }
 } 
@@ -174,16 +174,16 @@ namespace configuration::autonomous {
         location_selector::initialize();
         mode_selector::initialize();
 
-        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
-        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
-        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
-        handler::register_callback_method(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
 
-        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
-        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
-        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
-        handler::register_callback_method(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
+        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
+        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
+        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
+        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
 
-        handler::register_callback_method(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, nullptr);
+        handler::register_autom(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, nullptr);
     }
 }

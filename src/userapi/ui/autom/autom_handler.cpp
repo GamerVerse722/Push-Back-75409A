@@ -15,89 +15,14 @@ namespace ui::autom::handler {
     static callback_method skills_callback {nullptr};
 
     // Current Selection
-    AutomMode active_mode = AutomMode::NONE;
-    AutomSideColor active_side = AutomSideColor::NO_COLOR_AND_POSITION;
-    AutomPosition active_position = AutomPosition::NO_POSITION;
-    AutomColor active_color = AutomColor::COLOR_NONE;
-    callback_method active_callback = nullptr;
+    AutomMode current_mode = AutomMode::NONE;
+    AutomSideColor current_side = AutomSideColor::NO_COLOR_AND_POSITION;
+    AutomPosition current_position = AutomPosition::NO_POSITION;
+    AutomColor current_color = AutomColor::COLOR_NONE;
+    callback_method current_autom = nullptr;
 
-    // Helper Conversion
-    AutomSideColor get_side_color(AutomColor color, AutomPosition pos) {
-        switch (color) {
-            case AutomColor::RED: return (pos == AutomPosition::LEFT) ? AutomSideColor::RED_LEFT : AutomSideColor::RED_RIGHT;
-            case AutomColor::BLUE: return (pos == AutomPosition::LEFT) ? AutomSideColor::BLUE_LEFT : AutomSideColor::BLUE_RIGHT;
-            case AutomColor::COLOR_NONE: return AutomSideColor::NO_COLOR_AND_POSITION;
-            default: return AutomSideColor::NO_COLOR_AND_POSITION;
-        }
-    }
-
-    AutomPosition get_position_from_side_color(AutomSideColor sc) {
-        switch (sc) {
-            case AutomSideColor::RED_LEFT:
-            case AutomSideColor::BLUE_LEFT: return AutomPosition::LEFT;
-
-            case AutomSideColor::RED_RIGHT:
-            case AutomSideColor::BLUE_RIGHT: return AutomPosition::RIGHT;
-
-            case AutomSideColor::NO_COLOR_AND_POSITION: return AutomPosition::NO_POSITION;
-            default: return AutomPosition::NO_POSITION;
-        }
-    }
-
-    AutomColor get_color_from_side_color(AutomSideColor sc) {
-        switch (sc) {
-            case AutomSideColor::RED_LEFT:
-            case AutomSideColor::RED_RIGHT: return AutomColor::RED;
-
-            case AutomSideColor::BLUE_LEFT:
-            case AutomSideColor::BLUE_RIGHT: return AutomColor::BLUE;
-
-            case AutomSideColor::NO_COLOR_AND_POSITION: return AutomColor::COLOR_NONE;
-            default: return AutomColor::COLOR_NONE;
-        }
-    }
-
-    std::string_view automModeToString(AutomMode mode) {
-        switch (mode) {
-            case AutomMode::QUALIFICATIONS: return "Qualifications";
-            case AutomMode::ELIMINATIONS: return "Eliminations";
-            case AutomMode::SKILLS: return "Skills";
-            case AutomMode::NONE: return "None";
-            default: return "Unknown";
-        }
-    }
-
-    std::string_view automColorToString(AutomColor color) {
-        switch (color) {
-            case AutomColor::RED: return "Red";
-            case AutomColor::BLUE: return "Blue";
-            case AutomColor::COLOR_NONE: return "None";
-            default: return "Unknown";
-        }
-    }
-
-    std::string_view automPositionToString(AutomPosition pos) {
-        switch (pos) {
-            case AutomPosition::LEFT: return "Left";
-            case AutomPosition::RIGHT: return "Right";
-            case AutomPosition::NO_POSITION: return "None";
-            default: return "Unknown";
-        }
-    }
-
-    std::string_view automPositionColorToString(AutomSideColor sc) {
-        switch (sc) {
-            case AutomSideColor::RED_LEFT: return "Red Left";
-            case AutomSideColor::RED_RIGHT: return "Red Right";
-            case AutomSideColor::BLUE_LEFT: return "Blue Left";
-            case AutomSideColor::BLUE_RIGHT: return "Blue Right";
-            case AutomSideColor::NO_COLOR_AND_POSITION: return "None";
-            default: return "Unknown";
-        }
-    }
-
-    void register_callback_method(AutomMode mode, AutomColor color, AutomPosition position, callback_method callback) {
-        AutomSideColor side_color = get_side_color(color, position);
+    void register_autom(AutomMode mode, AutomColor color, AutomPosition position, callback_method callback) {
+        AutomSideColor side_color = convert::to_side_color(color, position);
         size_t index = static_cast<size_t>(side_color);
 
         switch (mode) {
@@ -128,33 +53,120 @@ namespace ui::autom::handler {
     }
 
     void select_autom(AutomMode mode, AutomSideColor side_color) {
-        active_mode = mode;
-        active_side = side_color;
-        active_position = get_position_from_side_color(side_color);
-        active_color = get_color_from_side_color(side_color);
+        current_mode = mode;
+        current_side = side_color;
+        current_position = convert::side_color_to_position(side_color);
+        current_color = convert::side_color_to_color(side_color);
 
         size_t index = static_cast<size_t>(side_color);
         switch (mode) {
-            case AutomMode::QUALIFICATIONS: active_callback = qualification_methods[index]; break;
-            case AutomMode::ELIMINATIONS: active_callback = elimination_methods[index]; break;
-            case AutomMode::SKILLS: active_callback = skills_callback; break;
-            default: active_callback = nullptr; break;
+            case AutomMode::QUALIFICATIONS: current_autom = qualification_methods[index]; break;
+            case AutomMode::ELIMINATIONS: current_autom = elimination_methods[index]; break;
+            case AutomMode::SKILLS: current_autom = skills_callback; break;
+            default: current_autom = nullptr; break;
 
-            if (!active_callback) {
-                log.warn("Attempted to select AutomMode::NONE");
+            if (!current_autom) {
+                log.warn(std::format("No auton registered for {} {}",
+                    convert::to_string(mode),
+                    convert::to_string(side_color)
+                ));
                 return;
             }
 
-            log.info(std::format("Selected {} {}", automModeToString(mode), automPositionColorToString(side_color)));
+            log.info(std::format("Selected {} {}", 
+                convert::to_string(mode), 
+                convert::to_string(side_color)
+            ));
         }
     }
 
-    void run_automous() {
-        if (active_callback==nullptr) {
-            log.warn(std::format("Automous mode {} has no callback", automModeToString(active_mode)));
+    void run_autom() {
+        if (current_autom==nullptr) {
+            log.warn(std::format("Automous mode {} has no callback", convert::to_string(current_mode)));
             return;
         }
-        log.info(std::format("Running {}", automModeToString(active_mode)));
-        active_callback();
+        log.info(std::format("Running {} {}", 
+            convert::to_string(current_mode),
+            convert::to_string(current_side)
+        ));
+        current_autom();
+    }
+}
+
+namespace convert {
+    using namespace ui::autom::handler;
+
+    AutomSideColor to_side_color(AutomColor color, AutomPosition pos) {
+        switch (color) {
+            case AutomColor::RED: return (pos == AutomPosition::LEFT) ? AutomSideColor::RED_LEFT : AutomSideColor::RED_RIGHT;
+            case AutomColor::BLUE: return (pos == AutomPosition::LEFT) ? AutomSideColor::BLUE_LEFT : AutomSideColor::BLUE_RIGHT;
+            case AutomColor::COLOR_NONE: return AutomSideColor::NO_COLOR_AND_POSITION;
+            default: return AutomSideColor::NO_COLOR_AND_POSITION;
+        }
+    }
+
+    AutomColor side_color_to_color(AutomSideColor sc) {
+        switch (sc) {
+            case AutomSideColor::RED_LEFT:
+            case AutomSideColor::RED_RIGHT: return AutomColor::RED;
+
+            case AutomSideColor::BLUE_LEFT:
+            case AutomSideColor::BLUE_RIGHT: return AutomColor::BLUE;
+
+            case AutomSideColor::NO_COLOR_AND_POSITION: return AutomColor::COLOR_NONE;
+            default: return AutomColor::COLOR_NONE;
+        }
+    }
+
+    AutomPosition side_color_to_position(AutomSideColor sc) {
+        switch (sc) {
+            case AutomSideColor::RED_LEFT:
+            case AutomSideColor::BLUE_LEFT: return AutomPosition::LEFT;
+
+            case AutomSideColor::RED_RIGHT:
+            case AutomSideColor::BLUE_RIGHT: return AutomPosition::RIGHT;
+
+            case AutomSideColor::NO_COLOR_AND_POSITION: return AutomPosition::NO_POSITION;
+            default: return AutomPosition::NO_POSITION;
+        }
+    }
+
+    std::string_view to_string(AutomMode mode) {
+        switch (mode) {
+            case AutomMode::QUALIFICATIONS: return "Qualifications";
+            case AutomMode::ELIMINATIONS: return "Eliminations";
+            case AutomMode::SKILLS: return "Skills";
+            case AutomMode::NONE: return "None";
+            default: return "Unknown";
+        }
+    }
+
+    std::string_view to_string(AutomColor color) {
+        switch (color) {
+            case AutomColor::RED: return "Red";
+            case AutomColor::BLUE: return "Blue";
+            case AutomColor::COLOR_NONE: return "None";
+            default: return "Unknown";
+        }
+    }
+
+    std::string_view to_string(AutomPosition pos) {
+        switch (pos) {
+            case AutomPosition::LEFT: return "Left";
+            case AutomPosition::RIGHT: return "Right";
+            case AutomPosition::NO_POSITION: return "None";
+            default: return "Unknown";
+        }
+    }
+
+    std::string_view to_string(AutomSideColor sc) {
+        switch (sc) {
+            case AutomSideColor::RED_LEFT: return "Red Left";
+            case AutomSideColor::RED_RIGHT: return "Red Right";
+            case AutomSideColor::BLUE_LEFT: return "Blue Left";
+            case AutomSideColor::BLUE_RIGHT: return "Blue Right";
+            case AutomSideColor::NO_COLOR_AND_POSITION: return "None";
+            default: return "Unknown";
+        }
     }
 }

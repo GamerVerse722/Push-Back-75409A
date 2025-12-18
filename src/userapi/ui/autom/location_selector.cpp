@@ -42,7 +42,7 @@ namespace ui::autom::location_selector {
     }
 
     void register_button(AutomSideColor color, int col, int row) {
-        AutomColor autom_color = get_color_from_side_color(color);
+        AutomColor autom_color = convert::side_color_to_color(color);
 
         lv_obj_t* btn = lv_button_create(location_screen);
         lv_obj_set_grid_cell(
@@ -62,7 +62,7 @@ namespace ui::autom::location_selector {
 
         // Buton Label
         lv_obj_t* label = lv_label_create(btn);
-        lv_label_set_text(label, automPositionToString(get_position_from_side_color(color)).data());
+        lv_label_set_text(label, convert::to_string(convert::side_color_to_position(color)).data());
         lv_obj_set_style_text_color(label, lv_color_black(), LV_PART_MAIN);
 
         // Set Font Style
@@ -76,7 +76,7 @@ namespace ui::autom::location_selector {
         // Add Callback
         lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)color);
 
-        log.debug(std::format("Registered button for color: {}", automColorToString(autom_color)));
+        log.debug(std::format("Registered button for color: {}", convert::to_string(autom_color)));
     }
 
     void button_event_handler(lv_event_t* e) {
@@ -85,6 +85,6 @@ namespace ui::autom::location_selector {
 
         lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
 
-        log.info(std::format("{} {} {} button was selected", automModeToString(active_mode), automPositionToString(get_position_from_side_color(side_color)), automColorToString(get_color_from_side_color(side_color))));
+        log.info(std::format("{} {} {} button was selected", convert::to_string(active_mode), convert::to_string(convert::side_color_to_position(side_color)), convert::to_string(convert::side_color_to_color(side_color))));
     }
 }

@@ -28,7 +28,7 @@ namespace keybindActions::intake {
     bool valid_ball() {
         pros::c::optical_rgb_s_t color = optical_normalize(devices::opticalSensor.get_rgb());
 
-        AutomColor local_color = active_color;
+        AutomColor local_color = current_color;
 
         if (invert_mode_enabled) {
             local_color = invert_color(local_color);
