@@ -1,5 +1,6 @@
 #include "userapi/configuration.hpp"
 
+#include "automonous.hpp"
 #include "pros/misc.h"
 #include "ui/autom/autom_handler.hpp"
 #include "userapi/controls/intake.hpp"
@@ -34,6 +35,7 @@ namespace devices {
     //     500, // large error range timeout, in milliseconds
     //     20 // maximum acceleration (slew)
     // );
+
     lemlib::ControllerSettings lateral_controller(12, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               35, // derivative gain (kD)
@@ -57,6 +59,7 @@ namespace devices {
     //     500, // large error range timeout, in milliseconds
     //     0 // maximum acceleration (slew)
     // );
+
     lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               10, // derivative gain (kD)
@@ -174,10 +177,10 @@ namespace configuration::autonomous {
         location_selector::initialize();
         mode_selector::initialize();
 
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, nullptr);
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, nullptr);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Qualifications::left);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Qualifications::right);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Qualifications::left);
+        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Qualifications::right);
 
         handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, nullptr);
         handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, nullptr);

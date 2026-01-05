@@ -1,9 +1,11 @@
 #pragma once
 
-namespace autom {
-    void redLeft();
-    void redRight();
-    void blueLeft();
-    void blueRight();
-    void skills();
+namespace autom::Qualifications {
+    void left();
+    void right();
+}
+
+namespace autom::Eliminations {
+    void left();
+    void right();
 }
