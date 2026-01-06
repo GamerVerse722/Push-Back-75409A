@@ -52,7 +52,8 @@ void disabled() {}
  * starts.
  */
 void competition_initialize() {
-	lv_screen_load(ui::autom::mode_selector::mode_screen);
+	// lv_screen_load(ui::autom::mode_selector::mode_screen);
+	lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
@@ -86,7 +87,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	lv_screen_load(ui::autom::mode_selector::mode_screen);
+	// lv_screen_load(ui::autom::mode_selector::mode_screen);
 	// lv_screen_load(ui::driver::driver_screen);
 
 	configuration::controls::button_handler.start();

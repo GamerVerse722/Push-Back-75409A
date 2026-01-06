@@ -10,11 +10,12 @@ using namespace devices;
 namespace autom::Qualifications {
     void left() {
         chassis.setPose(0, 0, 0);
-
+        chassis.moveToPoint(0, 24, 10000);
+        // chassis.moveToPose(0, 24, 0, 10000);
     }
     void right() {
         chassis.setPose(0, 0, 0);
-        
+
     }
 }
 
