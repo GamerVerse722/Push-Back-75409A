@@ -14,7 +14,7 @@ namespace autom::Qualifications {
     }
     void right() {
         chassis.setPose(0, 0, 0);
-
+        
     }
 }
 
@@ -25,6 +25,6 @@ namespace autom::Eliminations {
     }
     void right() {
         chassis.setPose(0, 0, 0);
-        
+
     }
 }

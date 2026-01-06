@@ -70,12 +70,9 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	ui::autom::handler::run_autom();
-	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::RED;
-	// autom::redLeft();
-	// ui::autom_selector::selected_color = ui::autom_selector::AutomColor::BLUE;
-	// autom::redRight();
-	// autom::skills();
+	using namespace ui::autom;
+	handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_LEFT);
+	handler::run_autom();
 }
 
 /**
