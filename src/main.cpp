@@ -7,7 +7,6 @@
 #include "pros/rtos.hpp"
 #include "pros/misc.h"
 
-#include "userapi/ui/autom/location_selector.hpp"
 #include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/ui/autom/mode_selector.hpp"
 #include "userapi/controls/intake.hpp"
@@ -30,9 +29,7 @@ void initialize() {
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 	configuration::controls::configure();
-
-	ui::autom::mode_selector::initialize();
-	ui::autom::location_selector::initialize();
+	configuration::autonomous::configure();
 	ui::driver::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
