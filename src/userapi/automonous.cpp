@@ -15,6 +15,10 @@ namespace autom::Qualifications {
     }
     void right() {
         chassis.setPose(0, 0, 0);
+        //keybindActions::intake::load_bot();
+        //chassis.moveToPose(10, 30, 25, 3000);
+        chassis.turnToHeading(90, 100000); //testing PID tuning
+        
 
     }
 }

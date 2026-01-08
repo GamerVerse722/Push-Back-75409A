@@ -32,8 +32,6 @@ void initialize() {
 	ui::driver::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
-
-	lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
@@ -54,7 +52,7 @@ void disabled() {}
  */
 void competition_initialize() {
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	// lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
@@ -70,7 +68,7 @@ void competition_initialize() {
  */
 void autonomous() {
 	using namespace ui::autom;
-	handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_LEFT);
+	handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_RIGHT);
 	handler::run_autom();
 }
 
@@ -89,7 +87,7 @@ void autonomous() {
  */
 void opcontrol() {
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	// lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::driver::driver_screen);
 
 	configuration::controls::button_handler.start();
 
