@@ -8,7 +8,6 @@
 #include "pros/misc.h"
 
 #include "userapi/ui/autom/autom_handler.hpp"
-#include "userapi/ui/autom/mode_selector.hpp"
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 #include "userapi/configuration.hpp"
@@ -33,6 +32,8 @@ void initialize() {
 	ui::driver::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
+
+	lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
@@ -53,7 +54,7 @@ void disabled() {}
  */
 void competition_initialize() {
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	lv_screen_load(ui::driver::driver_screen);
+	// lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
