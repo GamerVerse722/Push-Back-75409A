@@ -1,5 +1,7 @@
 #include "userapi/configuration.hpp"
 
+#include "EZ-Template/drive/drive.hpp"
+#include "EZ-Template/util.hpp"
 #include "automonous.hpp"
 #include "pros/misc.h"
 #include "ui/autom/autom_handler.hpp"
@@ -11,59 +13,25 @@
 #include "userapi/ui/autom/location_selector.hpp"
 
 namespace devices {
-    pros::MotorGroup right_motors({-2, 3, 4}, pros::MotorGearset::blue);
-    pros::MotorGroup left_motors({5, -6, -8}, pros::MotorGearset::blue);
+    ez::Drive chassis(
+        // These are your drive motors, the first motor is used for sensing!
+        {5, -6, -8},     // Left Chassis Ports (negative port will reverse it!)
+        {-2, 3, 4},  // Right Chassis Ports (negative port will reverse it!)
 
-    pros::Imu imu(9);
-
-    lemlib::OdomSensors sensors(
-        nullptr,
-        nullptr,
-        nullptr,
-        nullptr,
-        &imu
-    );
-
-    // lateral PID controller
-    lemlib::ControllerSettings lateral_controller(12, // proportional gain (kP)
-                                              0, // integral gain (kI)
-                                              15, // derivative gain (kD)
-                                              0, // anti windup
-                                              1, // small error range, in inches
-                                              100, // small error range timeout, in milliseconds
-                                              3, // large error range, in inches
-                                              500, // large error range timeout, in milliseconds
-                                              20 // maximum acceleration (slew)
-    );
+        9,      // IMU Port
+        3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
+        360);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
 
-    // angular PID controller
-    lemlib::ControllerSettings angular_controller(8, // proportional gain (kP)
-                                              0, // integral gain (kI)
-                                              55, // derivative gain (kD)
-                                              3, // anti windup
-                                              1, // small error range, in inches
-                                              100, // small error range timeout, in milliseconds
-                                              3, // large error range, in inches
-                                              500, // large error range timeout, in milliseconds
-                                              0 // maximum acceleration (slew)
-    );
+    // lemlib::Drivetrain drivetrain(&left_motors, // left motor group
+    //     &right_motors, // right motor group
+    //     12, // 10 inch track width
+    //     lemlib::Omniwheel::NEW_325, // using new 4" omnis
+    //     360, // drivetrain rpm is 360
+    //     8 // horizontal drift is 2 (for now)
+    // );
 
-    lemlib::Drivetrain drivetrain(&left_motors, // left motor group
-        &right_motors, // right motor group
-        12, // 10 inch track width
-        lemlib::Omniwheel::NEW_325, // using new 4" omnis
-        505, // drivetrain rpm is 360
-        8 // horizontal drift is 2 (for now)
-    );
-
-    lemlib::Chassis chassis(drivetrain, // drivetrain settings
-        lateral_controller, // lateral PID settings
-        angular_controller, // angular PID settings
-        sensors // odometry sensors
-    );
-
-    pros::Controller controller(pros::E_CONTROLLER_MASTER);
+    // pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
@@ -76,8 +44,59 @@ namespace devices {
     pros::Optical opticalSensor(11);
 }
 
+namespace configuration::drive {
+    using namespace devices;
+
+    void default_constants() {
+        // P, I, D, and Start I
+        chassis.pid_drive_constants_set(20.0, 0.0, 100.0);         // fwd/rev constants, used for odom and non odom motions
+        chassis.pid_heading_constants_set(11.0, 0.0, 20.0);        // Holds the robot straight while going forward without odom
+        chassis.pid_turn_constants_set(3.0, 0.05, 20.0, 15.0);     // Turn in place constants
+        chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
+        chassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
+        chassis.pid_odom_boomerang_constants_set(5.8, 0.0, 32.5);  // Angular control for boomerang motions
+
+        // Exit conditions
+        chassis.pid_turn_exit_condition_set(90_ms, 3_deg, 250_ms, 7_deg, 500_ms, 500_ms);
+        chassis.pid_swing_exit_condition_set(90_ms, 3_deg, 250_ms, 7_deg, 500_ms, 500_ms);
+        chassis.pid_drive_exit_condition_set(90_ms, 1_in, 250_ms, 3_in, 500_ms, 500_ms);
+        chassis.pid_odom_turn_exit_condition_set(90_ms, 3_deg, 250_ms, 7_deg, 500_ms, 750_ms);
+        chassis.pid_odom_drive_exit_condition_set(90_ms, 1_in, 250_ms, 3_in, 500_ms, 750_ms);
+        chassis.pid_turn_chain_constant_set(3_deg);
+        chassis.pid_swing_chain_constant_set(5_deg);
+        chassis.pid_drive_chain_constant_set(3_in);
+
+        // Slew constants
+        chassis.slew_turn_constants_set(3_deg, 70);
+        chassis.slew_drive_constants_set(3_in, 70);
+        chassis.slew_swing_constants_set(3_in, 80);
+
+        // The amount that turns are prioritized over driving in odom motions
+        // - if you have tracking wheels, you can run this higher.  1.0 is the max
+        chassis.odom_turn_bias_set(0.9);
+
+        chassis.odom_look_ahead_set(7_in);           // This is how far ahead in the path the robot looks at
+        chassis.odom_boomerang_distance_set(16_in);  // This sets the maximum distance away from target that the carrot point can be
+        chassis.odom_boomerang_dlead_set(0.625);     // This handles how aggressive the end of boomerang motions are
+
+        chassis.pid_angle_behavior_set(ez::shortest);  // Changes the default behavior for turning, this defaults it to the shortest path there
+    }
+
+    void initialize() {
+        // Configure your chassis controls
+        chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
+        chassis.opcontrol_drive_activebrake_set(0.0);   // Sets the active brake kP. We recommend ~2.  0 will disable.
+        chassis.opcontrol_curve_default_set(0.0, 0.0);  // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
+
+        default_constants();
+
+        chassis.initialize();
+        master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
+    }
+}
+
 namespace configuration::controls {
-    BMapper::ButtonHandler button_handler(devices::controller);
+    BMapper::ButtonHandler button_handler(master);
 
     void configure() {
         using pros::controller_digital_e_t;
@@ -86,7 +105,7 @@ namespace configuration::controls {
         // Drive
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_A, pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Drive")
-            .onPress(drive::toggle_arcade);
+            .onPress(keybindActions::drive::toggle_arcade);
 
         // Scrapper
         button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)

@@ -5,7 +5,6 @@
 #include "liblvgl/display/lv_display.h"
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
-#include "pros/misc.h"
 
 #include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/controls/intake.hpp"
@@ -23,13 +22,19 @@ using namespace devices;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	chassis.calibrate();
-	devices::chassis.setPose(0, 0, 0);
+	// chassis.calibrate();
+	// devices::chassis.setPose(0, 0, 0);
+	ez::ez_template_print();
+
+	pros::delay(500);
 	
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
+	
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	ui::driver::initialize();
+	
+	configuration::drive::initialize();
 
 	devices::opticalSensor.set_led_pwm(100);
 }
@@ -52,7 +57,7 @@ void disabled() {}
  */
 void competition_initialize() {
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	lv_screen_load(ui::driver::driver_screen);
+	// lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
@@ -97,16 +102,17 @@ void opcontrol() {
 	// Notifies Last 20 second park zone protect
 	pros::Task notifier([](){
 		pros::delay(75*1000);
-		devices::controller.rumble("---");
+		master.rumble("---");
 		pros::delay(10*1000);
-		devices::controller.rumble("-...-");
+		master.rumble("-...-");
 	});
 
 	while (true) {
+		// chassis.opcontrol_tank();
 		if (keybindActions::drive::is_arcade() == true) {
-			chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+			chassis.opcontrol_arcade_standard(ez::SPLIT);
 		} else {
-			chassis.tank(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
+			chassis.opcontrol_tank();
 		}
 		pros::delay(10);
 	}

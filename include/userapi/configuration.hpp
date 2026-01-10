@@ -1,31 +1,21 @@
 #pragma once
 
-#include "lemlib/chassis/chassis.hpp"
+// #include "lemlib/chassis/chassis.hpp"
+
+#include "EZ-Template/drive/drive.hpp"
 
 #include "gamers-forge/bmapper.hpp"
 
+// #include "pros/imu.hpp"
 #include "pros/motor_group.hpp"
 #include "pros/optical.hpp"
-#include "pros/misc.hpp"
 #include "pros/adi.hpp"
 
 
-namespace devices{
-    extern pros::MotorGroup left_motors;
-    extern pros::MotorGroup right_motors;
+namespace devices {
+    extern ez::Drive chassis;
 
-    extern pros::Imu imu;
-
-    extern lemlib::OdomSensors sensors;
-
-    extern lemlib::ControllerSettings lateral_controller;
-    extern lemlib::ControllerSettings angular_controller;
-
-    extern lemlib::Drivetrain drivetrain;
-
-    extern lemlib::Chassis chassis;
-
-    extern pros::Controller controller;
+    // extern pros::Controller controller;
 
     extern pros::adi::Pneumatics splitter;
     extern pros::adi::Pneumatics scraper;
@@ -35,6 +25,11 @@ namespace devices{
     extern pros::Motor top_loader;
 
     extern pros::Optical opticalSensor;
+}
+
+namespace configuration::drive {
+    void default_constants();
+    void initialize();
 }
 
 namespace configuration::controls {

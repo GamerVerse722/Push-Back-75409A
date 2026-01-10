@@ -3,8 +3,6 @@
 #include "liblvgl/widgets/label/lv_label.h"
 #include "liblvgl/misc/lv_timer.h"
 
-#include "lemlib/pose.hpp"
-
 #include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/handler/optical_normalize.hpp"
 #include "userapi/configuration.hpp"
@@ -20,7 +18,7 @@ namespace ui::driver::debug {
     }
 
     void debug_timer(lv_timer_t* timer) {
-        lemlib::Pose pose = devices::chassis.getPose();
+        ez::pose pose = devices::chassis.odom_pose_get();
         pros::c::optical_rgb_s_t normal_color = optical_normalize(devices::opticalSensor.get_rgb());
 
         std::string pos_str = std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta);
