@@ -1,5 +1,6 @@
 #include "main.h"
 
+#include "EZ-Template/util.hpp"
 #include "gamers-forge/proslogger.hpp"
 
 #include "liblvgl/display/lv_display.h"
@@ -22,19 +23,17 @@ using namespace devices;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	// chassis.calibrate();
-	// devices::chassis.setPose(0, 0, 0);
-	ez::ez_template_print();
+	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 
 	pros::delay(500);
-	
-	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
-	
-	configuration::controls::configure();
-	configuration::autonomous::configure();
+
 	ui::driver::initialize();
 	
 	configuration::drive::initialize();
+	configuration::controls::configure();
+	configuration::autonomous::configure();
+	
+	ui::autom::handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_LEFT);
 
 	devices::opticalSensor.set_led_pwm(100);
 }
@@ -71,9 +70,10 @@ void competition_initialize() {
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {
+ void autonomous() {
 	using namespace ui::autom;
-	handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_RIGHT);
+
+	handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_LEFT);
 	handler::run_autom();
 }
 
@@ -98,6 +98,7 @@ void opcontrol() {
 
 	keybindActions::intake::toggle_invert_mode(false);
 	keybindActions::intake::reset_default_load_speed();
+	chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
 	// Notifies Last 20 second park zone protect
 	pros::Task notifier([](){
@@ -114,6 +115,6 @@ void opcontrol() {
 		} else {
 			chassis.opcontrol_tank();
 		}
-		pros::delay(10);
+		pros::delay(ez::util::DELAY_TIME);
 	}
 }
