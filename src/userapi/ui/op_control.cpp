@@ -25,9 +25,9 @@ namespace ui::driver {
         lv_obj_set_style_text_color(tab_btns, lv_color_hex(0xffffff), 0);
 
         // Create Tabs
+        lv_obj_t* tabDebug = lv_tabview_add_tab(tabview, "Debug");
         lv_obj_t* tabSponsors = lv_tabview_add_tab(tabview, "Sponsors");
         // lv_obj_t* tabLogs = lv_tabview_add_tab(tabview, "Logs");
-        lv_obj_t* tabDebug = lv_tabview_add_tab(tabview, "Debug");
         lv_obj_t* tabKeybinds = lv_tabview_add_tab(tabview, "Keybinds");
         lv_obj_t* tabPorts = lv_tabview_add_tab(tabview, "Ports");
 

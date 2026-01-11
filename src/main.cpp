@@ -56,7 +56,7 @@ void disabled() {}
  */
 void competition_initialize() {
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	// lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::driver::driver_screen);
 }
 
 /**
@@ -73,6 +73,8 @@ void competition_initialize() {
  void autonomous() {
 	using namespace ui::autom;
 
+	pros::delay(100);
+	lv_screen_load(ui::driver::driver_screen);
 	handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_LEFT);
 	handler::run_autom();
 }
