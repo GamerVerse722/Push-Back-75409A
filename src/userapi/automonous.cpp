@@ -71,5 +71,17 @@ namespace autom::Eliminations {
         intake::score_high();
     }
     void right() {
+        reset_pos();
+        splitter.extend();
+        intake::load_bot();
+        chassis.pid_odom_set({{0_in, 20_in}, fwd, 70});
+        chassis.pid_turn_set(25_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_odom_set({{6_in, 28_in}, fwd, 70});
+
+        chassis.pid_wait();
+
+        //chassis.pid_turn_set(-125_deg, 127);
+        //chassis.pid_wait();
     }
 }

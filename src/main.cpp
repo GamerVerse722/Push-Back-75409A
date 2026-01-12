@@ -75,7 +75,7 @@ void competition_initialize() {
  void autonomous() {
 	using namespace ui::autom;
 	lv_screen_load(ui::driver::driver_screen);
-	ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_LEFT);
+	ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_RIGHT);
 	handler::run_autom();
 }
 
