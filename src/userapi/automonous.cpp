@@ -6,6 +6,7 @@
 #include "userapi/controls/intake.hpp"
 
 using namespace devices;
+using namespace keybindActions;
 using namespace ez;
 
 const int DRIVE_SPEED = 127;
@@ -23,23 +24,23 @@ void reset_pos() {
 namespace autom::Qualifications {
     void left() {
         reset_pos();
-        chassis.pid_odom_set({{0_in, 24_in, 0_deg}, forward, 127});
-        chassis.pid_wait();
+        // chassis.pid_odom_set({{0_in, 24_in, 0_deg}, forward, 127});
+        // chassis.pid_wait();
 
-        chassis.pid_odom_set({{16_in, 0_in, 0_deg}, reverse, 127});
-        chassis.pid_wait();
+        // chassis.pid_odom_set({{16_in, 0_in, 0_deg}, reverse, 127});
+        // chassis.pid_wait();
 
-        chassis.pid_odom_set({{16_in, 8_in}, forward, 127});
-        chassis.pid_wait_quick();
-        chassis.pid_turn_set(-90_deg, 127);
-        chassis.pid_wait_quick();
+        // chassis.pid_odom_set({{16_in, 8_in}, forward, 127});
+        // chassis.pid_wait_quick();
+        // chassis.pid_turn_set(-90_deg, 127);
+        // chassis.pid_wait_quick();
 
-        chassis.pid_odom_set({{0_in, 8_in}, forward, 127});
-        chassis.pid_wait_quick();
-        chassis.pid_turn_set(-180, 127);
-        chassis.pid_wait_quick();
-        chassis.pid_odom_set({{0_in, 0_in}, forward, 127});
-        chassis.pid_wait_quick();
+        // chassis.pid_odom_set({{0_in, 8_in}, forward, 127});
+        // chassis.pid_wait_quick();
+        // chassis.pid_turn_set(-180, 127);
+        // chassis.pid_wait_quick();
+        // chassis.pid_odom_set({{0_in, 0_in}, forward, 127});
+        // chassis.pid_wait_quick();
     }
     void right() {
     }
@@ -47,6 +48,27 @@ namespace autom::Qualifications {
 
 namespace autom::Eliminations {
     void left() {
+        reset_pos();
+        intake::load_bot();
+        chassis.pid_odom_set({{0_in, 24_in, -45_deg}, forward, 127});
+        chassis.pid_wait();
+
+        chassis.pid_turn_set(-125_deg, 127);
+        chassis.pid_wait();
+
+        chassis.pid_odom_set({
+            {{-20_in, 10_in}, forward, 127},
+            {{-24_in, -10_in, -180_deg}, forward, 127}
+        }, true);
+        chassis.pid_wait_until_index(1);
+        scraper.extend();
+        chassis.pid_wait();
+        pros::delay(1000);
+
+        chassis.pid_odom_set({{-24_in, 24_in, -180_deg}, reverse, 127});
+        chassis.pid_wait();
+
+        intake::score_high();
     }
     void right() {
     }
