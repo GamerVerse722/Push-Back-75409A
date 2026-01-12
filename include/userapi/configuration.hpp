@@ -14,9 +14,7 @@
 
 namespace devices {
     extern ez::Drive chassis;
-
-    // extern pros::Controller controller;
-
+    
     extern pros::adi::Pneumatics splitter;
     extern pros::adi::Pneumatics scraper;
     extern pros::adi::Pneumatics descore;

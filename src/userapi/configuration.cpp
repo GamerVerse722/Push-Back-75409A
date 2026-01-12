@@ -22,17 +22,6 @@ namespace devices {
         3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
         360);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
-
-    // lemlib::Drivetrain drivetrain(&left_motors, // left motor group
-    //     &right_motors, // right motor group
-    //     12, // 10 inch track width
-    //     lemlib::Omniwheel::NEW_325, // using new 4" omnis
-    //     360, // drivetrain rpm is 360
-    //     8 // horizontal drift is 2 (for now)
-    // );
-
-    // pros::Controller controller(pros::E_CONTROLLER_MASTER);
-
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
     pros::adi::Pneumatics descore(8, false);
@@ -50,7 +39,7 @@ namespace configuration::drive {
     void default_constants() {
         // P, I, D, and Start I
         // chassis.pid_drive_constants_set(20.0, 0.0, 100.0);         // fwd/rev constants, used for odom and non odom motions
-        chassis.pid_drive_constants_forward_set(20.0, 0.0, 100.0);
+        chassis.pid_drive_constants_forward_set(18.0, 0.0, 100.0);
         chassis.pid_drive_constants_backward_set(20.0, 0.0, 100.0);
 
         chassis.pid_heading_constants_set(11.0, 0.0, 20.0);        // Holds the robot straight while going forward without odom
