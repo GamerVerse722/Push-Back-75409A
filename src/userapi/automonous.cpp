@@ -101,7 +101,9 @@ namespace autom::Eliminations {
 
         chassis.pid_turn_set(-225_deg, 127);
         scraper.extend();
-        chassis.pid_odom_set({{22_in, -12_in, 180_deg}, forward, 127});
-        chassis.pid_wait();
+        chassis.pid_odom_set({{28_in, -13.5_in, 175_deg}, forward, 127});
+       chassis.pid_wait_quick();
+        chassis.pid_drive_set(2_in, 127);
+        
     }
 }
