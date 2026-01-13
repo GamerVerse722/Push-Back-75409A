@@ -1,11 +1,8 @@
 ## Installation
 
-- LemLib
-    ```
-    pros c add-depot LemLib https://raw.githubusercontent.com/LemLib/LemLib/depot/stable.json
-    pros c apply LemLib
-    ```
+- EZ-Template
 
 
 # Resources
 - [LVGL Image Converter](https://lvgl.io/tools/imageconverter)
+- [Ez-Template Docs](https://ez-robotics.github.io/EZ-Template/)
