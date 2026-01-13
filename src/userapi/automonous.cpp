@@ -74,14 +74,16 @@ namespace autom::Eliminations {
         reset_pos();
         splitter.extend();
         intake::load_bot();
-        chassis.pid_odom_set({{0_in, 20_in}, fwd, 70});
-        chassis.pid_turn_set(25_deg, 127);
+        chassis.pid_odom_set({{0_in, 18_in}, fwd, 70});
+        chassis.pid_turn_set(33_deg, 127);
         chassis.pid_wait();
-        chassis.pid_odom_set({{6_in, 28_in}, fwd, 70});
+        chassis.pid_odom_set({{7_in, 28_in}, fwd, 50});
+        pros::delay(2500);
 
+
+        chassis.pid_turn_set(-225_deg, 127);
+        scraper.extend();
+        chassis.pid_odom_set({{22_in, -12_in, 180_deg}, forward, 127});
         chassis.pid_wait();
-
-        //chassis.pid_turn_set(-125_deg, 127);
-        //chassis.pid_wait();
     }
 }
