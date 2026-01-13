@@ -50,25 +50,43 @@ namespace autom::Eliminations {
     void left() {
         reset_pos();
         intake::load_bot();
-        chassis.pid_odom_set({{0_in, 24_in, -45_deg}, forward, 127});
+        splitter.extend();
+        chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 80});
+        chassis.pid_wait_until(18);
+        scraper.extend();
         chassis.pid_wait();
-
+        
         chassis.pid_turn_set(-125_deg, 127);
         chassis.pid_wait();
 
         chassis.pid_odom_set({
             {{-20_in, 10_in}, forward, 127},
-            {{-24_in, -10_in, -180_deg}, forward, 127}
+            {{-32_in, -5_in, -180_deg}, forward, 127}
         }, true);
-        chassis.pid_wait_until_index(1);
-        scraper.extend();
+        chassis.pid_wait_quick();
+        chassis.pid_drive_set(30_in, 127);
+        
+        pros::delay(250);
+        chassis.pid_drive_set(-1_in, 127);
         chassis.pid_wait();
+        chassis.pid_drive_set(1_in, 127);
+        chassis.pid_wait();
+        pros::delay(1500);
+
+        chassis.pid_drive_set(-28_in, 127);
+        // chassis.pid_odom_set({{-32_in, 20_in, -180_deg}, reverse, 127});
+        chassis.pid_wait_until(3_in);
+        scraper.retract();
+        intake::score_low();
+        pros::delay(250);
+        intake::load_bot();
+        chassis.pid_wait_quick();
+
+        intake::toggle_invert_mode(true);
+        intake::set_load_speed(127);
+        intake::load_bot();
         pros::delay(1000);
-
-        chassis.pid_odom_set({{-24_in, 24_in, -180_deg}, reverse, 127});
-        chassis.pid_wait();
-
-        intake::score_high();
+        intake::set_load_speed(100);
     }
     void right() {
         reset_pos();
