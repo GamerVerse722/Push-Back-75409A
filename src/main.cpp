@@ -34,7 +34,7 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_LEFT);
+	// ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
 
 	devices::opticalSensor.set_led_pwm(100);
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
@@ -75,7 +75,7 @@ void competition_initialize() {
  void autonomous() {
 	using namespace ui::autom;
 	lv_screen_load(ui::driver::driver_screen);
-	ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_RIGHT);
+	ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
 	handler::run_autom();
 }
 

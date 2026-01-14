@@ -95,12 +95,12 @@ namespace configuration::controls {
         using namespace keybindActions;
 
         // Drive
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_A, pros::E_CONTROLLER_DIGITAL_B)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_A, pros::E_CONTROLLER_DIGITAL_Y)
             .setCategory("Drive")
             .onPress(keybindActions::drive::toggle_arcade);
 
         // Scrapper
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_UP)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_B)
             .setCategory("Scrapper")
             .onPress([]() -> void {
                 devices::scraper.toggle();
@@ -127,7 +127,7 @@ namespace configuration::controls {
             .onPress(intake::load_bot)
             .onRelease(intake::stop);
 
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_B)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L1, pros::E_CONTROLLER_DIGITAL_Y)
             .setCategory("Load")
             .onPress(intake::load_bot);
 
@@ -137,7 +137,7 @@ namespace configuration::controls {
             .onPress(intake::score_low)
             .onRelease(intake::stop);
 
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_B)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R1, pros::E_CONTROLLER_DIGITAL_Y)
             .setCategory("Score")
             .onPress(intake::score_low);
 
@@ -146,15 +146,9 @@ namespace configuration::controls {
             .onPress(intake::score_high)
             .onRelease(intake::stop);
 
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_B)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_R2, pros::E_CONTROLLER_DIGITAL_Y)
             .setCategory("Score")
             .onPress(intake::score_high);
-
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_DOWN, pros::E_CONTROLLER_DIGITAL_LEFT)
-            .setCategory("Testing")
-            .onPress([&](){
-                run_autom();
-            });
     }
 } 
 

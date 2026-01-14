@@ -42,6 +42,7 @@ namespace autom::Qualifications {
         // chassis.pid_odom_set({{0_in, 0_in}, forward, 127});
         // chassis.pid_wait_quick();
     }
+
     void right() {
     }
 }
@@ -73,7 +74,7 @@ namespace autom::Eliminations {
         // chassis.pid_wait();
         pros::delay(2000);
 
-        chassis.pid_drive_set(-28_in, 127);
+        chassis.pid_drive_set(-31_in, 127);
         // chassis.pid_odom_set({{-32_in, 20_in, -180_deg}, reverse, 127});
         chassis.pid_wait_until(3_in);
         scraper.retract();
