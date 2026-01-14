@@ -22,10 +22,10 @@ namespace ui::driver::keybinds {
         lv_obj_set_style_bg_color(keybindsList, lv_color_hex(0x000000), LV_PART_MAIN);
 
         create_category("Drive");
-        create_row("X", "Changes the Driving Modes.");
+        create_row("Y-A", "Changes the Driving Modes.");
 
         create_category("Scrapper");
-        create_row("U", "Toggle the scrapper.");
+        create_row("B", "Toggle the scrapper.");
 
         create_category("Splitter");
         create_row("X", "Toggle Splitter up and down.");
@@ -35,13 +35,13 @@ namespace ui::driver::keybinds {
 
         create_category("Load");
         create_row("L1", "Loads balls without scoring.");
-        create_row("B-L1", "Toggle loads balls without scoring.");
+        create_row("Y-L1", "Toggle loads balls without scoring.");
 
         create_category("Score");
         create_row("R1", "Moves balls into low score.");
-        create_row("B-R1", "Toggle move balls into low score.");
+        create_row("Y-R1", "Toggle move balls into low score.");
         create_row("R2", "Moves balls into high/middle score.");
-        create_row("B-R2", "Toggle moves balls into high/middle score.");
+        create_row("Y-R2", "Toggle moves balls into high/middle score.");
     }
 
     void create_category(std::string category) {

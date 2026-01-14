@@ -22,28 +22,28 @@ namespace ui::driver::ports {
         lv_obj_set_style_bg_color(portsList, lv_color_hex(0x000000), LV_PART_MAIN);
 
         create_category("Drivetrain");
-        create_row(-1, "Motor", "Left Motor Group");
-        create_row(2, "Motor", "Left Motor Group");
-        create_row(3, "Motor", "Left Motor Group");
+        create_row(5, "Motor", "Left Motor Group");
+        create_row(-6, "Motor", "Left Motor Group");
+        create_row(-8, "Motor", "Left Motor Group");
+        create_row(-2, "Motor", "Right Motor Group");
+        create_row(3, "Motor", "Right Motor Group");
         create_row(4, "Motor", "Right Motor Group");
-        create_row(-5, "Motor", "Right Motor Group");
-        create_row(-6, "Motor", "Right Motor Group");
 
         create_category("Intake");
-        create_row(-18, "Motor", "Lift");
+        create_row(-18, "Motor", "Intake");
         create_row(19, "Motor", "Intake");
-        create_row(20, "Motor", "Top Loader");
+        create_row(15, "Motor", "Top Loader");
 
         create_category("Sensors");
         create_row(11, "Optical", "Color Sort");
-        create_row(12, "Distance", "Parking");
 
         create_category("Pneumatics");
         create_row(5, "Pneumatics", "Splitter");
         create_row(6, "Pneumatics", "Scrapper");
+        create_row(8, "Pneumatics", "Descore");
 
         create_category("Odometry");
-        create_row(8, "Imu", "Internal Sensor");
+        create_row(9, "Imu", "Internal Sensor");
 
     }
 
