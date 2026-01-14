@@ -106,15 +106,17 @@ namespace autom::Eliminations {
         chassis.pid_odom_set({{28_in, -9_in, 180_deg}, forward, 127});
         chassis.pid_wait();
         chassis.pid_drive_set(10_in, 127);
-        pros::delay(2000);
-        chassis.pid_odom_set({{28.5_in, 15.5_in, 180_deg}, reverse, 127});
-        scraper.retract();
+        pros::delay(1500);
+        chassis.pid_odom_set({{27_in, 19_in, 180_deg}, reverse, 127});
         chassis.pid_wait();
-        intake::set_load_speed(-127);
+        scraper.retract();
         pros::delay(500);
+        intake::toggle_invert_mode(true);
+        intake::load_bot();
+        intake::set_load_speed(-127);
+        pros::delay(1000);
         intake::set_load_speed(127);
         chassis.pid_drive_set(1_in, -127);
-        intake::toggle_invert_mode(true);
         intake::score_high();
         chassis.pid_wait();
                 
