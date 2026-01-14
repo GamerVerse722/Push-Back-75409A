@@ -34,7 +34,7 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	// ui::autom::handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_LEFT);
+	ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_LEFT);
 
 	devices::opticalSensor.set_led_pwm(100);
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);

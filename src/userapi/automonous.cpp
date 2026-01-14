@@ -66,12 +66,12 @@ namespace autom::Eliminations {
         chassis.pid_wait_quick();
         chassis.pid_drive_set(30_in, 127);
         
-        pros::delay(250);
-        chassis.pid_drive_set(-1_in, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(1_in, 127);
-        chassis.pid_wait();
-        pros::delay(1500);
+        // pros::delay(250);
+        // chassis.pid_drive_set(-1_in, 127);
+        // chassis.pid_wait();
+        // chassis.pid_drive_set(1_in, 127);
+        // chassis.pid_wait();
+        pros::delay(2000);
 
         chassis.pid_drive_set(-28_in, 127);
         // chassis.pid_odom_set({{-32_in, 20_in, -180_deg}, reverse, 127});
