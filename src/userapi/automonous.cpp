@@ -1,6 +1,7 @@
 #include "userapi/automonous.hpp"
 
 #include "EZ-Template/util.hpp"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/controls/intake.hpp"
@@ -92,8 +93,8 @@ namespace autom::Eliminations {
         reset_pos();
         splitter.extend();
         intake::load_bot();
-        chassis.pid_odom_set({{0_in, 18_in}, fwd, 70});
-        chassis.pid_turn_set(33_deg, 127);
+        chassis.pid_odom_set({{0_in, 18_in}, fwd, 127});
+        chassis.pid_turn_set(34_deg, 127);
         chassis.pid_wait();
         chassis.pid_odom_set({{7_in, 28_in}, fwd, 50});
         pros::delay(2500);
@@ -101,10 +102,20 @@ namespace autom::Eliminations {
 
         chassis.pid_turn_set(-225_deg, 127);
         scraper.extend();
-        chassis.pid_odom_set({{28_in, -13.5_in, 175_deg}, forward, 127});
+        chassis.pid_odom_set({{28_in, -9_in, 180_deg}, forward, 127});
         chassis.pid_wait();
-        chassis.pid_drive_set(2_in, 127);
+        chassis.pid_drive_set(10_in, 127);
+        pros::delay(2000);
+        chassis.pid_odom_set({{28.5_in, 15.5_in, 180_deg}, reverse, 127});
+        scraper.retract();
         chassis.pid_wait();
-        
+        intake::set_load_speed(-127);
+        pros::delay(500);
+        intake::set_load_speed(127);
+        chassis.pid_drive_set(1_in, -127);
+        intake::toggle_invert_mode(true);
+        intake::score_high();
+        chassis.pid_wait();
+                
     }
 }
