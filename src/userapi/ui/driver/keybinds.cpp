@@ -31,7 +31,7 @@ namespace ui::driver::keybinds {
         create_row("X", "Toggle Splitter up and down.");
 
         create_category("Descore");
-        create_row("D", "Toggle Descore up and down.");
+        create_row("L2", "Toggle Descore up and down.");
 
         create_category("Load");
         create_row("L1", "Loads balls without scoring.");

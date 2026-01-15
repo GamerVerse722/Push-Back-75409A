@@ -114,10 +114,13 @@ namespace configuration::controls {
             });
 
         // Descore
-        button_handler.bind(pros::E_CONTROLLER_DIGITAL_DOWN)
+        button_handler.bind(pros::E_CONTROLLER_DIGITAL_L2)
             .setCategory("Descore")
             .onPress([]() -> void {
-                devices::descore.toggle();
+                devices::descore.retract();
+            })
+            .onRelease([]() -> void {
+                devices::descore.extend();
             });
 
 
