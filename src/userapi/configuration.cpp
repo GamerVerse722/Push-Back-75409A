@@ -26,7 +26,7 @@ namespace devices {
     pros::adi::Pneumatics scraper(6, false);
     pros::adi::Pneumatics descore(8, false);
 
-    pros::MotorGroup loader_motors({-18, 19});
+    pros::MotorGroup loader_motors({-19});
 
     pros::Motor top_loader(15);
 

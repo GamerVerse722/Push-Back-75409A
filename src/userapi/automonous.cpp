@@ -51,6 +51,7 @@ namespace autom::Qualifications {
 namespace autom::Eliminations {
     void left() {
         reset_pos();
+        // Grab 3 balls
         intake::load_bot();
         splitter.extend();
         chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 80});
@@ -58,6 +59,7 @@ namespace autom::Eliminations {
         scraper.extend();
         chassis.pid_wait();
         
+        // Grab balls from loaders
         chassis.pid_turn_set(-125_deg, 127);
         chassis.pid_wait();
 
@@ -75,8 +77,8 @@ namespace autom::Eliminations {
         // chassis.pid_wait();
         pros::delay(2000);
 
-        chassis.pid_drive_set(-31_in, 127);
-        // chassis.pid_odom_set({{-32_in, 20_in, -180_deg}, reverse, 127});
+        // Move to score high goals
+        chassis.pid_drive_set(-32_in, 127);
         chassis.pid_wait_until(3_in);
         scraper.retract();
         intake::score_low();
@@ -84,11 +86,26 @@ namespace autom::Eliminations {
         intake::load_bot();
         chassis.pid_wait_quick();
 
+        // Score High
         intake::toggle_invert_mode(true);
         intake::set_load_speed(127);
         intake::load_bot();
         pros::delay(1000);
         intake::set_load_speed(100);
+        pros::delay(1000);
+
+        // Push with doinker
+        intake::stop();
+        chassis.pid_drive_set(12_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-225_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-15_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-180_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-20_in, 127);
+        chassis.pid_wait();
     }
     void right() {
         reset_pos();
