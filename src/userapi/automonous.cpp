@@ -49,7 +49,8 @@ namespace autom::Qualifications {
 }
 
 namespace autom::Eliminations {
-    void left() {
+    // Designed using left side cords
+    void unified() {
         reset_pos();
         // Grab 3 balls
         intake::load_bot();
@@ -69,17 +70,11 @@ namespace autom::Eliminations {
         }, true);
         chassis.pid_wait_quick();
         chassis.pid_drive_set(30_in, 127);
-        
-        // pros::delay(250);
-        // chassis.pid_drive_set(-1_in, 127);
-        // chassis.pid_wait();
-        // chassis.pid_drive_set(1_in, 127);
-        // chassis.pid_wait();
         pros::delay(2000);
 
         // Move to score high goals
         chassis.pid_drive_set(-32_in, 127);
-        chassis.pid_wait_until(3_in);
+        chassis.pid_wait_until(-3_in);
         scraper.retract();
         intake::score_low();
         pros::delay(250);
@@ -93,7 +88,9 @@ namespace autom::Eliminations {
         pros::delay(1000);
         intake::set_load_speed(100);
         pros::delay(1000);
+    }
 
+    void unified_descore() {
         // Push with doinker
         intake::stop();
         chassis.pid_drive_set(12_in, 127);
@@ -107,35 +104,46 @@ namespace autom::Eliminations {
         chassis.pid_drive_set(-20_in, 127);
         chassis.pid_wait();
     }
+
+    void left() {
+        chassis.odom_x_flip(false);
+        unified();
+        unified_descore();
+    }
     void right() {
-        reset_pos();
-        splitter.extend();
-        intake::load_bot();
-        chassis.pid_odom_set({{0_in, 18_in}, fwd, 127});
-        chassis.pid_turn_set(34_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_odom_set({{7_in, 28_in}, fwd, 50});
-        pros::delay(2500);
+        chassis.odom_x_flip(true);
+        chassis.odom_theta_flip(true);
+        unified();
+        chassis.odom_theta_flip(false);
+        unified_descore();
+        // reset_pos();
+        // splitter.extend();
+        // intake::load_bot();
+        // chassis.pid_odom_set({{0_in, 18_in}, fwd, 127});
+        // chassis.pid_turn_set(34_deg, 127);
+        // chassis.pid_wait();
+        // chassis.pid_odom_set({{7_in, 28_in}, fwd, 50});
+        // pros::delay(2500);
 
 
-        chassis.pid_turn_set(-225_deg, 127);
-        scraper.extend();
-        chassis.pid_odom_set({{28_in, -9_in, 180_deg}, forward, 127});
-        chassis.pid_wait();
-        chassis.pid_drive_set(10_in, 127);
-        pros::delay(1500);
-        chassis.pid_odom_set({{27_in, 19_in, 180_deg}, reverse, 127});
-        chassis.pid_wait();
-        scraper.retract();
-        pros::delay(500);
-        intake::toggle_invert_mode(true);
-        intake::load_bot();
-        intake::set_load_speed(-127);
-        pros::delay(1000);
-        intake::set_load_speed(127);
-        chassis.pid_drive_set(1_in, -127);
-        intake::score_high();
-        chassis.pid_wait();
+        // chassis.pid_turn_set(-225_deg, 127);
+        // scraper.extend();
+        // chassis.pid_odom_set({{28_in, -9_in, 180_deg}, forward, 127});
+        // chassis.pid_wait();
+        // chassis.pid_drive_set(10_in, 127);
+        // pros::delay(1500);
+        // chassis.pid_odom_set({{27_in, 19_in, 180_deg}, reverse, 127});
+        // chassis.pid_wait();
+        // scraper.retract();
+        // pros::delay(500);
+        // intake::toggle_invert_mode(true);
+        // intake::load_bot();
+        // intake::set_load_speed(-127);
+        // pros::delay(1000);
+        // intake::set_load_speed(127);
+        // chassis.pid_drive_set(1_in, -127);
+        // intake::score_high();
+        // chassis.pid_wait();
                 
     }
 }
