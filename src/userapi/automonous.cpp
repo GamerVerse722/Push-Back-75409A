@@ -25,23 +25,48 @@ void reset_pos() {
 namespace autom::Qualifications {
     void left() {
         reset_pos();
-        // chassis.pid_odom_set({{0_in, 24_in, 0_deg}, forward, 127});
-        // chassis.pid_wait();
+        // Grab 3 balls
+        intake::load_bot();
+        splitter.retract();
+        chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 80});
+        chassis.pid_wait_until(18);
+        scraper.extend();
+        chassis.pid_wait();
 
-        // chassis.pid_odom_set({{16_in, 0_in, 0_deg}, reverse, 127});
-        // chassis.pid_wait();
+        // Middle
+        chassis.pid_turn_set(-135_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-18_in, 127);
+        chassis.pid_wait();
+        intake::score_high();
+        pros::delay(2000);
 
-        // chassis.pid_odom_set({{16_in, 8_in}, forward, 127});
-        // chassis.pid_wait_quick();
-        // chassis.pid_turn_set(-90_deg, 127);
-        // chassis.pid_wait_quick();
+        // High
+        chassis.pid_odom_set({
+            {{-20_in, 10_in}, forward, 127},
+            {{-32_in, -5_in, -180_deg}, forward, 127}
+        }, true);
+        chassis.pid_wait_quick();
+        chassis.pid_drive_set(30_in, 127);
+        pros::delay(2000);
 
-        // chassis.pid_odom_set({{0_in, 8_in}, forward, 127});
-        // chassis.pid_wait_quick();
-        // chassis.pid_turn_set(-180, 127);
-        // chassis.pid_wait_quick();
-        // chassis.pid_odom_set({{0_in, 0_in}, forward, 127});
-        // chassis.pid_wait_quick();
+        // Move to score high goals
+        chassis.pid_drive_set(-32_in, 127);
+        chassis.pid_wait_until(-3_in);
+        // scraper.retract();
+        // intake::score_low();
+        // pros::delay(100);
+        intake::load_bot();
+        chassis.pid_wait_quick();
+
+        // Score High
+        scraper.retract();
+        intake::toggle_invert_mode(true);
+        intake::set_load_speed(127);
+        intake::load_bot();
+        pros::delay(1500);
+        intake::set_load_speed(100);
+        pros::delay(1000);
     }
 
     void right() {
@@ -77,7 +102,7 @@ namespace autom::Eliminations {
         chassis.pid_wait_until(-3_in);
         scraper.retract();
         intake::score_low();
-        pros::delay(250);
+        pros::delay(200);
         intake::load_bot();
         chassis.pid_wait_quick();
 
@@ -85,7 +110,7 @@ namespace autom::Eliminations {
         intake::toggle_invert_mode(true);
         intake::set_load_speed(127);
         intake::load_bot();
-        pros::delay(1000);
+        pros::delay(1250);
         intake::set_load_speed(100);
         pros::delay(1000);
     }
@@ -116,34 +141,85 @@ namespace autom::Eliminations {
         unified();
         chassis.odom_theta_flip(false);
         unified_descore();
-        // reset_pos();
-        // splitter.extend();
-        // intake::load_bot();
-        // chassis.pid_odom_set({{0_in, 18_in}, fwd, 127});
-        // chassis.pid_turn_set(34_deg, 127);
-        // chassis.pid_wait();
-        // chassis.pid_odom_set({{7_in, 28_in}, fwd, 50});
-        // pros::delay(2500);
+    }
+}
 
+namespace autom::Skills {
+    void skills() {
+        reset_pos();
 
-        // chassis.pid_turn_set(-225_deg, 127);
-        // scraper.extend();
-        // chassis.pid_odom_set({{28_in, -9_in, 180_deg}, forward, 127});
-        // chassis.pid_wait();
-        // chassis.pid_drive_set(10_in, 127);
-        // pros::delay(1500);
-        // chassis.pid_odom_set({{27_in, 19_in, 180_deg}, reverse, 127});
-        // chassis.pid_wait();
-        // scraper.retract();
-        // pros::delay(500);
-        // intake::toggle_invert_mode(true);
-        // intake::load_bot();
-        // intake::set_load_speed(-127);
-        // pros::delay(1000);
-        // intake::set_load_speed(127);
-        // chassis.pid_drive_set(1_in, -127);
-        // intake::score_high();
-        // chassis.pid_wait();
-                
+        // Grab Balls
+        splitter.extend();
+        chassis.pid_drive_set(28_in, 100);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-90_deg, 127);
+        scraper.extend();
+        intake::load_bot();
+        chassis.pid_wait();
+        chassis.pid_drive_set(48_in, 100);
+        pros::delay(2000);
+
+        // Score High
+        chassis.pid_turn_set(-90_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-48_in, 127);
+        chassis.pid_wait_until(-3_in);
+        scraper.retract();
+        descore.extend();
+        chassis.pid_wait();
+        intake::score_high();
+        pros::delay(2000);
+        intake::load_bot();
+
+        // return;
+
+        // Go to opposite side
+        chassis.pid_drive_set(24_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-135_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-17_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-90_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-68_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-45_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(-16_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(90_deg, 127);
+
+        // return;
+        
+        // Grab Balls and score
+        scraper.extend();
+        chassis.pid_wait();
+        chassis.pid_drive_set(48_in, 120);
+        pros::delay(2000);
+        chassis.pid_drive_set(-48_in, 127);
+        chassis.pid_wait_until(-3_in);
+        scraper.retract();
+        chassis.pid_wait();
+        intake::score_high();
+        pros::delay(2000);
+
+        return;
+
+        // Parking 
+        chassis.pid_drive_set(-12_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-135_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(15_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-90_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(60_in, 127);
+        chassis.pid_wait();
+        chassis.pid_turn_set(-180_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_drive_set(48_in, 127);
+        chassis.pid_wait();
     }
 }
