@@ -8,7 +8,6 @@
 #include "pros/rtos.hpp"
 
 #include "userapi/ui/autom/autom_handler.hpp"
-#include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/ui/autom/mode_selector.hpp"
@@ -37,7 +36,6 @@ void initialize() {
 	// ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
 	// ui::autom::handler::select_autom(AutomMode::SKILLS, AutomSideColor::NO_COLOR_AND_POSITION);
 
-	devices::opticalSensor.set_led_pwm(100);
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
 }
 
@@ -100,8 +98,6 @@ void opcontrol() {
 
 	configuration::controls::button_handler.start();
 
-	keybindActions::intake::toggle_invert_mode(false);
-	keybindActions::intake::reset_default_load_speed();
 	chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
 	// Notifies Last 20 second park zone protect

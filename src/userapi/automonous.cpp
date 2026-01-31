@@ -1,7 +1,6 @@
 #include "userapi/automonous.hpp"
 
 #include "EZ-Template/util.hpp"
-#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/controls/intake.hpp"
@@ -25,51 +24,14 @@ void reset_pos() {
 namespace autom::Qualifications {
     void left() {
         reset_pos();
-        // Grab 3 balls
-        intake::load_bot();
-        splitter.retract();
-        chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 80});
-        chassis.pid_wait_until(18);
-        scraper.extend();
+        chassis.pid_drive_set(2_in, 50);
         chassis.pid_wait();
-
-        // Middle
-        chassis.pid_turn_set(-135_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(-18_in, 127);
-        chassis.pid_wait();
-        intake::score_high();
-        pros::delay(2000);
-
-        // High
-        chassis.pid_odom_set({
-            {{-20_in, 10_in}, forward, 127},
-            {{-32_in, -5_in, -180_deg}, forward, 127}
-        }, true);
-        chassis.pid_wait_quick();
-        chassis.pid_drive_set(30_in, 127);
-        pros::delay(2000);
-
-        // Move to score high goals
-        chassis.pid_drive_set(-32_in, 127);
-        chassis.pid_wait_until(-3_in);
-        // scraper.retract();
-        // intake::score_low();
-        // pros::delay(100);
-        intake::load_bot();
-        chassis.pid_wait_quick();
-
-        // Score High
-        scraper.retract();
-        intake::toggle_invert_mode(true);
-        intake::set_load_speed(127);
-        intake::load_bot();
-        pros::delay(1500);
-        intake::set_load_speed(100);
-        pros::delay(1000);
     }
 
     void right() {
+        reset_pos();
+        chassis.pid_drive_set(2_in, 50);
+        chassis.pid_wait();
     }
 }
 
@@ -107,12 +69,8 @@ namespace autom::Eliminations {
         chassis.pid_wait_quick();
 
         // Score High
-        intake::toggle_invert_mode(true);
-        intake::set_load_speed(127);
-        intake::load_bot();
-        pros::delay(1250);
-        intake::set_load_speed(100);
-        pros::delay(1000);
+        intake::score_high();
+        pros::delay(2250);
     }
 
     void unified_descore() {

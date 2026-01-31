@@ -3,6 +3,7 @@
 #include "EZ-Template/drive/drive.hpp"
 #include "EZ-Template/util.hpp"
 #include "automonous.hpp"
+#include "pros/adi.hpp"
 #include "pros/misc.h"
 #include "ui/autom/autom_handler.hpp"
 #include "userapi/controls/intake.hpp"
@@ -25,12 +26,9 @@ namespace devices {
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
     pros::adi::Pneumatics descore(8, false);
+    pros::adi::Pneumatics hardstop(7, false);
 
-    pros::MotorGroup loader_motors({-19});
-
-    pros::Motor top_loader(15);
-
-    pros::Optical opticalSensor(11);
+    pros::MotorGroup loader({-19, -15});
 }
 
 namespace configuration::drive {

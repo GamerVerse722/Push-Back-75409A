@@ -1,14 +1,10 @@
 #pragma once
 
-// #include "lemlib/chassis/chassis.hpp"
-
 #include "EZ-Template/drive/drive.hpp"
 
 #include "gamers-forge/bmapper.hpp"
 
-// #include "pros/imu.hpp"
 #include "pros/motor_group.hpp"
-#include "pros/optical.hpp"
 #include "pros/adi.hpp"
 
 
@@ -18,11 +14,9 @@ namespace devices {
     extern pros::adi::Pneumatics splitter;
     extern pros::adi::Pneumatics scraper;
     extern pros::adi::Pneumatics descore;
+    extern pros::adi::Pneumatics hardstop;
 
-    extern pros::MotorGroup loader_motors;
-    extern pros::Motor top_loader;
-
-    extern pros::Optical opticalSensor;
+    extern pros::MotorGroup loader;
 }
 
 namespace configuration::drive {

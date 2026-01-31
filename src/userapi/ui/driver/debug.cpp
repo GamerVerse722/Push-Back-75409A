@@ -4,7 +4,6 @@
 #include "liblvgl/misc/lv_timer.h"
 
 #include "userapi/ui/autom/autom_handler.hpp"
-#include "userapi/handler/optical_normalize.hpp"
 #include "userapi/configuration.hpp"
 
 static lv_obj_t* labelDebug;
@@ -19,7 +18,6 @@ namespace ui::driver::debug {
 
     void debug_timer(lv_timer_t* timer) {
         ez::pose pose = devices::chassis.odom_pose_get();
-        pros::c::optical_rgb_s_t normal_color = optical_normalize(devices::opticalSensor.get_rgb());
 
         std::string pos_str = std::format("X: {:.2f} Y: {:.2f} Theta: {:.2f}", pose.x, pose.y, pose.theta);
 
@@ -29,7 +27,6 @@ namespace ui::driver::debug {
             convert::to_string(handler::current_position)
         );
 
-        std::string color = std::format("Red: {:.2f}, Blue: {:.2f}, Distance: {}", normal_color.red, normal_color.blue, devices::opticalSensor.get_proximity());
-        lv_label_set_text(labelDebug, std::format("{}\n{}\n{}", pos_str, autom_mode_str, color).c_str());
+        lv_label_set_text(labelDebug, std::format("{}\n{}", pos_str, autom_mode_str).c_str());
     }
 }
