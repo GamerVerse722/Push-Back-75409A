@@ -44,16 +44,17 @@ namespace autom::Eliminations {
         splitter.extend();
         chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 80});
         chassis.pid_wait_until(18);
-        scraper.extend();
+        // scraper.extend();
         chassis.pid_wait();
         
         // Grab balls from loaders
         chassis.pid_turn_set(-125_deg, 127);
         chassis.pid_wait();
+        scraper.extend();
 
         chassis.pid_odom_set({
             {{-20_in, 10_in}, forward, 127},
-            {{-32_in, -5_in, -180_deg}, forward, 127}
+            {{-34_in, -5_in, -180_deg}, forward, 127}
         }, true);
         chassis.pid_wait_quick();
         chassis.pid_drive_set(30_in, 127);

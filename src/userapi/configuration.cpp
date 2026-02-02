@@ -17,9 +17,9 @@ namespace devices {
     ez::Drive chassis(
         // These are your drive motors, the first motor is used for sensing!
         {5, -6, -8},     // Left Chassis Ports (negative port will reverse it!)
-        {-2, 3, 4},  // Right Chassis Ports (negative port will reverse it!)
+        {-10, 3, 4},  // Right Chassis Ports (negative port will reverse it!)
 
-        9,      // IMU Port
+        12,      // IMU Port
         3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
         360);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
