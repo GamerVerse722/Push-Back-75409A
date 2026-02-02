@@ -29,7 +29,7 @@ void OdomNavigator::drive_to_x(okapi::QLength x_target, int speed) {
 
 void OdomNavigator::drive_to_y(okapi::QLength y_target, int speed) {
     double sin_theta = sin(chassis.odom_theta_get() * M_PI / 180.0);
-    double dx = normalize_x(y_target) - chassis.odom_x_get();
+    double dx = normalize_y(y_target) - chassis.odom_x_get();
 
     if (std::abs(sin_theta) < 0.05) return;
 
