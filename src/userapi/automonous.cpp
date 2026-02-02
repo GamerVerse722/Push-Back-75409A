@@ -90,7 +90,6 @@ namespace autom::Eliminations {
     }
 
     void left() {
-        chassis.odom_x_flip(false);
         unified();
         unified_descore();
     }
