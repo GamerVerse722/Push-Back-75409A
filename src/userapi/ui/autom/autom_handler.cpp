@@ -13,6 +13,7 @@ namespace ui::autom::handler {
     static std::array<callback_method, 5> qualification_methods {};
     static std::array<callback_method, 5> elimination_methods {};
     static callback_method skills_callback {nullptr};
+    static callback_method none_callback {nullptr};
 
     // Current Selection
     AutomMode current_mode = AutomMode::NONE;
@@ -47,6 +48,13 @@ namespace ui::autom::handler {
                 skills_callback = callback;
                 break;
 
+            case AutomMode::NONE:
+                if (none_callback) { log.warn("Overwriting existing NONE callback"); }
+                else { log.debug("Registering NONE callback"); }
+
+                none_callback = callback;
+                break;
+
             default:
                 log.warn("Attempted registration with AutomMode::NONE");
             }
@@ -63,6 +71,7 @@ namespace ui::autom::handler {
             case AutomMode::QUALIFICATIONS: current_autom = qualification_methods[index]; break;
             case AutomMode::ELIMINATIONS: current_autom = elimination_methods[index]; break;
             case AutomMode::SKILLS: current_autom = skills_callback; break;
+            case AutomMode::NONE: current_autom = none_callback; break;
             default: current_autom = nullptr; break;
 
             if (!current_autom) {

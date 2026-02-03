@@ -15,3 +15,7 @@ namespace autom::Eliminations {
 namespace autom::Skills {
     void skills();
 }
+
+namespace autom::None {
+    void none();
+}

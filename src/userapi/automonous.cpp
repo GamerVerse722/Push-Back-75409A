@@ -181,3 +181,7 @@ namespace autom::Skills {
         chassis.pid_wait();
     }
 }
+
+namespace autom::None {
+    void none() {}
+}
