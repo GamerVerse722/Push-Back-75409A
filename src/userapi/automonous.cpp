@@ -42,21 +42,22 @@ namespace autom::Eliminations {
         // Grab 3 balls
         intake::load_bot();
         splitter.extend();
-        chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 80});
+        chassis.pid_odom_set({{-9_in, 26_in, -20_deg}, forward, 50});
         chassis.pid_wait_until(18);
         // scraper.extend();
         chassis.pid_wait();
+        pros::delay(250);
         
         // Grab balls from loaders
-        nav.drive_to_x(-35_in, -135_deg, 110);
+        nav.drive_to_x(-35_in, -135_deg, 100);
         // nav.drive_to_x(-10_in, -135_deg, 127);
         // return;
         chassis.pid_turn_set(-180_deg, 127);
         scraper.extend();
         chassis.pid_wait();
 
-        chassis.pid_drive_set(20_in, 100);
-        pros::delay(2000);
+        chassis.pid_drive_set(20_in, 80);
+        pros::delay(1800);
         // chassis.pid_turn_set(-125_deg, 127);
         // chassis.pid_wait();
         // scraper.extend();
@@ -96,20 +97,20 @@ namespace autom::Eliminations {
         chassis.pid_wait();
         chassis.pid_turn_set(-180_deg, 127);
         chassis.pid_wait();
-        chassis.pid_drive_set(-20_in, 127);
+        chassis.pid_drive_set(-20_in, 100);
         chassis.pid_wait();
     }
 
     void left() {
         unified();
-        // unified_descore();
+        unified_descore();
     }
     void right() {
         chassis.odom_x_flip(true);
         chassis.odom_theta_flip(true);
         unified();
         chassis.odom_theta_flip(false);
-        // unified_descore();
+        unified_descore();
     }
 }
 
