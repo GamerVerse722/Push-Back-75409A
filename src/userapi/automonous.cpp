@@ -48,20 +48,31 @@ namespace autom::Eliminations {
         chassis.pid_wait();
         
         // Grab balls from loaders
-        chassis.pid_turn_set(-125_deg, 127);
-        chassis.pid_wait();
+        nav.drive_to_x(-35_in, -135_deg, 110);
+        // nav.drive_to_x(-10_in, -135_deg, 127);
+        // return;
+        chassis.pid_turn_set(-180_deg, 127);
         scraper.extend();
+        chassis.pid_wait();
 
-        chassis.pid_odom_set({
-            {{-20_in, 10_in}, forward, 127},
-            {{-34_in, -5_in, -180_deg}, forward, 127}
-        }, true);
-        chassis.pid_wait_quick();
-        chassis.pid_drive_set(30_in, 127);
+        chassis.pid_drive_set(20_in, 100);
         pros::delay(2000);
+        // chassis.pid_turn_set(-125_deg, 127);
+        // chassis.pid_wait();
+        // scraper.extend();
+
+        // chassis.pid_odom_set({
+        //     {{-20_in, 10_in}, forward, 127},
+        //     {{-34_in, -5_in, -180_deg}, forward, 127}
+        // }, true);
+        // chassis.pid_wait_quick();
+        // chassis.pid_drive_set(30_in, 127);
+        // pros::delay(2000);
+
+        // return;
 
         // Move to score high goals
-        chassis.pid_drive_set(-32_in, 127);
+        chassis.pid_drive_set(-28_in, 127);
         chassis.pid_wait_until(-3_in);
         scraper.retract();
         intake::score_low();
@@ -91,14 +102,14 @@ namespace autom::Eliminations {
 
     void left() {
         unified();
-        unified_descore();
+        // unified_descore();
     }
     void right() {
         chassis.odom_x_flip(true);
         chassis.odom_theta_flip(true);
         unified();
         chassis.odom_theta_flip(false);
-        unified_descore();
+        // unified_descore();
     }
 }
 

@@ -19,7 +19,7 @@ namespace devices {
         {5, -6, -8},     // Left Chassis Ports (negative port will reverse it!)
         {-10, 3, 4},  // Right Chassis Ports (negative port will reverse it!)
 
-        12,      // IMU Port
+        9,      // IMU Port
         3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
         360);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
@@ -28,7 +28,9 @@ namespace devices {
     pros::adi::Pneumatics descore(8, false);
     pros::adi::Pneumatics hardstop(7, false);
 
-    pros::MotorGroup loader({-19, -15});
+    pros::MotorGroup loader({-19, -18});
+
+    OdomNavigator nav{chassis};
 }
 
 namespace configuration::drive {

@@ -1,4 +1,5 @@
 #include "EZ-Template/drive/drive.hpp"
+#include "gamers-forge/proslogger.hpp"
 
 class OdomNavigator {
     public:
@@ -13,6 +14,8 @@ class OdomNavigator {
     private:
         ez::Drive& chassis;
 
+        PROSLogger::Logger log{"OdomNavigator"};
+        
         double normalize_x(okapi::QLength x_target);
         double normalize_y(okapi::QLength y_target);
         double normalize_theta(okapi::QAngle theta_target);
