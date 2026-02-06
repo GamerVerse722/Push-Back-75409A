@@ -30,6 +30,8 @@ namespace devices {
 
     pros::MotorGroup loader({-19, -18});
 
+    pros::Distance distance(17);
+
     OdomNavigator nav{chassis};
 }
 

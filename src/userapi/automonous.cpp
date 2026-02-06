@@ -13,6 +13,10 @@ const int DRIVE_SPEED = 127;
 const int TURN_SPEED = 127;
 const int SWING_SPEED = 110;
 
+void print_debug() {
+    
+}
+
 void reset_pos() {
     chassis.pid_targets_reset();                // Resets PID targets to 0
 	chassis.drive_imu_reset();                  // Reset gyro position to 0
@@ -24,14 +28,19 @@ void reset_pos() {
 namespace autom::Qualifications {
     void left() {
         reset_pos();
-        chassis.pid_drive_set(2_in, 50);
+
+        nav.record();
+        print_debug();
+        pros::delay(100);
+        chassis.pid_drive_set(10_in, 100);
         chassis.pid_wait();
+        print_debug();
+        pros::delay(100);
+        nav.reset_y();
+        print_debug();
     }
 
     void right() {
-        reset_pos();
-        chassis.pid_drive_set(2_in, 50);
-        chassis.pid_wait();
     }
 }
 
@@ -115,85 +124,55 @@ namespace autom::Eliminations {
 }
 
 namespace autom::Skills {
+    PROSLogger::Logger log{"Autonomous"};
+
+    void print_debug() {
+        log.debug(std::format("X, {:.2f}, Y, {:.2f}, Theta, {:.2f}, Distance: {:.2f}", chassis.odom_x_get(), chassis.odom_y_get(), chassis.odom_theta_get(), distance.get() / 25.4));
+    }
+
     void skills() {
         reset_pos();
-
-        // Grab Balls
+        chassis.odom_theta_set(-90_deg);
         splitter.extend();
-        chassis.pid_drive_set(28_in, 100);
-        chassis.pid_wait();
-        chassis.pid_turn_set(-90_deg, 127);
-        scraper.extend();
-        intake::load_bot();
-        chassis.pid_wait();
-        chassis.pid_drive_set(48_in, 100);
-        pros::delay(2000);
-
-        // Score High
-        chassis.pid_turn_set(-90_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(-48_in, 127);
-        chassis.pid_wait_until(-3_in);
-        scraper.retract();
         descore.extend();
-        chassis.pid_wait();
-        intake::score_high();
-        pros::delay(2000);
         intake::load_bot();
 
-        // return;
-
-        // Go to opposite side
-        chassis.pid_drive_set(24_in, 127);
-        chassis.pid_wait();
-        chassis.pid_turn_set(-135_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(-17_in, 127);
-        chassis.pid_wait();
-        chassis.pid_turn_set(-90_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(-68_in, 127);
-        chassis.pid_wait();
-        chassis.pid_turn_set(-45_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(-16_in, 127);
-        chassis.pid_wait();
-        chassis.pid_turn_set(90_deg, 127);
-
-        // return;
-        
-        // Grab Balls and score
-        scraper.extend();
-        chassis.pid_wait();
-        chassis.pid_drive_set(48_in, 120);
-        pros::delay(2000);
-        chassis.pid_drive_set(-48_in, 127);
-        chassis.pid_wait_until(-3_in);
-        scraper.retract();
-        chassis.pid_wait();
-        intake::score_high();
-        pros::delay(2000);
-
-        return;
-
-        // Parking 
-        chassis.pid_drive_set(-12_in, 127);
-        chassis.pid_wait();
-        chassis.pid_turn_set(-135_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(15_in, 127);
-        chassis.pid_wait();
-        chassis.pid_turn_set(-90_deg, 127);
-        chassis.pid_wait();
-        chassis.pid_drive_set(60_in, 127);
+        // Go to RED LEFT Goal
+        chassis.pid_odom_set({{-29_in, 0_in, -90_deg}, fwd, 127});
         chassis.pid_wait();
         chassis.pid_turn_set(-180_deg, 127);
+        scraper.extend();
+        pros::delay(250);
+
+        nav.record();
+        chassis.pid_drive_set(13_in, 110);
+        // chassis.pid_odom_set({{-30_in, -10_in, -180_deg}, fwd, 127});
         chassis.pid_wait();
-        chassis.pid_drive_set(48_in, 127);
+        pros::delay(1200);
+        nav.reset_y();
+
+        // Go to other side of field
+        chassis.pid_odom_set({
+            {{-40_in, 40_in, -180_deg}, rev, 127},
+            {{-40_in, 100_in, -180_deg}, rev, 127},
+            {{-26_in, 125_in, -180_deg}, rev, 127}
+        }, true);
+
+        chassis.pid_wait_until(-5_in);
+        scraper.retract();
+
+        chassis.pid_wait();
+        chassis.pid_turn_set(0_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_odom_set({{-26_in, 100_in, 0_deg}, rev, 127});
         chassis.pid_wait();
     }
 }
 
 namespace autom::None {
-    void none() {}
+    void none() {
+        reset_pos();
+        chassis.pid_drive_set(2_in, 50);
+        chassis.pid_wait();
+    }
 }

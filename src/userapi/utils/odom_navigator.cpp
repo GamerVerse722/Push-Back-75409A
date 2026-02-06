@@ -1,6 +1,32 @@
 #include "userapi/utils/odom_navigator.hpp"
+
 #include "okapi/api/units/QLength.hpp"
-#include <format>
+#include "userapi/configuration.hpp"
+// #include <format>
+
+void OdomNavigator::record() {
+    x_start = chassis.odom_x_get();
+    y_start = chassis.odom_y_get();
+    d_start = devices::distance.get() / 25.4;
+}
+
+void OdomNavigator::reset_x() {
+    double d_end = devices::distance.get() / 25.4;
+    double delta_distance = d_start - d_end;
+    double true_x = x_start + delta_distance;
+
+    chassis.odom_x_set(true_x);
+}
+
+void OdomNavigator::reset_y() {
+    double d_end = devices::distance.get() / 25.4;
+    double delta_distance = d_start - d_end;
+    double true_y = y_start + delta_distance;
+
+    log.debug(std::format("Y start: {:.2f}, Delta Distance: {:.2f}, True Y: {:.2f}", y_start, delta_distance, true_y));
+
+    chassis.odom_y_set(true_y);
+}
 
 double OdomNavigator::normalize_x(okapi::QLength x_target) {
     double x = x_target.convert(okapi::inch);

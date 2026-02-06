@@ -4,6 +4,7 @@
 
 #include "gamers-forge/bmapper.hpp"
 
+#include "pros/distance.hpp"
 #include "userapi/utils/odom_navigator.hpp"
 
 #include "pros/motor_group.hpp"
@@ -19,6 +20,8 @@ namespace devices {
     extern pros::adi::Pneumatics hardstop;
 
     extern pros::MotorGroup loader;
+
+    extern pros::Distance distance;
 
     extern OdomNavigator nav;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "gamers-forge/proslogger.hpp"
+
 namespace autom::Qualifications {
     void left();
     void right();
@@ -17,5 +19,8 @@ namespace autom::Skills {
 }
 
 namespace autom::None {
+    extern PROSLogger::Logger log;
+    
+    void print_debug();
     void none();
 }
