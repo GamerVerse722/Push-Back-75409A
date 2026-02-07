@@ -155,17 +155,52 @@ namespace autom::Skills {
         chassis.pid_odom_set({
             {{-40_in, 40_in, -180_deg}, rev, 127},
             {{-40_in, 100_in, -180_deg}, rev, 127},
-            {{-26_in, 125_in, -180_deg}, rev, 127}
+            // {{-26_in, 125_in, -180_deg}, rev, 100}
         }, true);
 
         chassis.pid_wait_until(-5_in);
         scraper.retract();
 
         chassis.pid_wait();
-        chassis.pid_turn_set(0_deg, 127);
+        // chassis.pid_turn_set(0_deg, 127);
+        // chassis.pid_wait();
+        // chassis.pid_odom_set({{-26_in, 100_in, 0_deg}, rev, 127});
+        // chassis.pid_wait();
+        // intake::score_high();
+        // pros::delay(2000);
+        // chassis.pid_drive_set(-36_in, 127);
+        // intake::load_bot();
+        // scraper.extend();
+        // chassis.pid_wait();
+        // pros::delay(2000);
+        // chassis.pid_drive_set(36_in, 127);
+        // chassis.pid_wait();
+        // intake::score_high();
+        // pros::delay(2000);
+
+        nav.drive_to_x(-26_in, -136_deg, 127);
+        nav.drive_to_y(100_in, 0_deg, 127);
+        intake::score_high();
+        pros::delay(2500);
+        scraper.extend();
+        intake::load_bot();
+        chassis.pid_drive_set(36_in, 127);
         chassis.pid_wait();
-        chassis.pid_odom_set({{-26_in, 100_in, 0_deg}, rev, 127});
+        pros::delay(2500);
+        nav.drive_to_y(100_in, 0_deg, 127);
+        intake::score_high();
+        pros::delay(2500);
+    }
+
+    void skills2() {
+        reset_pos();
+        intake::score_high();
+        scraper.extend();
+        chassis.pid_drive_set(-5_in, 127);
         chassis.pid_wait();
+        chassis.pid_drive_set(29_in, 127);
+        chassis.pid_wait();
+        scraper.retract();
     }
 }
 

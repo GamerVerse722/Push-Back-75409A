@@ -174,7 +174,7 @@ namespace configuration::autonomous {
         handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Eliminations::left);
         handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Eliminations::right);
 
-        handler::register_autom(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::Skills::skills);
+        handler::register_autom(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::Skills::skills2);
 
         handler::register_autom(AutomMode::NONE, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::None::none);
     }

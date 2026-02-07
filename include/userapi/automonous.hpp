@@ -16,11 +16,12 @@ namespace autom::Eliminations {
 
 namespace autom::Skills {
     void skills();
+    void skills2();
 }
 
 namespace autom::None {
     extern PROSLogger::Logger log;
-    
+
     void print_debug();
     void none();
 }
