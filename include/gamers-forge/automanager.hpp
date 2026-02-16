@@ -3,10 +3,11 @@
 #include <functional>
 #include <string_view>
 
-namespace ui::autom::handler {
+namespace AutoManager {
     enum AutomMode {
         QUALIFICATIONS,
         ELIMINATIONS,
+        AWP,
         SKILLS,
         NONE
     };
@@ -46,8 +47,8 @@ namespace ui::autom::handler {
     void run_autom();
 }
 
-namespace convert {
-    using namespace ui::autom::handler;
+namespace AutoManager::Convert {
+    using namespace AutoManager;
     
     AutomSideColor to_side_color(AutomColor color, AutomPosition pos);
     AutomColor     side_color_to_color(AutomSideColor sc);

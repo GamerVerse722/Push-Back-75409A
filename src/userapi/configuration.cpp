@@ -5,11 +5,12 @@
 #include "automonous.hpp"
 #include "pros/adi.hpp"
 #include "pros/misc.h"
-#include "ui/autom/autom_handler.hpp"
+
+#include "gamers-forge/automanager.hpp"
+
 #include "userapi/controls/intake.hpp"
 #include "userapi/controls/drive.hpp"
 
-#include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/ui/autom/mode_selector.hpp"
 #include "userapi/ui/autom/location_selector.hpp"
 
@@ -164,18 +165,18 @@ namespace configuration::autonomous {
         location_selector::initialize();
         mode_selector::initialize();
 
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Qualifications::left);
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Qualifications::right);
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Qualifications::left);
-        handler::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Qualifications::right);
+        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Qualifications::left);
+        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Qualifications::right);
+        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Qualifications::left);
+        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Qualifications::right);
 
-        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Eliminations::left);
-        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Eliminations::right);
-        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Eliminations::left);
-        handler::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Eliminations::right);
+        AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Eliminations::left);
+        AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Eliminations::right);
+        AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Eliminations::left);
+        AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Eliminations::right);
 
-        handler::register_autom(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::Skills::skills2);
+        AutoManager::register_autom(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::Skills::skills2);
 
-        handler::register_autom(AutomMode::NONE, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::None::none);
+        AutoManager::register_autom(AutomMode::NONE, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::None::none);
     }
 }

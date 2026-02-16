@@ -7,7 +7,6 @@
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
 
-#include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/controls/drive.hpp"
 #include "userapi/configuration.hpp"
 #include "userapi/ui/autom/mode_selector.hpp"
@@ -76,7 +75,7 @@ void competition_initialize() {
  void autonomous() {
 	using namespace ui::autom;
 	// lv_screen_load(ui::driver::driver_screen);
-	handler::run_autom();
+	AutoManager::run_autom();
 }
 
 /**

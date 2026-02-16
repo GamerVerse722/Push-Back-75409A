@@ -3,9 +3,9 @@
 #include "liblvgl/core/lv_obj.h"
 #include "liblvgl/misc/lv_types.h"
 
-#include "userapi/ui/autom/autom_handler.hpp"
+#include "gamers-forge/automanager.hpp"
 
-using namespace ui::autom::handler;
+using namespace AutoManager;
 
 namespace ui::autom::mode_selector {
     inline lv_obj_t* mode_screen = lv_obj_create(NULL);

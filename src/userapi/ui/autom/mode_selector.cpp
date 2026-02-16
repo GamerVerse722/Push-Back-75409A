@@ -7,7 +7,6 @@
 #include "liblvgl/widgets/label/lv_label.h"
 #include "liblvgl/display/lv_display.h"
 
-#include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/ui/autom/location_selector.hpp"
 #include "userapi/ui/op_control.hpp"
 
@@ -60,7 +59,7 @@ namespace ui::autom::mode_selector {
 
         // Buton Label
         lv_obj_t* label = lv_label_create(btn);
-        lv_label_set_text(label, convert::to_string(mode).data());
+        lv_label_set_text(label, Convert::to_string(mode).data());
         lv_obj_set_style_text_color(label, lv_color_black(), LV_PART_MAIN);
 
         // Set Font Style
@@ -72,7 +71,7 @@ namespace ui::autom::mode_selector {
         // Add Callback
         lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)mode);
 
-        log.debug(std::format("Registered {0} Button", convert::to_string(mode)));
+        log.debug(std::format("Registered {0} Button", Convert::to_string(mode)));
     }
 
     void button_event_handler(lv_event_t* e) {
@@ -88,19 +87,24 @@ namespace ui::autom::mode_selector {
                 lv_screen_load(location_selector::location_screen);
                 break;
             }
+            case AutomMode::AWP: {
+                location_selector::active_mode = AutomMode::AWP;
+                lv_screen_load(location_selector::location_screen);
+                break;
+            }
             case AutomMode::SKILLS: {
-                handler::select_autom(AutomMode::SKILLS, AutomSideColor::NO_COLOR_AND_POSITION);
+                AutoManager::select_autom(AutomMode::SKILLS, AutomSideColor::NO_COLOR_AND_POSITION);
                 lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
                 break;
             }
             case AutomMode::NONE: {
-                handler::select_autom(AutomMode::NONE, AutomSideColor::NO_COLOR_AND_POSITION);
+                AutoManager::select_autom(AutomMode::NONE, AutomSideColor::NO_COLOR_AND_POSITION);
                 lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
                 break;
             }
             break;
         }
 
-        log.info(std::format("{0} button was selected", convert::to_string(mode)));
+        log.info(std::format("{0} button was selected", Convert::to_string(mode)));
     }
 }

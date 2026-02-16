@@ -10,11 +10,7 @@
 #include <cstdint>
 #include <format>
 
-#include "userapi/ui/autom/autom_handler.hpp"
 #include "userapi/ui/op_control.hpp"
-
-
-using namespace ui::autom::handler;
 
 namespace ui::autom::location_selector {
     PROSLogger::Logger log{"AutonomousLocationSelector"};
@@ -42,7 +38,7 @@ namespace ui::autom::location_selector {
     }
 
     void register_button(AutomSideColor color, int col, int row) {
-        AutomColor autom_color = convert::side_color_to_color(color);
+        AutomColor autom_color = Convert::side_color_to_color(color);
 
         lv_obj_t* btn = lv_button_create(location_screen);
         lv_obj_set_grid_cell(
@@ -62,7 +58,7 @@ namespace ui::autom::location_selector {
 
         // Buton Label
         lv_obj_t* label = lv_label_create(btn);
-        lv_label_set_text(label, convert::to_string(convert::side_color_to_position(color)).data());
+        lv_label_set_text(label, Convert::to_string(Convert::side_color_to_position(color)).data());
         lv_obj_set_style_text_color(label, lv_color_black(), LV_PART_MAIN);
 
         // Set Font Style
@@ -76,7 +72,7 @@ namespace ui::autom::location_selector {
         // Add Callback
         lv_obj_add_event_cb(btn, button_event_handler, LV_EVENT_PRESSED, (void*)color);
 
-        log.debug(std::format("Registered button for color: {}", convert::to_string(autom_color)));
+        log.debug(std::format("Registered button for color: {}", Convert::to_string(autom_color)));
     }
 
     void button_event_handler(lv_event_t* e) {
@@ -85,6 +81,6 @@ namespace ui::autom::location_selector {
 
         lv_screen_load_anim(ui::driver::driver_screen, LV_SCR_LOAD_ANIM_FADE_ON, 300, 0, true);
 
-        log.info(std::format("{} {} {} button was selected", convert::to_string(active_mode), convert::to_string(convert::side_color_to_position(side_color)), convert::to_string(convert::side_color_to_color(side_color))));
+        log.info(std::format("{} {} {} button was selected", Convert::to_string(active_mode), Convert::to_string(Convert::side_color_to_position(side_color)), Convert::to_string(Convert::side_color_to_color(side_color))));
     }
 }

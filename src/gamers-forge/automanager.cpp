@@ -1,4 +1,4 @@
-#include "userapi/ui/autom/autom_handler.hpp"
+#include "gamers-forge/automanager.hpp"
 
 #include <cstddef>
 #include <format>
@@ -6,12 +6,13 @@
 
 #include "gamers-forge/proslogger.hpp"
 
-namespace ui::autom::handler {
-    static PROSLogger::Logger log{"Autom Handler"};
+namespace AutoManager {
+    static PROSLogger::Logger log{"Auto Manager"};
 
     // Fixed size callback arrays
     static std::array<callback_method, 5> qualification_methods {};
     static std::array<callback_method, 5> elimination_methods {};
+    static std::array<callback_method, 5> awp_methods {};
     static callback_method skills_callback {nullptr};
     static callback_method none_callback {nullptr};
 
@@ -23,7 +24,7 @@ namespace ui::autom::handler {
     callback_method current_autom = nullptr;
 
     void register_autom(AutomMode mode, AutomColor color, AutomPosition position, callback_method callback) {
-        AutomSideColor side_color = convert::to_side_color(color, position);
+        AutomSideColor side_color = Convert::to_side_color(color, position);
         size_t index = static_cast<size_t>(side_color);
 
         switch (mode) {
@@ -39,6 +40,13 @@ namespace ui::autom::handler {
                 else { log.debug("Registering ELIMINATION callback"); }
 
                 elimination_methods[index] = callback;
+                break;
+
+            case AutomMode::AWP:
+                if (awp_methods[index]) { log.warn("Overwriting existing AWP callback"); }
+                else { log.debug("Registering AWP callback"); }
+
+                awp_methods[index] = callback;
                 break;
 
             case AutomMode::SKILLS:
@@ -63,48 +71,47 @@ namespace ui::autom::handler {
     void select_autom(AutomMode mode, AutomSideColor side_color) {
         current_mode = mode;
         current_side = side_color;
-        current_position = convert::side_color_to_position(side_color);
-        current_color = convert::side_color_to_color(side_color);
+        current_position = Convert::side_color_to_position(side_color);
+        current_color = Convert::side_color_to_color(side_color);
 
         size_t index = static_cast<size_t>(side_color);
         switch (mode) {
             case AutomMode::QUALIFICATIONS: current_autom = qualification_methods[index]; break;
             case AutomMode::ELIMINATIONS: current_autom = elimination_methods[index]; break;
+            case AutomMode::AWP: current_autom = awp_methods[index]; break;
             case AutomMode::SKILLS: current_autom = skills_callback; break;
             case AutomMode::NONE: current_autom = none_callback; break;
             default: current_autom = nullptr; break;
 
             if (!current_autom) {
                 log.warn(std::format("No auton registered for {} {}",
-                    convert::to_string(mode),
-                    convert::to_string(side_color)
+                    Convert::to_string(mode),
+                    Convert::to_string(side_color)
                 ));
                 return;
             }
 
             log.info(std::format("Selected {} {}", 
-                convert::to_string(mode), 
-                convert::to_string(side_color)
+                Convert::to_string(mode), 
+                Convert::to_string(side_color)
             ));
         }
     }
 
     void run_autom() {
         if (current_autom==nullptr) {
-            log.warn(std::format("Automous mode {} has no callback", convert::to_string(current_mode)));
+            log.warn(std::format("Automous mode {} has no callback", Convert::to_string(current_mode)));
             return;
         }
         log.info(std::format("Running {} {}", 
-            convert::to_string(current_mode),
-            convert::to_string(current_side)
+            Convert::to_string(current_mode),
+            Convert::to_string(current_side)
         ));
         current_autom();
     }
 }
 
-namespace convert {
-    using namespace ui::autom::handler;
-
+namespace AutoManager::Convert {
     AutomSideColor to_side_color(AutomColor color, AutomPosition pos) {
         switch (color) {
             case AutomColor::RED: return (pos == AutomPosition::LEFT) ? AutomSideColor::RED_LEFT : AutomSideColor::RED_RIGHT;
