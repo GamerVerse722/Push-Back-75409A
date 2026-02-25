@@ -166,14 +166,19 @@ namespace configuration::autonomous {
         mode_selector::initialize();
 
         AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Qualifications::left);
-        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::AWP::right);
+        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Qualifications::right);
         AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Qualifications::left);
-        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::AWP::right);
+        AutoManager::register_autom(AutomMode::QUALIFICATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Qualifications::right);
 
         AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::LEFT, autom::Eliminations::left);
         AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::RED, AutomPosition::RIGHT, autom::Eliminations::right);
         AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::LEFT, autom::Eliminations::left);
         AutoManager::register_autom(AutomMode::ELIMINATIONS, AutomColor::BLUE, AutomPosition::RIGHT, autom::Eliminations::right);
+
+        AutoManager::register_autom(AutomMode::AWP, AutomColor::RED, AutomPosition::LEFT, autom::AWP::left);
+        AutoManager::register_autom(AutomMode::AWP, AutomColor::RED, AutomPosition::RIGHT, autom::AWP::right);
+        AutoManager::register_autom(AutomMode::AWP, AutomColor::BLUE, AutomPosition::LEFT, autom::AWP::left);
+        AutoManager::register_autom(AutomMode::AWP, AutomColor::BLUE, AutomPosition::RIGHT, autom::AWP::right);
 
         AutoManager::register_autom(AutomMode::SKILLS, AutomColor::COLOR_NONE, AutomPosition::NO_POSITION, autom::Skills::skills2);
 

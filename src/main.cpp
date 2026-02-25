@@ -33,10 +33,7 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	AutoManager::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_RIGHT);
-	// ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_LEFT);
-	// ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_RIGHT);
-	// ui::autom::handler::select_autom(AutomMode::SKILLS, AutomSideColor::NO_COLOR_AND_POSITION);
+	AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_RIGHT);
 
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
 }

@@ -32,8 +32,9 @@ namespace ui::autom::mode_selector {
 
         register_button(AutomMode::QUALIFICATIONS, 0);
         register_button(AutomMode::ELIMINATIONS, 1);
-        register_button(AutomMode::SKILLS, 2);
-        register_button(AutomMode::NONE, 3);
+        register_button(AutomMode::AWP, 2);
+        register_button(AutomMode::SKILLS, 3);
+        register_button(AutomMode::NONE, 4);
 
         log.info("Finished initialize of Autonomous Mode Selector Screen");
     }
