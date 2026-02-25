@@ -22,6 +22,7 @@ using namespace devices;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	using namespace ui::autom;
 	PROSLogger::Manager::setLevel(PROSLogger::LogLevel::DEBUG);
 
 	pros::delay(500);
@@ -32,7 +33,7 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	// ui::autom::handler::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::BLUE_LEFT);
+	AutoManager::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_RIGHT);
 	// ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_LEFT);
 	// ui::autom::handler::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::BLUE_RIGHT);
 	// ui::autom::handler::select_autom(AutomMode::SKILLS, AutomSideColor::NO_COLOR_AND_POSITION);

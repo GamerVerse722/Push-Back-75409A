@@ -28,16 +28,6 @@ void reset_pos() {
 namespace autom::Qualifications {
     void left() {
         reset_pos();
-
-        nav.record();
-        print_debug();
-        pros::delay(100);
-        chassis.pid_drive_set(10_in, 100);
-        chassis.pid_wait();
-        print_debug();
-        pros::delay(100);
-        nav.reset_y();
-        print_debug();
     }
 
     void right() {
@@ -123,6 +113,30 @@ namespace autom::Eliminations {
     }
 }
 
+namespace autom::AWP {
+    void left() {
+        reset_pos();
+    }
+    void right() {
+        reset_pos();
+        chassis.odom_theta_set(90_deg);
+        splitter.extend();
+        descore.extend();
+
+        // Go to Red Right Goal
+        scraper.extend();
+        chassis.pid_odom_set({{30_in, 0_in, 90_deg}, fwd, 127});
+        chassis.pid_wait();
+        chassis.pid_turn_set(180_deg, 127);
+        chassis.pid_wait();
+
+        nav.record();
+        chassis.pid_drive_set(20_in, 80);
+        pros::delay(1800);
+        chassis.pid_drive_set(-28_in, 127);
+    }
+}
+
 namespace autom::Skills {
     PROSLogger::Logger log{"Autonomous"};
 
@@ -162,21 +176,6 @@ namespace autom::Skills {
         scraper.retract();
 
         chassis.pid_wait();
-        // chassis.pid_turn_set(0_deg, 127);
-        // chassis.pid_wait();
-        // chassis.pid_odom_set({{-26_in, 100_in, 0_deg}, rev, 127});
-        // chassis.pid_wait();
-        // intake::score_high();
-        // pros::delay(2000);
-        // chassis.pid_drive_set(-36_in, 127);
-        // intake::load_bot();
-        // scraper.extend();
-        // chassis.pid_wait();
-        // pros::delay(2000);
-        // chassis.pid_drive_set(36_in, 127);
-        // chassis.pid_wait();
-        // intake::score_high();
-        // pros::delay(2000);
 
         nav.drive_to_x(-26_in, -136_deg, 127);
         nav.drive_to_y(100_in, 0_deg, 127);

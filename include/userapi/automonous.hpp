@@ -14,6 +14,11 @@ namespace autom::Eliminations {
     void right();
 }
 
+namespace autom::AWP{
+    void left();
+    void right();
+}
+
 namespace autom::Skills {
     void skills();
     void skills2();
