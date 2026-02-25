@@ -33,7 +33,9 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_RIGHT);
+	// AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_RIGHT);
+	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_RIGHT);
+	AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
 
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
 }
@@ -90,8 +92,8 @@ void competition_initialize() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::autom::mode_selector::mode_screen);
+	// lv_screen_load(ui::driver::driver_screen);
 
 	configuration::controls::button_handler.start();
 

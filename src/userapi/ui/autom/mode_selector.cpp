@@ -26,7 +26,7 @@ namespace ui::autom::mode_selector {
         lv_obj_set_style_border_width(mode_screen, 0, 0);
 
         static int32_t col_dsc[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-        static int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+        static int32_t row_dsc[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
         lv_obj_set_grid_dsc_array(mode_screen, col_dsc, row_dsc);
         lv_obj_set_layout(mode_screen, LV_LAYOUT_GRID);
 

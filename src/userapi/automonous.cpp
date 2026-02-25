@@ -92,7 +92,7 @@ namespace autom::Eliminations {
         chassis.pid_wait();
         chassis.pid_turn_set(-225_deg, 127);
         chassis.pid_wait();
-        chassis.pid_drive_set(-15_in, 127);
+        chassis.pid_drive_set(-16_in, 127);
         chassis.pid_wait();
         chassis.pid_turn_set(-180_deg, 127);
         chassis.pid_wait();
