@@ -80,12 +80,14 @@ namespace autom::Eliminations {
         // return;
 
         // Move to score high goals
-        chassis.pid_drive_set(-28_in, 127);
+        chassis.pid_drive_set(-30_in, 127);
         chassis.pid_wait_until(-3_in);
         scraper.retract();
         intake::score_low();
         pros::delay(200);
         intake::load_bot();
+        pros::delay(1500);
+        chassis.pid_drive_set(1_in, 127);
         chassis.pid_wait_quick();
 
         // Score High
@@ -132,6 +134,7 @@ namespace autom::AWP {
         descore.extend();
 
         // Go to Red Right Goal
+        intake::load_bot();
         scraper.extend();
         chassis.pid_odom_set({{30_in, 0_in, 90_deg}, fwd, 127});
         chassis.pid_wait();
@@ -140,8 +143,18 @@ namespace autom::AWP {
 
         nav.record();
         chassis.pid_drive_set(20_in, 80);
-        pros::delay(1800);
+        pros::delay(1500);
+
+        // Go to Red Right Long Goal
         chassis.pid_drive_set(-28_in, 127);
+        chassis.pid_wait();
+        intake::score_high();
+        pros::delay(1500);
+        chassis.pid_drive_set(16_in, 127);
+        chassis.pid_wait();
+        intake::load_bot();
+
+        // Go Grab 6 Balls first left then right
     }
 }
 
