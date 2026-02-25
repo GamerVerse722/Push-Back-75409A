@@ -28,6 +28,14 @@ void reset_pos() {
 namespace autom::Qualifications {
     void left() {
         reset_pos();
+        chassis.odom_theta_set(-90_deg);
+        splitter.extend();
+        descore.extend();
+
+        chassis.pid_odom_set({{-30_in, 0_in, -90_deg}, fwd, 127});
+        chassis.pid_wait();
+        chassis.pid_turn_set(-90_deg, 127);
+        chassis.pid_wait();
     }
 
     void right() {
@@ -115,16 +123,8 @@ namespace autom::Eliminations {
 
 namespace autom::AWP {
     void left() {
-        reset_pos();
-        chassis.odom_theta_set(-90_deg);
-        splitter.extend();
-        descore.extend();
-
-        chassis.pid_odom_set({{-30_in, 0_in, -90_deg}, fwd, 127});
-        chassis.pid_wait();
-        chassis.pid_turn_set(-90_deg, 127);
-        chassis.pid_wait();
     }
+
     void right() {
         reset_pos();
         chassis.odom_theta_set(90_deg);
