@@ -31,10 +31,24 @@ namespace autom::Qualifications {
         chassis.odom_theta_set(-90_deg);
         splitter.extend();
         descore.extend();
+        scraper.extend();
 
         chassis.pid_odom_set({{-30_in, 0_in, -90_deg}, fwd, 127});
         chassis.pid_wait();
-        chassis.pid_turn_set(-90_deg, 127);
+        chassis.pid_turn_set(180_deg, 127);
+        chassis.pid_wait();
+
+        intake::load_bot();
+        chassis.pid_drive_set(11.75_in, 80);
+        chassis.pid_wait();
+        pros::delay(500);
+
+        chassis.pid_drive_set(-29_in, 127);
+        chassis.pid_wait();
+        intake::score_high();
+        pros::delay(1500);
+
+        Eliminations::unified_descore();
         chassis.pid_wait();
     }
 
