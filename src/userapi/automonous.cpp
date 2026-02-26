@@ -157,18 +157,23 @@ namespace autom::AWP {
 
         nav.record();
         chassis.pid_drive_set(20_in, 80);
-        pros::delay(1500);
+        pros::delay(1200);
 
         // Go to Red Right Long Goal
         chassis.pid_drive_set(-28_in, 127);
+        chassis.pid_wait_until(-3_in);
+        scraper.retract();
         chassis.pid_wait();
         intake::score_high();
-        pros::delay(1500);
-        chassis.pid_drive_set(16_in, 127);
+        pros::delay(1300);
+        intake::load_bot();
+        chassis.pid_drive_set(17_in, 127);
         chassis.pid_wait();
         intake::load_bot();
 
         // Go Grab 6 Balls first left then right
+        chassis.pid_turn_set(-45_deg, 127);
+        chassis.pid_wait();
     }
 }
 
