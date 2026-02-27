@@ -94,8 +94,8 @@ void competition_initialize() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	// lv_screen_load(ui::autom::mode_selector::mode_screen);
-	lv_screen_load(ui::driver::driver_screen);
+	lv_screen_load(ui::autom::mode_selector::mode_screen);
+	// lv_screen_load(ui::driver::driver_screen);
 
 	keybindActions::intake::reset_low_score_speed();
 	configuration::controls::button_handler.start();

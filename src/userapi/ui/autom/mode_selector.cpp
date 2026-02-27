@@ -11,7 +11,16 @@
 #include "userapi/ui/op_control.hpp"
 
 #include <format>
-
+std::string_view to_string_renmae(AutomMode mode) {
+        switch (mode) {
+            case AutomMode::QUALIFICATIONS: return "4 Ball Push";
+            case AutomMode::ELIMINATIONS: return "7 Ball Push";
+            case AutomMode::AWP: return "4 Ball 3 Mid";
+            case AutomMode::SKILLS: return "Skills";
+            case AutomMode::NONE: return "None";
+            default: return "Unknown";
+        }
+    }
 
 namespace ui::autom::mode_selector {
     PROSLogger::Logger log{"AutonomousModeSelector"};
@@ -60,7 +69,7 @@ namespace ui::autom::mode_selector {
 
         // Buton Label
         lv_obj_t* label = lv_label_create(btn);
-        lv_label_set_text(label, Convert::to_string(mode).data());
+        lv_label_set_text(label, to_string_renmae(mode).data());
         lv_obj_set_style_text_color(label, lv_color_black(), LV_PART_MAIN);
 
         // Set Font Style
