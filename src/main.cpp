@@ -9,6 +9,7 @@
 
 #include "userapi/controls/drive.hpp"
 #include "userapi/configuration.hpp"
+#include "userapi/controls/intake.hpp"
 #include "userapi/ui/autom/mode_selector.hpp"
 #include "userapi/ui/op_control.hpp"
 
@@ -92,9 +93,10 @@ void competition_initialize() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	lv_screen_load(ui::autom::mode_selector::mode_screen);
-	// lv_screen_load(ui::driver::driver_screen);
+	// lv_screen_load(ui::autom::mode_selector::mode_screen);
+	lv_screen_load(ui::driver::driver_screen);
 
+	keybindActions::intake::reset_low_score_speed();
 	configuration::controls::button_handler.start();
 
 	chassis.drive_brake_set(MOTOR_BRAKE_COAST);

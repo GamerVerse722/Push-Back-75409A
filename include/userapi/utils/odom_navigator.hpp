@@ -12,8 +12,8 @@ class OdomNavigator {
         void reset_x();
         void reset_y();
 
-        void drive_to_x(okapi::QLength x_target, int speed);
-        void drive_to_y(okapi::QLength y_target, int speed);
+        void drive_to_x(okapi::QLength x_target, int speed, bool forward = true);
+        void drive_to_y(okapi::QLength y_target, int speed, bool forward = true);
         
         void drive_to_x(okapi::QLength x_target, okapi::QAngle deg_target, int speed);
         void drive_to_y(okapi::QLength y_target, okapi::QAngle deg_target, int speed);

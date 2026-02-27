@@ -149,8 +149,10 @@ namespace autom::AWP {
     void right() {
         reset_pos();
         chassis.odom_theta_set(90_deg);
+        intake::set_low_score_speed(-100);
+        
         splitter.extend();
-        descore.extend();
+        // descore.extend();
 
         // Go to Red Right Goal
         intake::load_bot();
@@ -160,26 +162,35 @@ namespace autom::AWP {
         chassis.pid_turn_set(180_deg, 127);
         chassis.pid_wait();
 
-        nav.record();
+        // nav.record();
         chassis.pid_drive_set(20_in, 80);
         pros::delay(1200);
+        // nav.reset_y();
 
         // Go to Red Right Long Goal
-        chassis.pid_drive_set(-28_in, 127);
-        chassis.pid_wait_until(-3_in);
+        chassis.pid_drive_set(-30_in, 127);
+        chassis.pid_wait_until(-4_in);
         scraper.retract();
         chassis.pid_wait();
         intake::score_high();
-        pros::delay(1300);
+        pros::delay(1400);
         intake::load_bot();
         
         // Leave Long Goal
-        chassis.pid_swing_set(ez::LEFT_SWING, -35_deg, 127);
+        chassis.pid_swing_set(ez::LEFT_SWING, -35_deg, 127, -10);
         chassis.pid_wait();
 
         // Go Grab 6 Balls first left then right
-        chassis.pid_odom_set({{-2_in, 36_in, -45_deg}, fwd, 127});
-        // chassis.pid_drive_set(26_in, 70);
+        chassis.pid_odom_set({{-3_in, 34_in, -45_deg}, fwd, 127});
+        chassis.pid_wait();
+        intake::score_low();
+        pros::delay(1500);
+        intake::stop();
+
+        nav.drive_to_x(24.5_in, 127, false);
+        chassis.pid_turn_set(180_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_odom_set({{23.5_in, 35_in, 180_deg}, rev, 127});
         chassis.pid_wait();
     }
 }
