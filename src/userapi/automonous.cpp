@@ -26,10 +26,10 @@ void reset_pos() {
 }
 
 namespace autom::Qualifications {
-    void left() {
-        // Sets the robot's position and activates pneumatics
+    void unified() {
         reset_pos();
         chassis.odom_theta_set(-90_deg);
+        // Sets the robot's position and activates pneumatics
         splitter.extend();
         descore.extend();
         scraper.extend();
@@ -37,27 +37,36 @@ namespace autom::Qualifications {
         // Lines up the robot with the match loader and the high goal
         chassis.pid_odom_set({{-30_in, 0_in, -90_deg}, fwd, 127});
         chassis.pid_wait();
-        chassis.pid_turn_set(180_deg, 127);
+        chassis.pid_turn_set(-180_deg, 127);
         chassis.pid_wait();
 
         // Has the robot drive up to the match loader and pick up three of the balls
         intake::load_bot();
         chassis.pid_drive_set(11.75_in, 80);
         chassis.pid_wait();
-        pros::delay(500);
+        pros::delay(250);
 
         // Has the robot drive up to and score 4 balls on the high goal
         chassis.pid_drive_set(-29_in, 127);
         chassis.pid_wait();
         intake::score_high();
         pros::delay(1500);
+    }
 
+    void left() {
+        chassis.odom_theta_set(-90_deg);
+        unified();
         // Has the robot drive to the side of the goal and push the balls toward the center with the descore mech
         Eliminations::unified_descore();
-        chassis.pid_wait();
+        // chassis.pid_wait();
     }
 
     void right() {
+        chassis.odom_x_flip(true);
+        chassis.odom_theta_flip(true);
+        unified();
+        // chassis.odom_theta_flip(false);
+        // Eliminations::unified_descore();
     }
 }
 
@@ -117,6 +126,7 @@ namespace autom::Eliminations {
     void unified_descore() {
         // Push with doinker
         intake::stop();
+        descore.retract();
         chassis.pid_drive_set(12_in, 127);
         chassis.pid_wait();
         chassis.pid_turn_set(-225_deg, 127);
