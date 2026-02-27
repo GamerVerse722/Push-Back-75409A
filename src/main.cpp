@@ -34,7 +34,7 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_RIGHT);
+	AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_LEFT);
 	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_RIGHT);
 	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
 
@@ -76,7 +76,6 @@ void competition_initialize() {
  void autonomous() {
 	using namespace ui::autom;
 	// lv_screen_load(ui::driver::driver_screen);
-	select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_RIGHT);
 	AutoManager::run_autom();
 }
 

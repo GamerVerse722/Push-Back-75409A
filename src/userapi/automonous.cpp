@@ -28,7 +28,6 @@ void reset_pos() {
 namespace autom::Qualifications {
     void unified() {
         reset_pos();
-        chassis.odom_theta_set(-90_deg);
         // Sets the robot's position and activates pneumatics
         splitter.extend();
         descore.extend();
@@ -64,9 +63,10 @@ namespace autom::Qualifications {
     void right() {
         chassis.odom_x_flip(true);
         chassis.odom_theta_flip(true);
+        chassis.odom_theta_set(90_deg);
         unified();
-        // chassis.odom_theta_flip(false);
-        // Eliminations::unified_descore();
+        chassis.odom_theta_flip(false);
+        Eliminations::unified_descore();
     }
 }
 
@@ -155,8 +155,6 @@ namespace autom::Eliminations {
 namespace autom::AWP {
     // Designed using right side cords
     void unified() {
-        reset_pos();
-        chassis.odom_theta_set(90_deg);
         intake::set_low_score_speed(-100);
         
         splitter.extend();
@@ -196,25 +194,34 @@ namespace autom::AWP {
 
 
     void left() {
+        reset_pos();
+        chassis.odom_theta_set(-90_deg);
         chassis.odom_x_flip(true);
         chassis.odom_theta_flip(true);
         unified();
 
         // Go grab the balls and score 3 middle high
-        chassis.pid_odom_set({{(-3_in + 5_in), (34_in - 5_in), -45_deg}, fwd, 127});
+        chassis.pid_odom_set({{3_in, (31_in), -45_deg}, fwd, 127});
         chassis.pid_wait();
         chassis.pid_turn_set(-225_deg, 127);
-        splitter.retract();
         chassis.pid_wait();
+        
+        chassis.pid_drive_set(-2_in, 127);
+        splitter.retract();
         intake::score_high();
-        pros::delay(1500);
-        intake::stop();
+        chassis.pid_wait();
 
-        chassis.odom_theta_flip(false);
-        unified_descore();
+        // intake::score_high();
+        // pros::delay(1500);
+        // intake::stop();
+
+        // chassis.odom_theta_flip(false);
+        // unified_descore();
     }
 
     void right() {
+        reset_pos();
+        chassis.odom_theta_set(90_deg);
         unified();
 
         // Go grab the ball and score 3 middle low
