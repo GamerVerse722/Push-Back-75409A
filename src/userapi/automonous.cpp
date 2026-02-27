@@ -167,12 +167,14 @@ namespace autom::AWP {
         intake::score_high();
         pros::delay(1300);
         intake::load_bot();
-        chassis.pid_drive_set(17_in, 127);
+        
+        // Leave Long Goal
+        chassis.pid_swing_set(ez::LEFT_SWING, -35_deg, 127);
         chassis.pid_wait();
-        intake::load_bot();
 
         // Go Grab 6 Balls first left then right
-        chassis.pid_turn_set(-45_deg, 127);
+        chassis.pid_odom_set({{-2_in, 36_in, -45_deg}, fwd, 127});
+        // chassis.pid_drive_set(26_in, 70);
         chassis.pid_wait();
     }
 }
