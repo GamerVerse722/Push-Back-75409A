@@ -16,8 +16,8 @@ namespace devices {
     
     extern pros::adi::Pneumatics splitter;
     extern pros::adi::Pneumatics scraper;
-    extern pros::adi::Pneumatics descore;
     extern pros::adi::Pneumatics hardstop;
+    extern pros::adi::Pneumatics descore;
 
     extern pros::MotorGroup loader;
 

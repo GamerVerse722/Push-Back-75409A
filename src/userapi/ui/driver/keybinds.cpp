@@ -24,8 +24,8 @@ namespace ui::driver::keybinds {
         create_category("Drive");
         create_row("Y-A", "Changes the Driving Modes.");
 
-        create_category("Scrapper");
-        create_row("B", "Toggle the scrapper.");
+        create_category("Scraper");
+        create_row("B", "Toggle the scraper.");
 
         create_category("Splitter");
         create_row("X", "Toggle Splitter up and down.");

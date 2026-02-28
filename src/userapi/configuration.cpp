@@ -26,8 +26,8 @@ namespace devices {
 
     pros::adi::Pneumatics splitter(5, false);
     pros::adi::Pneumatics scraper(6, false);
-    pros::adi::Pneumatics descore(8, false);
     pros::adi::Pneumatics hardstop(7, false);
+    pros::adi::Pneumatics descore(8, false);
 
     pros::MotorGroup loader({-19, -18});
 

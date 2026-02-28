@@ -25,21 +25,21 @@ namespace ui::driver::ports {
         create_row(5, "Motor", "Left Motor Group");
         create_row(-6, "Motor", "Left Motor Group");
         create_row(-8, "Motor", "Left Motor Group");
-        create_row(-2, "Motor", "Right Motor Group");
+        create_row(-10, "Motor", "Right Motor Group");
         create_row(3, "Motor", "Right Motor Group");
         create_row(4, "Motor", "Right Motor Group");
 
         create_category("Intake");
         create_row(-18, "Motor", "Intake");
-        create_row(19, "Motor", "Intake");
-        create_row(15, "Motor", "Top Loader");
+        create_row(-19, "Motor", "Intake");
 
         create_category("Sensors");
-        create_row(11, "Optical", "Color Sort");
+        create_row(17, "Optical", "Color Sort");
 
         create_category("Pneumatics");
         create_row(5, "Pneumatics", "Splitter");
-        create_row(6, "Pneumatics", "Scrapper");
+        create_row(6, "Pneumatics", "Scraper");
+        create_row(7, "Pneumatics", "Hardstop");
         create_row(8, "Pneumatics", "Descore");
 
         create_category("Odometry");
