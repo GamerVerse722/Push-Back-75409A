@@ -7,4 +7,5 @@
 namespace ui::driver::logs {
     void initialize(lv_obj_t* parent);
     void logs(PROSLogger::LoggerEvent event);
+    void process_log_queue();
 }

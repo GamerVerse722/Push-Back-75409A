@@ -7,7 +7,7 @@
 #include "userapi/ui/driver/keybinds.hpp"
 #include "userapi/ui/driver/debug.hpp"
 #include "userapi/ui/driver/ports.hpp"
-// #include "userapi/ui/driver/logs.hpp"
+#include "userapi/ui/driver/logs.hpp"
 
 namespace ui::driver {
     lv_obj_t* driver_screen = lv_obj_create(NULL);
@@ -27,13 +27,13 @@ namespace ui::driver {
         // Create Tabs
         lv_obj_t* tabSponsors = lv_tabview_add_tab(tabview, "Sponsors");
         lv_obj_t* tabDebug = lv_tabview_add_tab(tabview, "Debug");
-        // lv_obj_t* tabLogs = lv_tabview_add_tab(tabview, "Logs");
+        lv_obj_t* tabLogs = lv_tabview_add_tab(tabview, "Logs");
         lv_obj_t* tabKeybinds = lv_tabview_add_tab(tabview, "Keybinds");
         lv_obj_t* tabPorts = lv_tabview_add_tab(tabview, "Ports");
 
         // Initialization of all tabs
         ui::driver::sponsors::initialize(tabSponsors);
-        // ui::driver::logs::initialize(tabLogs);
+        ui::driver::logs::initialize(tabLogs);
         ui::driver::debug::initialize(tabDebug);
         ui::driver::keybinds::initialize(tabKeybinds);
         ui::driver::ports::initialize(tabPorts);
