@@ -29,7 +29,7 @@ namespace devices {
     pros::adi::Pneumatics hardstop(7, false);
     pros::adi::Pneumatics descore(8, false);
 
-    pros::MotorGroup loader({-19, -18});
+    pros::MotorGroup loader({-19, -14});
 
     pros::Distance distance(17);
 

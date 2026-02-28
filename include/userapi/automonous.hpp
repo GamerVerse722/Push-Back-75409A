@@ -16,7 +16,7 @@ namespace autom::Eliminations {
 
 namespace autom::AWP{
     void unified();
-    void unified_descore();
+    void unified_descore(bool foward);
     void left();
     void right();
 }

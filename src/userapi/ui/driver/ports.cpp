@@ -30,7 +30,7 @@ namespace ui::driver::ports {
         create_row(4, "Motor", "Right Motor Group");
 
         create_category("Intake");
-        create_row(-18, "Motor", "Intake");
+        create_row(-14, "Motor", "Intake");
         create_row(-19, "Motor", "Intake");
 
         create_category("Sensors");

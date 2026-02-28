@@ -35,8 +35,12 @@ void initialize() {
 	configuration::autonomous::configure();
 	
 	// AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_LEFT);
-	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_RIGHT);
+	// AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_RIGHT);
+	// AutoManager::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_LEFT);
+	AutoManager::select_autom(AutomMode::QUALIFICATIONS, AutomSideColor::RED_RIGHT);
 	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
+	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_RIGHT);
+	// AutoManager::select_autom(AutomMode::NONE, AutomSideColor::NO_COLOR_AND_POSITION);
 
 	// lv_screen_load(ui::autom::mode_selector::mode_screen);
 }

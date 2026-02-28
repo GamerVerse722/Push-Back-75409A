@@ -110,12 +110,12 @@ namespace autom::Eliminations {
 
         // Move to score high goals
         chassis.pid_drive_set(-30_in, 127);
-        chassis.pid_wait_until(-3_in);
+        chassis.pid_wait_until(-4_in);
         scraper.retract();
         intake::score_low();
         pros::delay(200);
         intake::load_bot();
-        pros::delay(1500);
+        pros::delay(1400);
         chassis.pid_drive_set(1_in, 127);
         chassis.pid_wait_quick();
 
@@ -180,9 +180,6 @@ namespace autom::AWP {
         pros::delay(1400);
         intake::load_bot();
 
-        // Leave Long Goal
-        chassis.pid_swing_set(ez::LEFT_SWING, -35_deg, 127, -10);
-        chassis.pid_wait();
     }
 
     void unified_descore() {
@@ -201,8 +198,12 @@ namespace autom::AWP {
         chassis.odom_theta_flip(true);
         unified();
 
+        // Leave Long Goal
+        chassis.pid_swing_set(ez::LEFT_SWING, -35_deg, 127, -20);
+        chassis.pid_wait();
+
         // Go grab the balls and score 3 middle high
-        chassis.pid_odom_set({{3_in, (31_in), -45_deg}, fwd, 127});
+        chassis.pid_odom_set({{1_in, 30_in, -45_deg}, fwd, 127});
         chassis.pid_wait();
         chassis.pid_turn_set(-225_deg, 127);
         chassis.pid_wait();
@@ -213,10 +214,16 @@ namespace autom::AWP {
         chassis.pid_wait();
 
         // intake::score_high();
-        // pros::delay(1500);
-        // intake::stop();
-
-        // chassis.odom_theta_flip(false);
+        pros::delay(1500);
+        intake::stop();
+        
+        // Start of descore path
+        chassis.odom_theta_flip(false);
+        nav.drive_to_x(24.5_in, 127, true);
+        chassis.pid_turn_set(0_deg, 127);
+        chassis.pid_wait();
+        chassis.pid_odom_set({{26_in, 37_in, 0_deg}, fwd, 127});
+        // chassis.pid_wait();
         // unified_descore();
     }
 
@@ -225,11 +232,15 @@ namespace autom::AWP {
         chassis.odom_theta_set(90_deg);
         unified();
 
+        // Leave Long Goal
+        chassis.pid_swing_set(ez::LEFT_SWING, -35_deg, 127, -10);
+        chassis.pid_wait();
+
         // Go grab the ball and score 3 middle low
-        chassis.pid_odom_set({{-3_in, 34_in, -45_deg}, fwd, 127});
+        chassis.pid_odom_set({{-1.5_in, 35.5_in, -45_deg}, fwd, 127});
         chassis.pid_wait();
         intake::score_low();
-        pros::delay(1500);
+        pros::delay(1700);
         intake::stop();
 
         unified_descore();
@@ -305,7 +316,7 @@ namespace autom::Skills {
 namespace autom::None {
     void none() {
         reset_pos();
-        chassis.pid_drive_set(2_in, 50);
+        chassis.pid_drive_set(3_in, 90);
         chassis.pid_wait();
     }
 }
