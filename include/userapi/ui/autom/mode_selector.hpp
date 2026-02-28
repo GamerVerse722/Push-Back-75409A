@@ -12,7 +12,7 @@ namespace ui::autom::mode_selector {
 
     void initialize();
 
-    void register_button(AutomMode color, int row);
+    void register_button(AutomMode color, int row, int col);
 
     void button_event_handler(lv_event_t* e);
 }

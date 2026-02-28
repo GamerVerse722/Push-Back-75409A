@@ -27,7 +27,6 @@ void reset_pos() {
 
 namespace autom::Qualifications {
     void unified() {
-        reset_pos();
         // Sets the robot's position and activates pneumatics
         splitter.extend();
         descore.extend();
@@ -53,6 +52,7 @@ namespace autom::Qualifications {
     }
 
     void left() {
+        reset_pos();
         chassis.odom_theta_set(-90_deg);
         unified();
         // Has the robot drive to the side of the goal and push the balls toward the center with the descore mech
@@ -61,9 +61,10 @@ namespace autom::Qualifications {
     }
 
     void right() {
+        reset_pos();
+        chassis.odom_theta_set(90_deg);
         chassis.odom_x_flip(true);
         chassis.odom_theta_flip(true);
-        chassis.odom_theta_set(90_deg);
         unified();
         chassis.odom_theta_flip(false);
         Eliminations::unified_descore();

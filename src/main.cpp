@@ -34,7 +34,7 @@ void initialize() {
 	configuration::controls::configure();
 	configuration::autonomous::configure();
 	
-	AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_LEFT);
+	// AutoManager::select_autom(AutomMode::AWP, AutomSideColor::RED_LEFT);
 	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_RIGHT);
 	// AutoManager::select_autom(AutomMode::ELIMINATIONS, AutomSideColor::RED_LEFT);
 
