@@ -27,45 +27,46 @@ void reset_pos() {
 
 namespace autom::Qualifications {
     void unified() {
-        // Sets the robot's position and activates pneumatics
+        intake::set_low_score_speed(-100);
+        
         splitter.extend();
-        descore.extend();
-        scraper.extend();
 
-        // Lines up the robot with the match loader and the high goal
-        chassis.pid_odom_set({{-30_in, 0_in, -90_deg}, fwd, 127});
-        chassis.pid_wait();
-        chassis.pid_turn_set(-180_deg, 127);
-        chassis.pid_wait();
-
-        // Has the robot drive up to the match loader and pick up three of the balls
+        // Go to Red Right Goal
         intake::load_bot();
-        chassis.pid_drive_set(11.75_in, 80);
+        scraper.extend();
+        chassis.pid_odom_set({{30_in, 0_in, 90_deg}, fwd, 127});
         chassis.pid_wait();
-        pros::delay(250);
+        chassis.pid_turn_set(180_deg, 127);
+        chassis.pid_wait();
 
-        // Has the robot drive up to and score 4 balls on the high goal
-        chassis.pid_drive_set(-29_in, 127);
+        chassis.pid_drive_set(20_in, 80);
+        pros::delay(1200);
+
+        // Go to Red Right Long Goal
+        chassis.pid_drive_set(-30_in, 127);
+        chassis.pid_wait_until(-4_in);
+        scraper.retract();
         chassis.pid_wait();
         intake::score_high();
-        pros::delay(1500);
+        pros::delay(1800);
+        intake::load_bot();
     }
 
     void left() {
         reset_pos();
         chassis.odom_theta_set(-90_deg);
-        unified();
+        chassis.odom_x_flip(true);
+        chassis.odom_theta_flip(true);
+        AWP::unified();
         // Has the robot drive to the side of the goal and push the balls toward the center with the descore mech
         Eliminations::unified_descore();
         // chassis.pid_wait();
     }
 
     void right() {
-        reset_pos();
+       reset_pos();
         chassis.odom_theta_set(90_deg);
-        chassis.odom_x_flip(true);
-        chassis.odom_theta_flip(true);
-        unified();
+        AWP::unified();
         chassis.odom_theta_flip(false);
         Eliminations::unified_descore();
     }
